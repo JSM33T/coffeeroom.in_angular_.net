@@ -1,0 +1,5 @@
+# Ignore .cshtml files from language statistics
+*.cshtml linguist-vendored
+*.html linguist-vendored
+# Ignore .css files from language statistics
+*.css linguist-vendored

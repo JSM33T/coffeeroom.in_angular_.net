@@ -1,0 +1,13 @@
+<div ngbAccordion>
+    <div *ngFor="let item of items" ngbAccordionItem>
+      <h3 ngbAccordionHeader>
+        <button ngbAccordionButton>{{ item.title }}</button>
+      </h3>
+      <div ngbAccordionCollapse>
+        <div ngbAccordionBody>
+          {{ item.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,32 @@
+[
+  {
+    "category": "E-book, Branding",
+    "title": "Book cover design Twin Fish",
+    "description": "Sed feugiat tristique enim aenean netus cum adipiscing est sem eget nulla leo vestibulum. Cras urna, proin ut ut dictum risus porttitor nulla consequat et iaculis.",
+    "imageUrl": "https://around.createx.studio/assets/img/portfolio/grid/02.jpg",
+    "link": "portfolio-single-v1.html",
+    "duration": "600",
+    "offset": "280",
+    "brandImage": "assets/img/portfolio/brands/foster-yellow.svg",
+    "bulletPoints": [
+      "Faucibus sit est dui id gravida",
+      "Lectus in sem eu facilisis ornare",
+      "Massa maecenas cras vivamus"
+    ]
+  },
+  {
+    "category": "Branding, Strategy",
+    "title": "Business cards and identity for Sen Jonson",
+    "description": "Lectus lacus, ac justo, ullamcorper egestas at felis arcu arcu venenatis praesent odio. Odio vulputate purus placerat ultrices faucibus sem sed magna est elementum.",
+    "imageUrl": "https://around.createx.studio/assets/img/portfolio/grid/02.jpg",
+    "link": "portfolio-single-v1.html",
+    "duration": "600",
+    "offset": "280",
+    "brandImage": "assets/img/portfolio/brands/foster-yellow.svg",
+    "bulletPoints": [
+      "Faucibus sit est dui id gravida",
+      "Lectus in sem eu facilisis ornare",
+      "Massa maecenas cras vivamus"
+    ]
+  }
+]
