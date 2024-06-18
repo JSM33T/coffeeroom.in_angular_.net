@@ -42,7 +42,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
       </div>
       <div class="col-lg-6 pb-5 mb-5 text-center text-lg-start">
         <h1 class="display-2" data-aos="flip-up" data-aos-duration="200">
-          <span class="fw-normal">Jasmeet <code>Singh</code></span>
+          <span class="fw-normal">Almond<code>COVE</code></span>
         </h1>
         <div class="col-12 pb-3">
           <p class="mb-3 mx-3" data-aos="fade" data-aos-duration="500" data-aos-offset="10">
@@ -50,8 +50,8 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
           </p>
         </div>
         <div class="d-sm-flex justify-content-center justify-content-lg-start mt-lg-2">
-          <a class="btn btn-lg btn-primary w-100 w-sm-auto mb-2 mb-sm-0 me-sm-1" routerLink="/about">About</a>
-          <a class="btn btn-lg btn-link disabled" target="_blank" href="https://almondcove.in">Explore my websapce<i
+          <a class="btn btn-lg btn-primary w-100 w-sm-auto mb-2 mb-sm-0 me-sm-1 disabled" routerLink="/about">About</a>
+          <a class="btn btn-lg btn-link disabled" target="_blank" href="https://almondcove.in">Coming soon...<i
               class="ai-arrow-right ms-2"></i></a>
         </div>
       </div>
