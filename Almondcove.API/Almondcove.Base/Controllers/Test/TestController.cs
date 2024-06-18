@@ -1,44 +1,38 @@
-﻿using Almondcove.Entities.Dedicated;
-using Almondcove.Entities.Dedicated.Auth;
+﻿using Almondcove.Base.Controllers;
 using Almondcove.Entities.Shared;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+using Almondcove.Entities.Dedicated;
 
-namespace Almondcove.Base.Controllers.Test
+namespace Almondcove.Api.Controllers
 {
-    [Route("api/test")]
-    [ApiController]
-    public class TestController : ControllerBase
+    [Route("api/[controller]")]
+    public class SampleController : FoundationController
     {
-        private readonly IOptionsMonitor<AlmondcoveConfig> _config;
-        public TestController(IOptionsMonitor<AlmondcoveConfig> config)
+        public SampleController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<SampleController> logger, IHttpContextAccessor httpContextAccessor)
+            : base(config, logger, httpContextAccessor)
         {
-            _config = config;
         }
 
-        [HttpPost("sample")]
-        public IActionResult GetSampleData(LoginRequest loginRequest)
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] AddEmailRequest model)
         {
-            APIResponse<int> objResponse = new(StatusCodes.Status200OK, "", 1, null);
+            return await ExecuteActionAsync(async () =>
+            {
+               
+                await Task.Delay(100);
 
-            objResponse.Message = "Hey i received your wmail which is ";
+                var data = new { Id = 1, model.Email, Setting = _config.CurrentValue.Setting1 };
 
-            return StatusCode(objResponse.Status, objResponse);
-            
-        }
+                var ss = 0;
+                return (201, data, "Data posted successfully");
 
-        [HttpPost("subscribe")]
-        public ActionResult<APIResponse<int>> SubscribeMailingList(GetMailSubmitrequest emailmailRequest)
-        {
-            APIResponse<int> objResponse = new(StatusCodes.Status200OK, "", 1, null);
-
-            objResponse.Message = $"Hey i received your wmail which is {emailmailRequest.Email}";
-            objResponse.Errors.Add("nah");
-            objResponse.Status = StatusCodes.Status400BadRequest;
-
-            return StatusCode(objResponse.Status, objResponse);
+            }, MethodBase.GetCurrentMethod().Name);
         }
     }
-
-   
 }

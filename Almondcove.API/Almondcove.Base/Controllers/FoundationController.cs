@@ -1,0 +1,61 @@
+﻿using Almondcove.Entities.Shared;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Threading.Tasks;
+
+namespace Almondcove.Base.Controllers
+{
+    [ApiController]
+    public abstract class FoundationController : ControllerBase
+    {
+        protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        protected readonly ILogger _logger;
+        protected readonly IHttpContextAccessor _httpContextAccessor;
+
+        public FoundationController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor)
+        {
+            _config = config;
+            _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+        }
+
+        protected async Task<IActionResult> ExecuteActionAsync<T>(Func<Task<(int statusCode, T result, string message)>> action, string methodName)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            var request = _httpContextAccessor.HttpContext.Request;
+            var user = _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
+                ? _httpContextAccessor.HttpContext.User.Identity.Name
+                : "Anonymous";
+
+            try
+            {
+                var (statusCode, result, message) = await action();
+                return AcResponse(statusCode, message, result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query}",
+                    methodName, user, request.Path, request.QueryString);
+                return AcResponse(500, "An error occurred while processing your request.", default(T), new List<string> { ex.Message });
+            }
+            finally
+            {
+                stopwatch.Stop();
+                _logger.LogInformation("{MethodName} executed in {Duration} ms. User: {User}. URL: {Url}. Query: {Query}",
+                    methodName, stopwatch.ElapsedMilliseconds, user, request.Path, request.QueryString);
+            }
+        }
+
+        protected IActionResult AcResponse<T>(int status, string message, T data, List<string> errors = null)
+        {
+            var response = new APIResponse<T>(status, message, data, errors);
+            return StatusCode(status, response);
+        }
+    }
+}
