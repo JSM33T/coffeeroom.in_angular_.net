@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import acToast from '../library/modals/notification-modal';
-import InitAnimateOnScroll from '../library/invokers/animate-on-scroll';
-import InitSmoothScroll from '../library/invokers/smooth-scroll';
+import acToast from '../../library/modals/notification-modal';
+import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
+import InitSmoothScroll from '../../library/invokers/smooth-scroll';
 
 @Component({
   selector: 'app-contact',
