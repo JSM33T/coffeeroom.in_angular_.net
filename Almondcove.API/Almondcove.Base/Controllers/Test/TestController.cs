@@ -1,13 +1,9 @@
 ﻿using Almondcove.Base.Controllers;
+using Almondcove.Entities.Dedicated;
 using Almondcove.Entities.Shared;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
-using Almondcove.Entities.Dedicated;
 
 namespace Almondcove.Api.Controllers
 {
@@ -24,13 +20,15 @@ namespace Almondcove.Api.Controllers
         {
             return await ExecuteActionAsync(async () =>
             {
-               
-                await Task.Delay(100);
+                List<string> errors = [];
+
+
+                await Task.Delay(1000);
 
                 var data = new { Id = 1, model.Email, Setting = _config.CurrentValue.Setting1 };
+                errors.Add("sas");
 
-                var ss = 0;
-                return (201, data, "Data posted successfully");
+                return (StatusCodes.Status200OK, data, "Data posted successfully",errors);
 
             }, MethodBase.GetCurrentMethod().Name);
         }

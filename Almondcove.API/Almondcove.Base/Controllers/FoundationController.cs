@@ -25,30 +25,28 @@ namespace Almondcove.Base.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
-        protected async Task<IActionResult> ExecuteActionAsync<T>(Func<Task<(int statusCode, T result, string message)>> action, string methodName)
+        protected async Task<IActionResult> ExecuteActionAsync<T>(Func<Task<(int statusCode, T result, string message,List<string> errors)>> action, string methodName)
         {
             var stopwatch = Stopwatch.StartNew();
             var request = _httpContextAccessor.HttpContext.Request;
             var user = _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated
-                ? _httpContextAccessor.HttpContext.User.Identity.Name
-                : "Anonymous";
+                        ? _httpContextAccessor.HttpContext.User.Identity.Name
+                        : "Anonymous";
 
             try
             {
-                var (statusCode, result, message) = await action();
-                return AcResponse(statusCode, message, result);
+                var (statusCode, result, message,errors) = await action();
+                return AcResponse(statusCode, message, result,errors);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query}",
-                    methodName, user, request.Path, request.QueryString);
-                return AcResponse(500, "An error occurred while processing your request.", default(T), new List<string> { ex.Message });
+                _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query}", methodName, user, request.Path, request.QueryString);
+                return AcResponse(500, "An error occurred while processing your request.", default(T), [ex.Message]);
             }
             finally
             {
                 stopwatch.Stop();
-                _logger.LogInformation("{MethodName} executed in {Duration} ms. User: {User}. URL: {Url}. Query: {Query}",
-                    methodName, stopwatch.ElapsedMilliseconds, user, request.Path, request.QueryString);
+                _logger.LogInformation("{MethodName} executed in {Duration} ms. User: {User}. URL: {Url}. Query: {Query}", methodName, stopwatch.ElapsedMilliseconds, user, request.Path, request.QueryString);
             }
         }
 

@@ -52,8 +52,8 @@ namespace Almondcove.Base.Middlewares
 
                     var customResponse = new
                     {
-                        status = 200,
-                        message = "Data retrieved successfully",
+                        status = StatusCodes.Status400BadRequest,
+                        message = "Validation issue check",
                         errors = errorMessages,
                         data = 0
                     };
