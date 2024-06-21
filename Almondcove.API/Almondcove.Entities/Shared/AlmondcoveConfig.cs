@@ -2,8 +2,8 @@
 {
     public class AlmondcoveConfig
     {
-        public string Setting1 { get; set; }
-        public string Setting2 { get; set; }
+        public string ConnectionString { get; set; }
+      
         public CollecConfig Collec { get; set; }
     }
 

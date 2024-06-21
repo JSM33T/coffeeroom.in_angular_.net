@@ -18,14 +18,10 @@ namespace Almondcove.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AddEmailRequest model)
         {
-            return await ExecuteActionAsync(async () =>
+            return await ExecuteActionAsync(async ()  =>
             {
                 List<string> errors = [];
-
-
-                await Task.Delay(1000);
-
-                var data = new { Id = 1, model.Email, Setting = _config.CurrentValue.Setting1 };
+                var data = new { Id = 1, model.Email, Setting = _config.CurrentValue.ConnectionString };
                 errors.Add("sas");
 
                 return (StatusCodes.Status200OK, data, "Data posted successfully",errors);
