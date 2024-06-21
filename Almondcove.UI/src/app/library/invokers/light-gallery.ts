@@ -5,7 +5,7 @@ import lgThumbnail from 'lightgallery/plugins/thumbnail';
 import lgVideo from 'lightgallery/plugins/video';
 
 export default function InitLightGallery() {
-  document.addEventListener('DOMContentLoaded', () => {
+  
     const galleries = document.querySelectorAll('.gallery');
 
     if (galleries.length) {
@@ -38,5 +38,5 @@ export default function InitLightGallery() {
         });
       });
     }
-  });
+  
 }

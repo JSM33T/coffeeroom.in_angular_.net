@@ -18,7 +18,11 @@ const routes: Routes = [
   {
     path: 'contact',
     component:ContactComponent,
-  }
+  },
+  {  
+    path: 'gallery',  
+    loadChildren: () => import('./modules/gallery/gallery.module').then(m => m.GalleryModule)  
+  }  
 ];
 
 @NgModule({
