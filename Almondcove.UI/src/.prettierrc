@@ -1,0 +1,22 @@
+{
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 512,
+        "tabWidth": 4,
+        "useTabs": false,
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    },
+    {
+      "files": "*.ts",
+      "options": {
+        "printWidth": 512,
+        "tabWidth": 4,
+        "useTabs": false,
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    }
+  ]
+}

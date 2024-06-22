@@ -1,5 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api.almondcove.in'
-  };
-  
+    apiUrl: 'https://api.almondcove.in',
+};

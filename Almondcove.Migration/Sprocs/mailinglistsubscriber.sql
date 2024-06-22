@@ -1,4 +1,4 @@
-CREATE TABLE [dbo].MailingListSubscribers (
+CREATE TABLE [dbo].tblMessages (
     Id          INT PRIMARY KEY,
     [Name]      NVARCHAR(128),
     Mail        NVARCHAR(128),
@@ -12,7 +12,7 @@ CREATE TABLE [dbo].MailingListSubscribers (
 );
 GO
 
-CREATE OR ALTER PROCEDURE AddMailingListSubscriber
+CREATE OR ALTER PROCEDURE usp_AddMessage
     @Name NVARCHAR(128),
     @Mail NVARCHAR(128),
     @Message NVARCHAR(512),
@@ -24,16 +24,16 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    IF EXISTS (SELECT 1 FROM MailingListSubscribers WHERE Mail = @Mail AND [Message] = @Message)
+    IF EXISTS (SELECT 1 FROM tblMessages WHERE Mail = @Mail AND [Message] = @Message)
     BEGIN
         SELECT 0;
         RETURN;
     END
 
     DECLARE @NewId INT;
-    SELECT @NewId = ISNULL(MAX(Id), 0) + 1 FROM MailingListSubscribers;
+    SELECT @NewId = ISNULL(MAX(Id), 0) + 1 FROM tblMessages;
 
-    INSERT INTO MailingListSubscribers (Id, Name, Mail, Message, Topic, Origin, UserAgent, DateAdded)
+    INSERT INTO tblMessages (Id, Name, Mail, Message, Topic, Origin, UserAgent, DateAdded)
     VALUES (@NewId, @Name, @Mail, @Message, @Topic, @Origin, @UserAgent, @DateAdded);
 
     SELECT @NewId;

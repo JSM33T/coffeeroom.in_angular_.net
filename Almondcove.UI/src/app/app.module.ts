@@ -13,29 +13,12 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LogoComponent } from './shared/assets/logo';
 import { FormsModule } from '@angular/forms';
 import { EmailBookingComponent } from './components/shared/emailcta.component';
-
+import { ContactComponent } from './modules/base/contact.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    AboutComponent,
-    HomeComponent,
-    SidepanelComponent,
-    FooterComponent,
-    LogoComponent,
-    EmailBookingComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    LoadingBarModule,
-    FormsModule
-  ],
-  providers: [
-  
-  ],
-  bootstrap: [AppComponent]
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FooterComponent, LogoComponent, EmailBookingComponent],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, LoadingBarModule, FormsModule],
+    providers: [],
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

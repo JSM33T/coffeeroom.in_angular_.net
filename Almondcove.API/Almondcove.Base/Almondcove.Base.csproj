@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Almondcove.Entities\Almondcove.Entities.csproj" />
     <ProjectReference Include="..\Almondcove.Repositories\Almondcove.Repositories.csproj" />
     <ProjectReference Include="..\Almondcove.Validators\Almondcove.Validators.csproj" />

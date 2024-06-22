@@ -21,7 +21,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.Load("Almondcove.Validators"
 
 builder.Services.AddControllers();
 
-builder.Services.AddScoped<IMailingListRepository, MailingListRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -106,9 +106,10 @@ if (app.Environment.IsDevelopment())
 {
   
 }
-app.UseMiddleware<AcValidationMiddleware>();
+
 app.UseCors("AllowAllHeaders");
 app.UseHttpsRedirection();
+app.UseMiddleware<AcValidationMiddleware>();
 app.UseStaticFiles();
 app.UseRateLimiter();
 app.UseAuthentication();

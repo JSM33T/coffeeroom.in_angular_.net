@@ -9,7 +9,6 @@ export default function acToast(title: string, message: string) {
     modalContainer.setAttribute('aria-hidden', 'true');
     modalContainer.setAttribute('data-bs-backdrop', 'static');
 
-  
     // Set the inner HTML of the modal container using template string
     modalContainer.innerHTML = `
       <div class="modal-dialog" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
@@ -29,18 +28,16 @@ export default function acToast(title: string, message: string) {
         </div>
       </div>
     `;
-  
+
     // Append the modal container to the body
     document.body.appendChild(modalContainer);
-  
+
     // Initialize and show the modal using Bootstrap's JavaScript API
     const modal = new bootstrap.Modal(modalContainer);
     modal.show();
-  
+
     // Remove the modal from the DOM after it is hidden
     modalContainer.addEventListener('hidden.bs.modal', function () {
-      document.body.removeChild(modalContainer);
+        document.body.removeChild(modalContainer);
     });
-  }
-  
-
+}

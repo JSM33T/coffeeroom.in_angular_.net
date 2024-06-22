@@ -13,31 +13,29 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Repositories
 {
-    public class MailingListRepository : IMailingListRepository
+    public class MessageRepository : IMessageRepository
     {
 
         protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
         protected readonly ILogger _logger;
         private string _conStr;
 
-        public MailingListRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MailingListRepository> logger)
+        public MessageRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MessageRepository> logger)
         {
             _config = config;
             _logger = logger;
             _conStr = _config.CurrentValue.ConnectionString;
-
         }
 
-
-        public async Task<int> AddMailingListAsync(MailingList mailingList)
+        public async Task<int> AddMessage(Message mailingList)
         {
-            const string storedProcedure = "AddMailingListSubscriber";
+            const string storedProcedure = "usp_AddMessage";
 
             using var connection = new SqlConnection(_conStr);
             var parameters = new DynamicParameters();
             parameters.Add("Name", mailingList.Name, DbType.String);
             parameters.Add("Mail", mailingList.Mail, DbType.String);
-            parameters.Add("Message", mailingList.Message, DbType.String);
+            parameters.Add("Message", mailingList.MessageText, DbType.String);
             parameters.Add("Topic", mailingList.Topic, DbType.String);
             parameters.Add("Origin", mailingList.Origin, DbType.String);
             parameters.Add("UserAgent", mailingList.UserAgent, DbType.String);

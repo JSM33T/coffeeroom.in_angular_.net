@@ -1,12 +1,18 @@
 ﻿using Almondcove.Entities.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Almondcove.Base.Middlewares
 {
-    public class AcValidationMiddleware(RequestDelegate next)
+    public class AcValidationMiddleware
     {
-        private readonly RequestDelegate _next = next;
+        private readonly RequestDelegate _next;
+
+        public AcValidationMiddleware(RequestDelegate next)
+        {
+            _next = next;
+        }
 
         public async Task InvokeAsync(HttpContext context)
         {
@@ -17,40 +23,24 @@ namespace Almondcove.Base.Middlewares
 
             await _next(context);
 
-            #region CheckFor 400
+            responseBody.Seek(0, SeekOrigin.Begin);
+
             if (context.Response.StatusCode == StatusCodes.Status400BadRequest)
             {
-                
-                responseBody.Seek(0, SeekOrigin.Begin); //scan and read response body
-
                 var originalBodyText = await new StreamReader(responseBody).ReadToEndAsync();
 
                 if (!string.IsNullOrEmpty(originalBodyText) && originalBodyText.Contains("\"traceId\""))
                 {
-                    // Deserialize
                     var originalResponse = JsonConvert.DeserializeObject<ValidationProblemDetails>(originalBodyText);
-
-                    #region FOR ALL ERRORS
-                    //var errorMessages = new List<string>();
-                    //foreach (var error in originalResponse.Errors)
-                    //{
-                    //    foreach (var errorMessage in error.Value)
-                    //    {
-                    //        errorMessages.Add(errorMessage); // Collect all error messages
-                    //    }
-                    //}
-                    #endregion
-
-                    #region FOR FIRST ERROR PER FIELD
                     var errorMessages = new List<string>();
+
                     foreach (var error in originalResponse.Errors)
                     {
                         if (error.Value != null && error.Value.Length > 0)
                         {
-                            errorMessages.Add(error.Value[0]); // Collect only the first error message
+                            errorMessages.Add(error.Value[0]);
                         }
                     }
-                    #endregion
 
                     var customResponse = new
                     {
@@ -59,11 +49,13 @@ namespace Almondcove.Base.Middlewares
                         errors = errorMessages,
                         data = 0
                     };
-                   
 
-                    var customResponseText = JsonConvert.SerializeObject(customResponse);
+                    var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
+                    {
+                        ContractResolver = new CamelCasePropertyNamesContractResolver()
+                    });
 
-                    context.Response.Body = originalBodyStream; // Restore 
+                    context.Response.Body = originalBodyStream;
                     context.Response.ContentType = "application/json";
                     await context.Response.WriteAsync(customResponseText);
                 }
@@ -73,9 +65,6 @@ namespace Almondcove.Base.Middlewares
                     await responseBody.CopyToAsync(originalBodyStream);
                 }
             }
-            #endregion
-
-            #region CheckFor 429
             else if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
             {
                 var errorMessages = new List<string>
@@ -90,16 +79,16 @@ namespace Almondcove.Base.Middlewares
                     errors: errorMessages
                 );
 
-                var customResponseText = JsonConvert.SerializeObject(customResponse);
+                var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
 
                 context.Response.Body = originalBodyStream;
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(customResponseText);
             }
-            #endregion
-
-            #region CheckFor 415
-            else if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
+            else if (context.Response.StatusCode == StatusCodes.Status415UnsupportedMediaType)
             {
                 var errorMessages = new List<string>
                 {
@@ -113,22 +102,20 @@ namespace Almondcove.Base.Middlewares
                     errors: errorMessages
                 );
 
-                var customResponseText = JsonConvert.SerializeObject(customResponse);
+                var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
 
                 context.Response.Body = originalBodyStream;
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(customResponseText);
             }
-            #endregion
-
-            #region ALL CLEAR
             else
             {
                 responseBody.Seek(0, SeekOrigin.Begin);
                 await responseBody.CopyToAsync(originalBodyStream);
             }
-            #endregion
         }
-
     }
 }

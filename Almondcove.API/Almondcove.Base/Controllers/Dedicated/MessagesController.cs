@@ -1,37 +1,34 @@
-﻿using Almondcove.Api.Controllers;
-using Almondcove.Entities.Dedicated;
+﻿using Almondcove.Entities.Dedicated;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace Almondcove.Base.Controllers.Dedicated
 {
-    [Route("api/mailinglistsubscriber")]
+    [Route("api/messages")]
     [ApiController]
-    public class MailingListSubscriberController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<SampleController> logger, IHttpContextAccessor httpContextAccessor, IMailingListRepository mailingListRepository)
+    public class MessagesController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MessagesController> logger, IHttpContextAccessor httpContextAccessor, IMessageRepository mailingListRepository)
                                         : FoundationController(config, logger, httpContextAccessor)
     {
-        private readonly IMailingListRepository _mailRepo = mailingListRepository;
+        private readonly IMessageRepository _mailRepo = mailingListRepository;
 
         [HttpPost("add")]
-        public async Task<IActionResult> Post([FromBody] MailingListRequest request)
+        public async Task<IActionResult> Post([FromBody] AddMessageRequest request)
         {
             int statCode = StatusCodes.Status400BadRequest;
             string message = "";
             List<string> errors = [];
-
-
+            
             return await ExecuteActionAsync(async () =>
             {
                 #region MAP MailingListRequest -> MailingList
-                var mailingList = new MailingList
+                var mailingList = new Message
                 {
-                    Name = request.Name,
+                    Name = request.Name,      
                     Mail = request.Mail,
-                    Message = request.Message,
+                    MessageText = request.MessageText,
                     Topic = request.Topic,
                     Origin = HttpContext.Request.Headers.Referer.ToString() ?? "unknown",
                     UserAgent = HttpContext.Request.Headers.UserAgent.ToString() ?? "unknown",
@@ -39,7 +36,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                 };
                 #endregion
 
-                var id = await _mailRepo.AddMailingListAsync(mailingList);
+                var id = await _mailRepo.AddMessage(mailingList);
                 if (id == 0)
                 {
                     #region RESPONSE -> Conflict

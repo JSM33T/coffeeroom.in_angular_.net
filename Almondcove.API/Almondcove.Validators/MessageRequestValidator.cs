@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Almondcove.Validators
 {
-    public class MailingListRequestValidator : AbstractValidator<MailingListRequest>
+    public class MessageRequestValidator : AbstractValidator<AddMessageRequest>
     {
-        public MailingListRequestValidator()
+        public MessageRequestValidator()
         {
             RuleFor(x => x.Name)
                .NotEmpty().WithMessage("Name is required")
@@ -16,7 +16,7 @@ namespace Almondcove.Validators
                 .EmailAddress().WithMessage("Invalid email format")
                 .MaximumLength(128).WithMessage("Email cannot exceed 128 characters");
 
-            RuleFor(x => x.Message)
+            RuleFor(x => x.MessageText)
                 .NotEmpty().WithMessage("Message is required")
                 .MinimumLength(3).WithMessage("Message must be at least 3 characters long")
                 .MaximumLength(512).WithMessage("Message cannot exceed 512 characters");

@@ -11,44 +11,36 @@ import InitAnimateOnScroll from './library/invokers/animate-on-scroll';
 import initParallax from './library/invokers/parallax';
 import InitSmoothScroll from './library/invokers/smooth-scroll';
 
-
-
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  constructor(
-    
-    private router: Router,
-  ) {}
+    constructor(private router: Router) {}
 
-  title = 'almondcoveNg';
+    title = 'almondcoveNg';
 
-  ngOnInit() {
-    initializeThemeSwitcher();
-    initializeBindedContentToggle();
+    ngOnInit() {
+        initializeThemeSwitcher();
+        initializeBindedContentToggle();
 
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
-      .subscribe((event) => {
-        InitSmoothScroll();
-        InitAnimateOnScroll();
-        initializeScrollToTop();
-        initParallax();
-     //   hideOffcanvas();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-  }
+        this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
+            InitSmoothScroll();
+            InitAnimateOnScroll();
+            initializeScrollToTop();
+            initParallax();
+            //   hideOffcanvas();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 }
 
 function hideOffcanvas() {
-  const offcanvasElement = document.getElementById('thisone');
-  if (offcanvasElement) {
-    //@ts-ignore
-    const offcanvasInstance = Offcanvas.getInstance(offcanvasElement) || new Offcanvas(offcanvasElement);
-    offcanvasInstance.hide();
-  }
+    const offcanvasElement = document.getElementById('thisone');
+    if (offcanvasElement) {
+        //@ts-ignore
+        const offcanvasInstance = Offcanvas.getInstance(offcanvasElement) || new Offcanvas(offcanvasElement);
+        offcanvasInstance.hide();
+    }
 }
-

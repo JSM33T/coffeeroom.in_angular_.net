@@ -1,42 +1,43 @@
-import { APIResponse } from "../../models/api-response.model";
+import { APIResponse } from '../../models/api-response.model';
 declare var bootstrap: any;
 
 export default function acServerToast(response: APIResponse<any>) {
-  // Define a mapping of status codes to titles
-  const statusTitles: { [key: number]: string } = {
-    200: 'Success',
-    201: 'Created',
-    400: 'Error',
-    401: 'Unauthorized',
-    403: 'Forbidden',
-    404: 'Not Found',
-    500: 'Server Error',
-    // Add more status codes and their corresponding titles as needed
-  };
+    // Define a mapping of status codes to titles
+    const statusTitles: { [key: number]: string } = {
+        200: 'Success',
+        201: 'Created',
+        400: 'Error',
+        401: 'Unauthorized',
+        403: 'Forbidden',
+        404: 'Not Found',
+        500: 'Server Error',
+        429: 'Spam detected',
+        // Add more status codes and their corresponding titles as needed
+    };
 
-  // Get the title based on the response status, default to 'Notice' if not found
-  const title = statusTitles[response.status] || 'Notice';
+    // Get the title based on the response status, default to 'Notice' if not found
+    const title = statusTitles[response.status] || 'Notice';
 
-  // Create the modal container
-  const modalContainer = document.createElement('div');
-  modalContainer.classList.add('modal', 'fade');
-  modalContainer.setAttribute('tabindex', '-1');
-  modalContainer.setAttribute('role', 'dialog');
-  modalContainer.setAttribute('aria-hidden', 'true');
-  modalContainer.setAttribute('data-bs-backdrop', 'static');
+    // Create the modal container
+    const modalContainer = document.createElement('div');
+    modalContainer.classList.add('modal', 'fade');
+    modalContainer.setAttribute('tabindex', '-1');
+    modalContainer.setAttribute('role', 'dialog');
+    modalContainer.setAttribute('aria-hidden', 'true');
+    modalContainer.setAttribute('data-bs-backdrop', 'static');
 
-  // Create the error list HTML
-  let errorListHtml = '';
-  if (response.errors && response.errors.length > 0) {
-    errorListHtml = '<code class="text-danger">';
-    response.errors.forEach(error => {
-      errorListHtml += `<li>${error}</li>`;
-    });
-    errorListHtml += '</code>';
-  }
+    // Create the error list HTML
+    let errorListHtml = '';
+    if (response.errors && response.errors.length > 0) {
+        errorListHtml = '<code class="text-danger">';
+        response.errors.forEach((error) => {
+            errorListHtml += `<li>${error}</li>`;
+        });
+        errorListHtml += '</code>';
+    }
 
-  // Set the inner HTML of the modal container using template string
-  modalContainer.innerHTML = `
+    // Set the inner HTML of the modal container using template string
+    modalContainer.innerHTML = `
     <div class="modal-dialog" role="document" data-bs-backdrop="static" data-bs-keyboard="false">
       <div class="modal-content">
         <div class="modal-header">
@@ -56,15 +57,15 @@ export default function acServerToast(response: APIResponse<any>) {
     </div>
   `;
 
-  // Append the modal container to the body
-  document.body.appendChild(modalContainer);
+    // Append the modal container to the body
+    document.body.appendChild(modalContainer);
 
-  // Initialize and show the modal using Bootstrap's JavaScript API
-  const modal = new bootstrap.Modal(modalContainer);
-  modal.show();
+    // Initialize and show the modal using Bootstrap's JavaScript API
+    const modal = new bootstrap.Modal(modalContainer);
+    modal.show();
 
-  // Remove the modal from the DOM after it is hidden
-  modalContainer.addEventListener('hidden.bs.modal', function () {
-    document.body.removeChild(modalContainer);
-  });
+    // Remove the modal from the DOM after it is hidden
+    modalContainer.addEventListener('hidden.bs.modal', function () {
+        document.body.removeChild(modalContainer);
+    });
 }

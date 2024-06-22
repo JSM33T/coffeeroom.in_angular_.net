@@ -6,27 +6,26 @@ import { HomeComponent } from './modules/base/home.component';
 import { ContactComponent } from './modules/base/contact.component';
 
 const routes: Routes = [
- 
-  {
-    path: 'about',
-    component:AboutComponent,
-  },
-  {
-    path: '',
-    component:HomeComponent,
-  },
-  {
-    path: 'contact',
-    component:ContactComponent,
-  },
-  {  
-    path: 'gallery',  
-    loadChildren: () => import('./modules/gallery/gallery.module').then(m => m.GalleryModule)  
-  }  
+    {
+        path: 'about',
+        component: AboutComponent,
+    },
+    {
+        path: '',
+        component: HomeComponent,
+    },
+    {
+        path: 'contact',
+        component: ContactComponent,
+    },
+    {
+        path: 'gallery',
+        loadChildren: () => import('./modules/gallery/gallery.module').then((m) => m.GalleryModule),
+    },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
