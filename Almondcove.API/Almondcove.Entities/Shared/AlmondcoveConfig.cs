@@ -4,12 +4,12 @@
     {
         public string ConnectionString { get; set; }
       
-        public CollecConfig Collec { get; set; }
+        public Cryptography Cryptography { get; set; }
     }
 
-    public class CollecConfig
+    public class Cryptography
     {
-        public bool Collec1 { get; set; }
-        public int Collec2 { get; set; }
+        public string Key { get; set; }
+        public string IV { get; set; }
     }
 }

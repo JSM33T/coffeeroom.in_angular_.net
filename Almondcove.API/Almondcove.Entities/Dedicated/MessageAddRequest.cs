@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Entities.Dedicated
 {
-    public class AddMessageRequest
+    public class MessageAddRequest
     {
         public string Name { get; set; }
         public string Mail { get; set; }

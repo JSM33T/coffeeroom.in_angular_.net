@@ -15,12 +15,12 @@ namespace Almondcove.Base.Controllers.Dedicated
         private readonly IMessageRepository _mailRepo = mailingListRepository;
 
         [HttpPost("add")]
-        public async Task<IActionResult> Post([FromBody] AddMessageRequest request)
+        public async Task<IActionResult> Post([FromBody] MessageAddRequest request)
         {
             int statCode = StatusCodes.Status400BadRequest;
             string message = "";
             List<string> errors = [];
-            
+            _logger.LogError("checkkk");
             return await ExecuteActionAsync(async () =>
             {
                 #region MAP MailingListRequest -> MailingList

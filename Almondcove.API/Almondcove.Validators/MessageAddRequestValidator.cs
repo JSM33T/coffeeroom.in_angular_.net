@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Almondcove.Validators
 {
-    public class MessageRequestValidator : AbstractValidator<AddMessageRequest>
+    public class MessageAddRequestValidator : AbstractValidator<MessageAddRequest>
     {
-        public MessageRequestValidator()
+        public MessageAddRequestValidator()
         {
             RuleFor(x => x.Name)
                .NotEmpty().WithMessage("Name is required")

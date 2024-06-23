@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
             <nav aria-label="breadcrumb">
                 <ol class="pt-lg-3 pb-lg-4 pb-2 breadcrumb">
                     <li class="breadcrumb-item">
-                        <a routerLink="/" data-aos="flip-down" data-aos-duration="900">Home</a>
+                        <a routerLink="/" data-aos="flip-down" data-aos-duration="500">Home</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page" data-aos="flip-down" data-aos-duration="900">Contact</li>
                 </ol>

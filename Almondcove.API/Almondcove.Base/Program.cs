@@ -6,13 +6,25 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Reflection;
 using System.Text;
 using System.Threading.RateLimiting;
+using Telegram.Bot;
+using Serilog.Core;
+using Serilog.Events;
+using Telegram.Bot.Types.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .WriteTo.Async(a => a.File($"Logs/log.txt", rollingInterval: RollingInterval.Hour))
+    .WriteTo.Console()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
@@ -22,6 +34,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.Load("Almondcove.Validators"
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -41,10 +54,6 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKey"))
     };
 });
-
-
-
-
 
 
 var rateLimitingOptions = new RateLimitingOptions();
@@ -97,14 +106,25 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+}
+else
+{
+    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+}
 builder.Services.Configure<AlmondcoveConfig>(builder.Configuration.GetSection("AlmondcoveConfig"));
 
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-  
+
+}
+else
+{
+    
 }
 
 app.UseCors("AllowAllHeaders");

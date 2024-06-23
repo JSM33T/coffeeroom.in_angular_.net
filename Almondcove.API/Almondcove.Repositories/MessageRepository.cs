@@ -4,12 +4,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Almondcove.Repositories
 {
@@ -29,7 +24,7 @@ namespace Almondcove.Repositories
 
         public async Task<int> AddMessage(Message mailingList)
         {
-            const string storedProcedure = "usp_AddMessage";
+            const string storedProcedure = "dbo.usp_AddMsessage";
 
             using var connection = new SqlConnection(_conStr);
             var parameters = new DynamicParameters();

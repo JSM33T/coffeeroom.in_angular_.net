@@ -5,14 +5,9 @@ using Newtonsoft.Json.Serialization;
 
 namespace Almondcove.Base.Middlewares
 {
-    public class AcValidationMiddleware
+    public class AcValidationMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-
-        public AcValidationMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+        private readonly RequestDelegate _next = next;
 
         public async Task InvokeAsync(HttpContext context)
         {

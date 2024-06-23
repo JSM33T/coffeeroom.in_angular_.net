@@ -14,9 +14,11 @@ import { LogoComponent } from './shared/assets/logo';
 import { FormsModule } from '@angular/forms';
 import { EmailBookingComponent } from './components/shared/emailcta.component';
 import { ContactComponent } from './modules/base/contact.component';
+import { BloghomeComponent } from './modules/blog/bloghome/bloghome.component';
+import { BloghomesidepanelComponent } from './components/dedicated/blog/bloghomesidepanel/bloghomesidepanel.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FooterComponent, LogoComponent, EmailBookingComponent],
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FooterComponent, LogoComponent, EmailBookingComponent, BloghomeComponent, BloghomesidepanelComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, LoadingBarModule, FormsModule],
     providers: [],
     bootstrap: [AppComponent],
