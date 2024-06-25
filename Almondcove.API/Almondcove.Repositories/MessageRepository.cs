@@ -24,7 +24,7 @@ namespace Almondcove.Repositories
 
         public async Task<int> AddMessage(Message mailingList)
         {
-            const string storedProcedure = "dbo.usp_AddMsessage";
+            const string storedProcedure = "dbo.usp_AddMessage";
 
             using var connection = new SqlConnection(_conStr);
             var parameters = new DynamicParameters();
