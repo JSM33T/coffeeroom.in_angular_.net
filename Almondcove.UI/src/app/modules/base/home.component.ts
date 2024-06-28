@@ -23,6 +23,22 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
                             </span>
                         </h1>
                         <div class="col-12 pb-3">
+                        <div id="g_id_onload"
+                            data-client_id="881148390473-rodjtppcckgpft8guo2bkttnlcg5gmb2.apps.googleusercontent.com"
+                            data-context="signup"
+                            data-ux_mode="redirect"
+                            data-callbask="handleOauthResponse"
+                            data-auto_prompt="false">
+                        </div>
+
+                        <div class="g_id_signin"
+                            data-type="standard"
+                            data-shape="rectangular"
+                            data-theme="outline"
+                            data-text="signin_with"
+                            data-size="large"
+                            data-logo_alignment="left">
+                        </div>
                             <p class="mb-3 mx-3" data-aos="fade" data-aos-duration="500" data-aos-offset="10">I don't feel particularly proud of myself. But when I walk alone in the woods or lie in the meadows, all is well.</p>
                         </div>
                         <div class="d-sm-flex justify-content-center justify-content-lg-start mt-lg-2">

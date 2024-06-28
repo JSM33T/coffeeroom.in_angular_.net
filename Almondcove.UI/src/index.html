@@ -30,12 +30,25 @@ _____  |  |   _____   ____   ____    __| _/____  _______  __ ____      |__| ____
         <link rel="stylesheet" href="https://around.createx.studio/assets/vendor/aos/dist/aos.css" />
         <link rel="stylesheet" href="https://around.createx.studio/assets/vendor/lightgallery/css/lightgallery-bundle.min.css" />
         <link rel="stylesheet" media="screen" href="https://around.createx.studio/assets/vendor/swiper/swiper-bundle.min.css" />
+        <script src="https://accounts.google.com/gsi/client" async></script>
 
         <style></style>
     </head>
 
     <body>
         <app-root></app-root>
+        <script>
+            function decodeJWTToken(token){
+              return JSON.parse(atob(token.split(".")[1]))
+            }
+            function handleOauthResponse(response){
+              const responsePayload = decodeJWTToken(response.credential)
+              console.log(responsePayload)
+              sessionStorage.setItem('loggedinUser',JSON.stringify(responsePayload))
+              window.location('http://localhost:4200/about') 
+              //Changed the above URL where you want user to be redirected
+            }
+          </script>
         <noscript>A community web space with blogs artcles, apps, gallery , music production and much more. ENABLE JS TO MAKE THE APP WORK</noscript>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>

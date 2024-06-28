@@ -14,6 +14,8 @@ using Telegram.Bot;
 using Serilog.Core;
 using Serilog.Events;
 using Telegram.Bot.Types.Enums;
+using Almondcove.Services;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -45,13 +48,14 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = true,
-        ValidateAudience = true,
+        ValidateIssuer = false,
+        ValidateAudience = false,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
-        ValidIssuer = "https://",
-        ValidAudience = "your-api-url",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("YourSecretKey"))
+        RoleClaimType = ClaimTypes.Role, // Ensure the RoleClaimType is set correctly
+        ValidIssuer = "http://localhost:5176",
+        ValidAudience = "http://localhost:5176",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("iureowtueorituowierutoi4354=====sds=="))
     };
 });
 

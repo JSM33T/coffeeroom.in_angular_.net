@@ -25,6 +25,29 @@ namespace Almondcove.Repositories
             _logger = logger;
             _conStr = _config.CurrentValue.ConnectionString;
         }
+
+        public async Task<(int, UserClaims)> LoginUser(UserLoginRequest loginRequest)
+        {
+            const string storedProcedure = "dbo.usp_GetUserClaims";
+
+            using var connection = new SqlConnection(_conStr);
+            var parameters = new DynamicParameters();
+            parameters.Add("Username", loginRequest.Username, DbType.String);
+            parameters.Add("Password", loginRequest.Password, DbType.String);
+            parameters.Add("Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            var userClaims = await connection.QueryFirstOrDefaultAsync<UserClaims>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+
+            var result = parameters.Get<int>("Result");
+
+            return (result, userClaims);
+        }
+
+
+
         public async Task<int> SignUpUser(User user)
         {
             const string storedProcedure = "dbo.usp_SignUpUser";

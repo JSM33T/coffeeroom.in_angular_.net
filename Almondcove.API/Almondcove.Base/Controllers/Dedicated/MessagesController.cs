@@ -1,6 +1,7 @@
 ﻿using Almondcove.Entities.Dedicated;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -8,6 +9,7 @@ using System.Reflection;
 namespace Almondcove.Base.Controllers.Dedicated
 {
     [Route("api/messages")]
+   
     [ApiController]
     public class MessagesController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MessagesController> logger, IHttpContextAccessor httpContextAccessor, IMessageRepository mailingListRepository)
                                         : FoundationController(config, logger, httpContextAccessor)
@@ -15,6 +17,7 @@ namespace Almondcove.Base.Controllers.Dedicated
         private readonly IMessageRepository _mailRepo = mailingListRepository;
 
         [HttpPost("add")]
+        [Authorize(Roles = "user")]
         public async Task<IActionResult> Post([FromBody] MessageAddRequest request)
         {
             int statCode = StatusCodes.Status400BadRequest;

@@ -156,3 +156,22 @@ BEGIN
 END
 GO
 
+
+-- usp_GetUsers
+
+CREATE PROCEDURE dbo.usp_GetUsers
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        Id,
+        Username,
+        FirstName,
+        LastName,
+        Email,
+        DateCreated,
+        Slug
+    FROM 
+        Users
+END
