@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api.almondcove.in',
+    apiUrl: 'http://localhost:5176',
 };

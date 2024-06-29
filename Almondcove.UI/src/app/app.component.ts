@@ -15,11 +15,15 @@ import InitSmoothScroll from './library/invokers/smooth-scroll';
     selector: 'app-root',
     template: `
         <main class="page-wrapper">
-            <ngx-loading-bar></ngx-loading-bar>
-            <app-navbar />
-            <app-sidepanel />
+            <!-- Conditionally hide app-navbar on 'login' and 'signup' routes -->
+            <app-navbar *ngIf="shouldDisplayNavbar()"></app-navbar>
+
+            <!-- Conditionally hide app-sidepanel on 'login' and 'signup' routes -->
+            <app-sidepanel *ngIf="shouldDisplaySidepanel()"></app-sidepanel>
+            
             <router-outlet></router-outlet>
-            <app-footer></app-footer>
+            <app-sidepanel />
+            <app-footer *ngIf="shouldDisplayFooter()"></app-footer>
             <a class="btn-scroll-top" href="#top" data-scroll aria-label="Scroll back to top">
                 <svg viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="10"></circle>
@@ -32,19 +36,30 @@ import InitSmoothScroll from './library/invokers/smooth-scroll';
 export class AppComponent implements OnInit {
     constructor(private router: Router) {}
 
-    title = 'almondcoveNg';
+    title = 'ALmondcove by Jass';
+
+    shouldDisplayNavbar(): boolean {
+        return !['/auth/login', '/auth/signup', '/auth'].includes(this.router.url);
+    }
+
+    shouldDisplaySidepanel(): boolean {
+        return !['/auth/login', '/auth/signup', '/auth'].includes(this.router.url);
+    }
+
+    shouldDisplayFooter(): boolean {
+        return !['/auth/login', '/auth/signup', '/auth'].includes(this.router.url);
+    }
 
     ngOnInit() {
         initializeThemeSwitcher();
         initializeBindedContentToggle();
 
         this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
+            window.scrollTo({ top: 0 });
             InitSmoothScroll();
             InitAnimateOnScroll();
             initializeScrollToTop();
             initParallax();
-            //   hideOffcanvas();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 }
