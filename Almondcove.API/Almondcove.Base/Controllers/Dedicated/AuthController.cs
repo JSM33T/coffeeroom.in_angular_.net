@@ -11,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using Telegram.Bot.Types;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Almondcove.Base.Controllers.Dedicated
 {
@@ -58,6 +59,7 @@ namespace Almondcove.Base.Controllers.Dedicated
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
 
@@ -96,7 +98,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                     var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                     var token = new JwtSecurityToken(
-                        issuer: "http://localhost:5176",
+                        issuer: "http://localhost:4200",
                         audience: "http://localhost:5176",
                         claims: claims,
                         expires: DateTime.Now.AddMinutes(30),

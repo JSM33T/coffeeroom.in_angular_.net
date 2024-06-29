@@ -48,12 +48,12 @@ builder.Services.AddAuthentication(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidateAudience = true,
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         RoleClaimType = ClaimTypes.Role, // Ensure the RoleClaimType is set correctly
-        ValidIssuer = "http://localhost:5176",
+        ValidIssuer = "http://localhost:4200",
         ValidAudience = "http://localhost:5176",
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("iureowtueorituowierutoi4354=====sds=="))
     };
@@ -96,16 +96,12 @@ builder.Services.AddRateLimiter(options =>
 
 
 
-builder.Services.AddCors(options =>
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 {
-    options.AddPolicy("AllowAllHeaders",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -131,7 +127,7 @@ else
     
 }
 
-app.UseCors("AllowAllHeaders");
+app.UseCors("MyPolicy");
 app.UseHttpsRedirection();
 app.UseMiddleware<AcValidationMiddleware>();
 app.UseStaticFiles();

@@ -106,6 +106,29 @@ namespace Almondcove.Base.Middlewares
                 context.Response.ContentType = "application/json";
                 await context.Response.WriteAsync(customResponseText);
             }
+            else if (context.Response.StatusCode == StatusCodes.Status401Unauthorized)
+            {
+                var errorMessages = new List<string>
+                {
+                    "You are not authorized for this action"
+                };
+
+                var customResponse = new APIResponse<int>(
+                    status: StatusCodes.Status401Unauthorized,
+                    message: "Unauthorized request",
+                    data: 0,
+                    errors: errorMessages
+                );
+
+                var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
+
+                context.Response.Body = originalBodyStream;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync(customResponseText);
+            }
             else
             {
                 responseBody.Seek(0, SeekOrigin.Begin);
