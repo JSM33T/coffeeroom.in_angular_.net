@@ -172,14 +172,7 @@ GO
 
 -- usp_GetUsers
 
-USE [almondcove_db]
-GO
-/****** Object:  StoredProcedure [dbo].[usp_GetUserClaims]    Script Date: 29-06-2024 11.31.41 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-ALTER   PROCEDURE [dbo].[usp_GetUserClaims]
+ALTER PROCEDURE [dbo].[usp_GetUserClaims]
     @Username NVARCHAR(64),
     @Password NVARCHAR(256), -- Assuming you hash the password before passing it to the SP
     @Result INT OUTPUT
@@ -188,9 +181,14 @@ BEGIN
     SET NOCOUNT ON;
 
     DECLARE @UserId INT;
+    DECLARE @IsActive BIT;
+    DECLARE @IsVerified BIT;
 
+    -- Check if user exists and retrieve status flags
     SELECT 
-        @UserId = Id
+        @UserId = Id,
+        @IsActive = IsActive,
+        @IsVerified = IsVerified
     FROM 
         dbo.tblUsers
     WHERE 
@@ -200,12 +198,27 @@ BEGIN
     IF @UserId IS NULL
     BEGIN
         -- No user found
-        SET @Result = 0;
+        SET @Result = -1; -- User does not exist
         RETURN;
     END
 
-    SET @Result = 1;
+    IF @IsVerified = 0
+    BEGIN
+        -- User is not verified
+        SET @Result = -2; -- User not verified
+        RETURN;
+    END
 
+    IF @IsActive = 0
+    BEGIN
+        -- User is inactive
+        SET @Result = -3; -- User inactive
+        RETURN;
+    END
+
+    SET @Result = 1; -- User exists, verified, and active
+
+    -- Return user claims
     SELECT 
         u.Id,
         u.Username,
@@ -224,10 +237,7 @@ BEGIN
     INNER JOIN 
         dbo.tblRoles r ON u.RoleId = r.Id
     WHERE 
-        u.Id = @UserId AND
-        u.IsVerified = 1 AND
-        u.IsActive = 1
-        ;
+        u.Id = @UserId;
 END
 
 GO
