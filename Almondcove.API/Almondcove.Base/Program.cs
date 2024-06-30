@@ -1,25 +1,22 @@
 using Almondcove.Base.Middlewares;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
+using Almondcove.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.RateLimiting;
-using Telegram.Bot;
-using Serilog.Core;
-using Serilog.Events;
-using Telegram.Bot.Types.Enums;
-using Almondcove.Services;
-using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+#region Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .WriteTo.Async(a => a.File($"Logs/log.txt", rollingInterval: RollingInterval.Hour))
@@ -27,18 +24,35 @@ Log.Logger = new LoggerConfiguration()
     .CreateLogger();
 
 builder.Host.UseSerilog();
+#endregion
 
+#region Fluent Validatoins
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
-
 builder.Services.AddValidatorsFromAssembly(Assembly.Load("Almondcove.Validators"));
+#endregion
 
 builder.Services.AddControllers();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
+}
+else
+{
+    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+}
+
+var almondcoveConfigSection = builder.Configuration.GetSection("AlmondcoveConfig");
+var almondcoveConfig = builder.Configuration.GetSection("AlmondcoveConfig").Get<AlmondcoveConfig>();
+
+builder.Services.Configure<AlmondcoveConfig>(almondcoveConfigSection);
 
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
+#region Auth
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -53,18 +67,23 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         RoleClaimType = ClaimTypes.Role, // Ensure the RoleClaimType is set correctly
-        ValidIssuer = "http://localhost:4200",
-        ValidAudience = "http://localhost:5176",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("iureowtueorituowierutoi4354=====sds=="))
+        ValidIssuer = almondcoveConfig.JwtSettings.ValidIssuer,
+        ValidAudience = almondcoveConfig.JwtSettings.ValidAudience,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(almondcoveConfig.JwtSettings.IssuerSigningKey))
     };
 });
+#endregion
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keys")) // Specify the directory where keys will be stored
+    .SetApplicationName("AlmondcoveApp"); // Optional: Set an application name to isolate keys between different apps
 
 
 var rateLimitingOptions = new RateLimitingOptions();
 builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
 
 
-
+#region rateLimiter
 builder.Services.AddRateLimiter(options =>
 {
     // Apply global rate limiting
@@ -94,7 +113,7 @@ builder.Services.AddRateLimiter(options =>
     options.RejectionStatusCode = 429; // Too Many Requests
 });
 
-
+#endregion
 
 builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 {
@@ -106,15 +125,7 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 
 builder.Services.AddEndpointsApiExplorer();
 
-if (builder.Environment.IsDevelopment())
-{
-    builder.Configuration.AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true);
-}
-else
-{
-    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-}
-builder.Services.Configure<AlmondcoveConfig>(builder.Configuration.GetSection("AlmondcoveConfig"));
+
 
 var app = builder.Build();
 

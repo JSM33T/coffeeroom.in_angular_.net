@@ -59,6 +59,25 @@ namespace Almondcove.Repositories
             parameters.Add("LastName", user.LastName, DbType.String);
             parameters.Add("Email", user.Email, DbType.String);
             parameters.Add("PasswordHash", user.PasswordHash, DbType.String);
+            parameters.Add("OTP", user.OTP, DbType.Int32);
+            parameters.Add("Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            await connection.ExecuteAsync(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+
+            return parameters.Get<int>("Result");
+        }
+
+        public async Task<int> VerifyUser(UserVerifyRequest userVerifyRequest)
+        {
+            const string storedProcedure = "dbo.usp_VerifyUser";
+
+            using var connection = new SqlConnection(_conStr);
+            var parameters = new DynamicParameters();
+            parameters.Add("Email", userVerifyRequest.Email, DbType.String);
+            parameters.Add("OTP", userVerifyRequest.OTP, DbType.Int32);
             parameters.Add("Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             await connection.ExecuteAsync(

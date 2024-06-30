@@ -13,5 +13,6 @@ namespace Almondcove.Entities.Dedicated
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
+        public int OTP { get; set; }
     }
 }

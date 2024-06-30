@@ -6,6 +6,7 @@ namespace Almondcove.Repositories
     {
         public Task<int> SignUpUser(User user);
         public Task<(int, UserClaims)> LoginUser(UserLoginRequest loginRequest);
+        public Task<int> VerifyUser(UserVerifyRequest userVerifyRequest);
 
     }
 }

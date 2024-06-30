@@ -16,8 +16,10 @@ namespace Almondcove.Base.Controllers.Dedicated
     {
         private readonly IMessageRepository _mailRepo = mailingListRepository;
 
+
         [HttpPost("add")]
         [Authorize(Roles = "user")]
+        #region SIGNUP CONTROLLER
         public async Task<IActionResult> Post([FromBody] MessageAddRequest request)
         {
             int statCode = StatusCodes.Status400BadRequest;
@@ -60,5 +62,6 @@ namespace Almondcove.Base.Controllers.Dedicated
 
             }, MethodBase.GetCurrentMethod().Name);
         }
+        #endregion
     }
 }
