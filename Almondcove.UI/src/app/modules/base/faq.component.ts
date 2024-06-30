@@ -49,9 +49,6 @@ interface FAQItem {
             </div>
         </section>
     `,
-    styles: `
-        @import 'aos/dist/aos.css';
-    `,
 })
 export class FaqComponent implements OnInit, AfterViewInit {
     faqs: FAQItem[] = [

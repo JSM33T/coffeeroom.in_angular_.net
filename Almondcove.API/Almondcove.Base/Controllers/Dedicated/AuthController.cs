@@ -2,16 +2,14 @@
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
 using Almondcove.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
-using Telegram.Bot.Types;
-using Newtonsoft.Json.Linq;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Almondcove.Base.Controllers.Dedicated
 {

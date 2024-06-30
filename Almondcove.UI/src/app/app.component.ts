@@ -15,6 +15,7 @@ import InitSmoothScroll from './library/invokers/smooth-scroll';
     selector: 'app-root',
     template: `
         <main class="page-wrapper">
+            <ngx-loading-bar></ngx-loading-bar>
             <!-- Conditionally hide app-navbar on 'login' and 'signup' routes -->
             <app-navbar *ngIf="shouldDisplayNavbar()"></app-navbar>
 
