@@ -35,11 +35,13 @@
               "imagesloaded"
             ],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
             "styles": [
-              "src/assets/styles.css",
-              "src/assets/icons/around-icons.min.css",
-              "src/assets/almondcove.css"
+              "src/assets/icons/around-icons.min.css"
             ],
             "scripts": []
           },
@@ -63,7 +65,8 @@
                   "maximumError": "500kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,
@@ -96,7 +99,11 @@
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              "src/manifest.webmanifest"
+            ],
             "styles": [],
             "scripts": []
           }

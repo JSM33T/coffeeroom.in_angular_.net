@@ -59,7 +59,7 @@ import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
                             <a class="nav-link disabled" routerLink="/" data-bs-toggle="collapse" (click)="toggleNavbar()">Studio(ID)</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" routerLink="/" data-bs-toggle="collapse" (click)="toggleNavbar()">Gallery(ID)</a>
+                            <a class="nav-link" routerLink="/auth/login" data-bs-toggle="collapse" (click)="toggleNavbar()">Login</a>
                         </li>
                     </ul>
                 </nav>

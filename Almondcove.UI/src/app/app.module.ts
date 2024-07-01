@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,10 +22,16 @@ import { BloghomeComponent } from './modules/blog/bloghome/bloghome.component';
 import { BloghomesidepanelComponent } from './components/dedicated/blog/bloghomesidepanel/bloghomesidepanel.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { FaqComponent } from './modules/base/faq.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, EmailBookingComponent, BloghomeComponent, BloghomesidepanelComponent],
-    imports: [BrowserModule, AppRoutingModule, HttpClientModule, LoadingBarModule, LoadingBarHttpClientModule, LoadingBarRouterModule, FormsModule],
+    imports: [BrowserModule, AppRoutingModule, HttpClientModule, LoadingBarModule, LoadingBarHttpClientModule, LoadingBarRouterModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', {
+  enabled: !isDevMode(),
+  // Register the ServiceWorker as soon as the application is stable
+  // or after 30 seconds (whichever comes first).
+  registrationStrategy: 'registerWhenStable:30000'
+})],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
     bootstrap: [AppComponent],
 })

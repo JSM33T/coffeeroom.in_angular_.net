@@ -21,6 +21,7 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
+    "@angular/service-worker": "^17.3.0",
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-loading-bar/router": "^6.0.2",
