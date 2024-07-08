@@ -16,16 +16,17 @@ import { HomeComponent } from './modules/base/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { LogoComponent } from './shared/assets/logo';
 import { FormsModule } from '@angular/forms';
-import { EmailBookingComponent } from './components/shared/emailcta.component';
 import { ContactComponent } from './modules/base/contact.component';
 import { BloghomeComponent } from './modules/blog/bloghome/bloghome.component';
-import { BloghomesidepanelComponent } from './components/dedicated/blog/bloghomesidepanel/bloghomesidepanel.component';
+import { BloghomesidepanelComponent } from './components/blog/bloghomesidepanel.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { FaqComponent } from './modules/base/faq.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ThemeComponent } from './modules/base/theme.component';
+import { EmailCTA } from './components/emailcta.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, EmailBookingComponent, BloghomeComponent, BloghomesidepanelComponent],
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent,BloghomeComponent, BloghomesidepanelComponent,EmailCTA, ThemeComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, LoadingBarModule, LoadingBarHttpClientModule, LoadingBarRouterModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', {
   enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable

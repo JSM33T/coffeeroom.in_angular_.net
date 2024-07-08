@@ -83,7 +83,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 
                 <!-- Item -->
                 <div class="col">
-                    <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" routerLink="faq">
+                    <a class="card card-hover-primary bg-secondary border-0 h-100 text-decoration-none" routerLink="/faq">
                         <div class="card-body pb-0">
                             <svg class="d-block text-warning mb-4" width="40" height="40" viewBox="0 0 40 40" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -137,9 +137,6 @@ export class AboutComponent implements OnInit {
         this.loadingBarState = this.loadingBar.useRef();
 
         this.loadingBarState.start();
-        InitAnimateOnScroll();
-        InitSmoothScroll();
-        initParallax();
         this.loadingBarState.complete();
     }
 

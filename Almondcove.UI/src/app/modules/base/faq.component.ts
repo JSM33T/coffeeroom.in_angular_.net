@@ -1,6 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 import InitSmoothScroll from '../../library/invokers/smooth-scroll';
+import { APIResponse } from '../../models/api-response.model';
+import { Observable } from 'rxjs';
+import { HttpService } from '../../services/http.service';
+import { handleResponse } from '../../library/utility/response-handler';
 
 interface FAQItem {
     id: string;
@@ -51,32 +55,40 @@ interface FAQItem {
     `,
 })
 export class FaqComponent implements OnInit, AfterViewInit {
+    constructor(private httpService: HttpService) {}
+    ngOnInit(): void {
+        this.loadFaq();
+    }
+
     faqs: FAQItem[] = [
         {
             id: 'questionOne',
             heading: 'headingOne',
-            question: 'Is there a free trial?',
-            answer: 'Adipiscing sagittis neque egestas id platea accumsan. Morbi inpa platea urna curabitur habitant pulvinar lacinia neque. Netus gravida amet, aliquam quam turpis aliquet cras. Find aute irure dolor in reprehenderit voluptate velit esse cillum dolore eu nulla pariatur. Sit amet, adipiscing elit.',
+            question: 'How to interact?',
+            answer: 'Interacting with blogs and articles need an account.Create an account form auth section.',
             expanded: true,
         },
         {
             id: 'questionTwo',
             heading: 'headingTwo',
-            question: 'How do refunds work?',
-            answer: 'Quisque rutrum sit amet magna sit amet tristique. Vivamus rhoncus ac purus vitae convallis. Aliquam erat volutpat. Proin egestas, mauris ut semper semper, ipsum felis mattis ligula, et porttitor ante arcu nec ante. Aliquam congue est eu turpis sollicitudin, et ullamcorper tortor aliquam.',
+            question: 'Where is content',
+            answer: 'Coming soon',
             expanded: false,
         },
     ];
 
-    constructor() {}
-    ngOnInit(): void {
-        console.log('ONINIT CALLED');
+    loadFaq(): void {
+        console.log('funct being called');
+        const response$: Observable<APIResponse<any>> = this.httpService.get('api/tester/a');
+        handleResponse(response$, false).subscribe({
+            next: (response) => {},
+            error: (error) => {
+                console.log(error.error);
+            },
+        });
     }
 
     ngAfterViewInit(): void {
         console.log('AFTERVIEWINIT CALLED');
-
-        InitSmoothScroll();
-        InitAnimateOnScroll();
     }
 }

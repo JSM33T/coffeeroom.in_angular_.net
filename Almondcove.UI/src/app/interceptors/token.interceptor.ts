@@ -19,9 +19,9 @@ export class TokenInterceptor implements HttpInterceptor {
             });
             return next.handle(authReq);
         } else {
-            console.log('works but with error');
+            return next.handle(req);
         }
 
-        return next.handle(req);
+        
     }
 }

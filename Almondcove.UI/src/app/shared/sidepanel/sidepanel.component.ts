@@ -37,6 +37,7 @@ import { Component } from '@angular/core';
                     <div><a href="https://almondcove.in" target="_blank">almondcove.in</a></div>
                     <div><a href="https://assambrew.com" target="_blank">assambrew.in</a></div>
                     <div><a href="https://laymaann.in" target="_blank">laymaann.in</a></div>
+                    <div><a routerLink="/theme">theme</a></div>
                 </div>
             </div>
         </div>

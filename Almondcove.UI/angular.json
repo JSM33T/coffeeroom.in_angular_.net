@@ -41,7 +41,8 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/assets/icons/around-icons.min.css"
+              "src/assets/icons/around-icons.min.css",
+              "https://around.createx.studio/assets/vendor/swiper/swiper-bundle.min.css"
             ],
             "scripts": []
           },

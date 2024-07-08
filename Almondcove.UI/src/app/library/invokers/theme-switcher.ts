@@ -6,8 +6,6 @@
  */
 
 export function initializeThemeSwitcher() {
-    'use strict';
-
     const getStoredTheme = (): string | null => localStorage.getItem('theme');
     const setStoredTheme = (theme: string): void => localStorage.setItem('theme', theme);
 
@@ -16,8 +14,6 @@ export function initializeThemeSwitcher() {
         if (storedTheme) {
             return storedTheme;
         }
-
-        // Set default theme to 'light'.
         return 'dark';
     };
 
@@ -54,16 +50,13 @@ export function initializeThemeSwitcher() {
         }
     });
 
-    window.addEventListener('DOMContentLoaded', () => {
-        showActiveTheme(getPreferredTheme());
-
-        document.querySelectorAll('[data-bs-toggle="mode"]').forEach((toggle) => {
-            toggle.addEventListener('click', () => {
-                const theme = (toggle.querySelector('input[type="checkbox"]') as HTMLInputElement).checked ? 'dark' : 'light';
-                setStoredTheme(theme);
-                setTheme(theme);
-                showActiveTheme(theme);
-            });
+    showActiveTheme(getPreferredTheme());
+    document.querySelectorAll('[data-bs-toggle="mode"]').forEach((toggle) => {
+        toggle.addEventListener('click', () => {
+            const theme = (toggle.querySelector('input[type="checkbox"]') as HTMLInputElement).checked ? 'dark' : 'light';
+            setStoredTheme(theme);
+            setTheme(theme);
+            showActiveTheme(theme);
         });
     });
 }

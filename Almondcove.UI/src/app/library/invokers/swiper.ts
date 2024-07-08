@@ -1,5 +1,5 @@
 // @ts-nocheck
-import Swiper from 'swiper';
+// import Swiper from 'swiper';
 
 export default function Initswiper() {
     const forEach = (array, callback, scope) => {

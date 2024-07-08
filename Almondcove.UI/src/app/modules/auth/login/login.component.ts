@@ -75,35 +75,29 @@ import { handleResponse } from '../../../library/utility/response-handler';
     `,
 })
 export class LoginComponent {
-  constructor(
-    private loadingBar: LoadingBarService,
-    private httpService: HttpService,
-) {}
+    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
 
-  loadingBarState: any;
-  isLoading = false;
-  formData = {
-      username: '',
-      password: '',
-  };
+    loadingBarState: any;
+    isLoading = false;
+    formData = {
+        username: '',
+        password: '',
+    };
 
-
-  onSubmit(): void {
-    this.isLoading = true;
-    console.log(this.formData);
-    const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/login', this.formData);
-    handleResponse(response$).subscribe({
-        next: (data) => {
-            this.isLoading = false;
-            console.log(data);
-            localStorage.setItem('token',data.data.token);
-        },
-        error: () => {
-            this.isLoading = false;
-        },
-    });
-   
-
-}
-
+    onSubmit(): void {
+        this.isLoading = true;
+        console.log(this.formData);
+        const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/login', this.formData);
+        handleResponse(response$,true).subscribe({
+            next: (response) => {
+                this.isLoading = false;
+                if (response.status == 200) {
+                    localStorage.setItem('token', response.data.token);
+                }
+            },
+            error: () => {
+                this.isLoading = false;
+            },
+        });
+    }
 }

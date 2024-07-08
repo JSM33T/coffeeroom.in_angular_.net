@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { initializeNavbarSticky } from '../../library/invokers/sticky-navbar';
 import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
+import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
 
 @Component({
     selector: 'app-navbar',
@@ -67,10 +68,10 @@ import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
         </header>
     `,
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements AfterViewInit {
     constructor(private el: ElementRef, private renderer: Renderer2) {}
-    ngOnInit(): void {
-        InitAnimateOnScroll();
+    ngAfterViewInit(): void {
+            initializeThemeSwitcher();
     }
 
     toggleNavbar() {

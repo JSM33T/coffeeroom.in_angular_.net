@@ -53,10 +53,10 @@ import { Observable } from 'rxjs';
 
                         <div class="col-sm-12 pt-2">
                             <!-- <button
-                class="btn btn-lg btn-primary"
-                type="submit"
-                [disabled]="contactForm.invalid"
-              > -->
+                                class="btn btn-lg btn-primary"
+                                type="submit"
+                                [disabled]="contactForm.invalid"
+                            > -->
                             <button class="btn btn-lg btn-primary" type="submit">
                                 <span *ngIf="isLoading">
                                     <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
@@ -90,8 +90,6 @@ export class ContactComponent implements OnInit, OnDestroy {
         this.loadingBarState = this.loadingBar.useRef();
 
         this.loadingBarState.start();
-        InitAnimateOnScroll();
-        InitSmoothScroll();
         this.loadingBarState.complete();
     }
 
@@ -102,7 +100,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     onSubmit(): void {
         this.isLoading = true;
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/messages/add', this.formData);
-        handleResponse(response$).subscribe({
+        handleResponse(response$,true).subscribe({
             next: () => {
                 this.isLoading = false;
             },

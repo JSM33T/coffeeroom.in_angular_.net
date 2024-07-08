@@ -53,7 +53,7 @@ export class AppComponent implements OnInit {
     }
 
     shouldDisplayFooter(): boolean {
-        return !['/auth/login', '/auth/signup', '/auth'].includes(this.router.url);
+        return !['/auth/login', '/auth/signup', '/auth','/theme'].includes(this.router.url);
     }
 
     removeActiveClass() {
@@ -76,32 +76,29 @@ export class AppComponent implements OnInit {
       }
 
     ngOnInit() {
-        initializeThemeSwitcher();
+        
         initializeBindedContentToggle();
-
         setTimeout(() => {
             this.removeActiveClass();
         }, 2000);
-
-        setTimeout(() => {
-            //this.overrideGlobalStyles();
-        }, 7000);
 
         this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
             window.scrollTo({ top: 0 });
             InitSmoothScroll();
             InitAnimateOnScroll();
             initializeScrollToTop();
-            initParallax();
+            hideOffcanvas();
         });
     }
 }
 
+
 function hideOffcanvas() {
-    const offcanvasElement = document.getElementById('thisone');
-    if (offcanvasElement) {
-        //@ts-ignore
-        const offcanvasInstance = Offcanvas.getInstance(offcanvasElement) || new Offcanvas(offcanvasElement);
+    var offcanvasElement = document.getElementById('customizer');
+    //@ts-ignore
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+    //@ts-ignore
+    if (offcanvasElement?.classList.contains('show')) {
         offcanvasInstance.hide();
     }
 }
