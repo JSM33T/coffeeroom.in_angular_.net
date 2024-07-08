@@ -75,8 +75,8 @@ builder.Services.AddAuthentication(options =>
 #endregion
 
 builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keys")) // Specify the directory where keys will be stored
-    .SetApplicationName("AlmondcoveApp"); // Optional: Set an application name to isolate keys between different apps
+    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keys"))
+    .SetApplicationName("AlmondcoveApp");
 
 
 var rateLimitingOptions = new RateLimitingOptions();

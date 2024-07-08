@@ -18,14 +18,13 @@ namespace Almondcove.Base.Controllers.Dedicated
 
 
         [HttpPost("add")]
-        [Authorize(Roles = "user")]
         #region SIGNUP CONTROLLER
         public async Task<IActionResult> Post([FromBody] MessageAddRequest request)
         {
             int statCode = StatusCodes.Status400BadRequest;
             string message = "";
             List<string> errors = [];
-            _logger.LogError("checkkk");
+            
             return await ExecuteActionAsync(async () =>
             {
                 #region MAP MailingListRequest -> MailingList

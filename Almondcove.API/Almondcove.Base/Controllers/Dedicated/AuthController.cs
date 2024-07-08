@@ -132,7 +132,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                 statCode = result switch
                 {
                      1 => StatusCodes.Status200OK,
-                    -1 => StatusCodes.Status401Unauthorized,
+                    -1 => StatusCodes.Status400BadRequest,
                     -2 => StatusCodes.Status403Forbidden,
                     -3 => StatusCodes.Status403Forbidden,
                     _  => StatusCodes.Status500InternalServerError
