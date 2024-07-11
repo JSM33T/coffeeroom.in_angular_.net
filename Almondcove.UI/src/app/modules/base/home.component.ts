@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import InitSmoothScroll from '../../library/invokers/smooth-scroll';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 import Initswiper from '../../library/invokers/swiper';
-import InitLightGallery from '../../library/invokers/light-gallery';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import initParallax from '../../library/invokers/parallax';
 
@@ -242,7 +239,6 @@ export class HomeComponent implements OnInit {
         this.loadingBarState.start();
         initParallax();
         Initswiper();
-        InitLightGallery();
         this.loadingBarState.complete();
     }
 }
