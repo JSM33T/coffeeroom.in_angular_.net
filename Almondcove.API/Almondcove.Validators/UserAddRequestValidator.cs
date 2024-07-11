@@ -27,6 +27,9 @@ namespace Almondcove.Validators
                 .Must((user, password) => password != user.FirstName).WithMessage("Password cannot be the same as the first name")
                 .Must((user, password) => password != user.Username).WithMessage("Password cannot be the same as the username");
 
+            RuleFor(x => x.PasswordConfirm)
+                .Equal(x => x.Password).WithMessage("Passwords do not match");
+
         }
     }
 }

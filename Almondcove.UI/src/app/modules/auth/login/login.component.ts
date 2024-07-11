@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../../../models/api-response.model';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { HttpService } from '../../../services/http.service';
 import { handleResponse } from '../../../library/utility/response-handler';
+import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +21,7 @@ import { handleResponse } from '../../../library/utility/response-handler';
                     <h1>Sign in to Around</h1>
                     <p class="pb-3 mb-3 mb-lg-4">
                         Don't have an account yet?&nbsp;&nbsp;
-                        <a href="account-signup.html">Login here!</a>
+                        <a routerLink="/auth/signup">SignUp here!</a>
                     </p>
                     <form class="row g-4 needs-validation" (ngSubmit)="onSubmit()" #loginForm="ngForm">
                         <div class="pb-3 mb-3">
@@ -65,7 +66,7 @@ import { handleResponse } from '../../../library/utility/response-handler';
                 <!-- Copyright -->
                 <p class="nav w-100 fs-sm pt-5 mt-auto mb-5" style="max-width: 526px;">
                     <span class="text-body-secondary">&copy; All rights reserved. Made by</span>
-                    <a class="nav-link d-inline-block p-0 ms-1" href="https://createx.studio/" target="_blank" rel="noopener">Createx Studio</a>
+                    <a class="nav-link d-inline-block p-0 ms-1" href="https://jsm33t.in" target="_blank" rel="noopener">Almondcove</a>
                 </p>
             </div>
 
@@ -74,8 +75,11 @@ import { handleResponse } from '../../../library/utility/response-handler';
         </div>
     `,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
     constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+    ngOnInit(): void {
+        InitTogglePassword();
+    }
 
     loadingBarState: any;
     isLoading = false;

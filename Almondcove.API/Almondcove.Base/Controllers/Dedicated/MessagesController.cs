@@ -18,7 +18,8 @@ namespace Almondcove.Base.Controllers.Dedicated
 
 
         [HttpPost("add")]
-        #region SIGNUP CONTROLLER
+        [AllowAnonymous]
+        #region MESSAGE CONTROLLER
         public async Task<IActionResult> Post([FromBody] MessageAddRequest request)
         {
             int statCode = StatusCodes.Status400BadRequest;

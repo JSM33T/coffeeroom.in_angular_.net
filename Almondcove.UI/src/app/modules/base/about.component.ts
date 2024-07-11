@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
-import InitSmoothScroll from '../../library/invokers/smooth-scroll';
-import initParallax from '../../library/invokers/parallax';
 import { LoadingBarService } from '@ngx-loading-bar/core';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-about',
@@ -132,12 +130,18 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 })
 export class AboutComponent implements OnInit {
     loadingBarState: any;
-    constructor(private loadingBar: LoadingBarService) {}
+    constructor(private loadingBar: LoadingBarService,private titleService: Title, private metaService: Meta) {}
     ngOnInit(): void {
+        
+        this.titleService.setTitle('About');
+        this.metaService.updateTag({ name: 'description', content: 'About almondcove' });
+        this.metaService.updateTag({ name: 'keywords', content: 'my space, blogs, archives, jsm33t, almondcove' });
+
         this.loadingBarState = this.loadingBar.useRef();
 
         this.loadingBarState.start();
         this.loadingBarState.complete();
+        
     }
 
     socialLinks = [

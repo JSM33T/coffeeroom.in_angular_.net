@@ -10,12 +10,12 @@ namespace Almondcove.Services
         public async Task SetUserClaims(HttpContext httpContext, UserClaims userClaims)
         {
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, userClaims.Username),
-            new Claim(ClaimTypes.Email, userClaims.Email),
-            new Claim(ClaimTypes.NameIdentifier, userClaims.Id.ToString()),
-            new Claim("Role", userClaims.Role)
-        };
+            {
+                new(ClaimTypes.Name, userClaims.Username),
+                new(ClaimTypes.Email, userClaims.Email),
+                new(ClaimTypes.NameIdentifier, userClaims.Id.ToString()),
+                new("Role", userClaims.Role)
+            };
 
             var identity = new ClaimsIdentity(claims, "Custom");
             var principal = new ClaimsPrincipal(identity);

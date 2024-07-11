@@ -1,9 +1,15 @@
+use almondcove_db
+GO
 --=====================================================================
 --tblMessages
 DROP TABLE IF EXISTS tblMessages
 DROP TABLE IF EXISTS tblUsers
 DROP TABLE IF EXISTS tblRoles
 DROP TABLE IF EXISTS tblAvatars
+DROP TABLE IF EXISTS tblBlogCategories
+DROP TABLE IF EXISTS tblBlogSeries
+DROP TABLE IF EXISTS tblBlogPosts
+DROP TABLE IF EXISTS tblBlogAuthors
 
 --=====================================================================
 --schema
@@ -299,3 +305,79 @@ BEGIN
         SET @Result = -4; -- Invalid OTP
     END
 END
+GO
+
+--=====================================================================
+--tblBlogCategories
+--=====================================================================
+CREATE TABLE [dbo].tblBlogCategories (
+    Id				INT PRIMARY KEY,
+    [Name]			NVARCHAR(64),
+	Slug			NVARCHAR(64),
+    [Description]   NVARCHAR(128),
+    DateAdded		DATETIME DEFAULT (GETDATE())
+
+	CONSTRAINT UQ_tblBlogCategories_Slug UNIQUE (Slug)
+);
+GO
+--=====================================================================
+-- Seed Data for tblBlogCategories
+--=====================================================================
+INSERT INTO dbo.tblBlogCategories (Id, [Name], Slug, [Description])
+VALUES (0, 'Uncategorized', 'uncategorized', 'Default category');
+GO
+
+--=====================================================================
+--tblBlogSeries
+--=====================================================================
+CREATE TABLE [dbo].tblBlogSeries (
+    Id				INT PRIMARY KEY,
+    [Name]			NVARCHAR(64),
+	Slug			NVARCHAR(64),
+    [Description]   NVARCHAR(128),
+    DateAdded		DATETIME DEFAULT (GETDATE())
+
+	CONSTRAINT UQ_tblBlogSeries_Slug UNIQUE (Slug)
+);
+GO
+
+--=====================================================================
+-- Seed Data for tblBlogSeries
+--=====================================================================
+INSERT INTO [dbo].[tblBlogSeries] (Id, [Name], Slug, [Description], DateAdded)
+VALUES (0, 'Uncategorized', 'uncategorized', 'Default series', GETDATE());
+GO
+
+--=====================================================================
+--tblBlogPosts
+--=====================================================================
+CREATE TABLE [dbo].tblBlogPosts (
+    Id				INT PRIMARY KEY,
+    Title			NVARCHAR(128),
+	Slug			NVARCHAR(128),
+    [Description]   NVARCHAR(128),
+	Tags			NVARCHAR(128),
+	Content			NVARCHAR(MAX),
+
+	BlogSeriesId	INT NOT NULL DEFAULT(0),
+	BlogCategory	INT NOT NULL DEFAULT(0),
+
+	IsActive		BIT NOT NULL DEFAULT(0),
+    DateAdded		DATETIME DEFAULT (GETDATE())
+
+	CONSTRAINT UQ_tblBlogPosts_Slug UNIQUE (Slug)
+);
+GO
+
+--=====================================================================
+--tblBlogAuthors
+--=====================================================================
+CREATE TABLE [dbo].tblBlogAuthors (
+    Id				INT PRIMARY KEY,
+    BlogId			NVARCHAR(64),
+	UserId			NVARCHAR(64),
+    DateAdded		DATETIME DEFAULT (GETDATE())
+
+	CONSTRAINT UQ_tblBlogAuthors_Authors UNIQUE (BlogId,UserId)
+);
+GO

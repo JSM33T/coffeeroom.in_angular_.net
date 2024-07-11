@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import lgZoom from 'lightgallery/plugins/zoom';
 import { BeforeSlideDetail } from 'lightgallery/lg-events';
@@ -19,10 +19,13 @@ interface GalleryItem {
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
+    ngOnInit(): void {
+        
+    }
     settings: any = {
         counter: false,
-        plugins: [lgZoom, lgFullscreen, lgVideo, lgPager],
+        plugins: [lgZoom, lgFullscreen, lgVideo],
         mode: 'lg-slide,lg-events',
         speed: 600,
         thumbnail: true,

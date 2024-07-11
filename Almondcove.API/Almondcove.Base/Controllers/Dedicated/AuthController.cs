@@ -29,7 +29,7 @@ namespace Almondcove.Base.Controllers.Dedicated
         {
             int statCode = StatusCodes.Status400BadRequest;
 
-            string message = "";
+            string message = "Error";
             List<string> errors = [];
 
             #region MAP UserAddRequest -> User
@@ -49,14 +49,26 @@ namespace Almondcove.Base.Controllers.Dedicated
             {
                 int res = await _userRepo.SignUpUser(user);
 
-                message = res switch
+                //message = res switch
+                //{
+                //    0   => "Username Exists",
+                //    -1  => "Email Exists",
+                //    _   => "Signed up successfully"
+                //};
+                switch (res)
                 {
-                    0   => "Username Exists",
-                    -1  => "Email Exists",
-                    _   => "Signed up successfully"
-                };
+                    case 0:
+                        errors.Add("Username Exists");
+                        break;
+                    case -1:
+                        errors.Add("Email Exists");
+                        break;
+                    default:
+                        message = "Signed up successfully";
+                        break;
+                }
 
-                statCode = res > 0 ? StatusCodes.Status200OK : StatusCodes.Status409Conflict;
+                statCode = errors.Count == 0 ? StatusCodes.Status200OK : StatusCodes.Status409Conflict;
 
                 return (statCode, 0, message, errors);
 
@@ -71,7 +83,7 @@ namespace Almondcove.Base.Controllers.Dedicated
         {
             int statCode = StatusCodes.Status400BadRequest;
             string message = "";
-            List<string> errors = new();
+            List<string> errors = [];
 
             #region MAP UserVerifyRequest -> User
             #endregion

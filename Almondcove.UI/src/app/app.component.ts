@@ -10,10 +10,13 @@ import { filter } from 'rxjs';
 import InitAnimateOnScroll from './library/invokers/animate-on-scroll';
 import initParallax from './library/invokers/parallax';
 import InitSmoothScroll from './library/invokers/smooth-scroll';
+import SetTheme from './library/invokers/settheme';
+import setTheme from './library/invokers/settheme';
 
 @Component({
     selector: 'app-root',
     template: `
+    <!-- <app-ambience></app-ambience> -->
         <main class="page-wrapper">
             <div class="page-loading active">
                 <div class="page-loading-inner">
@@ -61,23 +64,9 @@ export class AppComponent implements OnInit {
         this.renderer.removeClass(loadingElement, 'active');
     }
 
-    overrideGlobalStyles() {
-        const customStyleElement = document.getElementById('customStyle') as HTMLStyleElement;
-        const customFontFamilyElement = document.getElementById('customFontFamily') as HTMLLinkElement;
-    
-        if (customStyleElement) {
-          customStyleElement.innerHTML = ":root { --ar-root-font-size: 1.05rem; }";
-        }
-    
-        if (customFontFamilyElement) {
-          customFontFamilyElement.href = "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap";
-        } else {
-        }
-      }
-
     ngOnInit() {
-        
         initializeBindedContentToggle();
+        setTheme();
         setTimeout(() => {
             this.removeActiveClass();
         }, 2000);

@@ -10,6 +10,7 @@ export default function acServerToast(response: APIResponse<any>) {
         401: 'Unauthorized',
         403: 'Forbidden',
         404: 'Not Found',
+        410: 'Expired',
         500: 'Server Error',
         429: 'Spam detected',
         // Add more status codes and their corresponding titles as needed

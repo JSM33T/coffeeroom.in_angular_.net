@@ -24,9 +24,10 @@ import { FaqComponent } from './modules/base/faq.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { ThemeComponent } from './modules/base/theme.component';
 import { EmailCTA } from './components/emailcta.component';
+import { AmbienceComponent } from './shared/ambience/ambience.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent,BloghomeComponent, BloghomesidepanelComponent,EmailCTA, ThemeComponent],
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent,BloghomeComponent, BloghomesidepanelComponent,EmailCTA, ThemeComponent, AmbienceComponent],
     imports: [BrowserModule, AppRoutingModule, HttpClientModule, LoadingBarModule, LoadingBarHttpClientModule, LoadingBarRouterModule, FormsModule, ServiceWorkerModule.register('ngsw-worker.js', {
   enabled: !isDevMode(),
   // Register the ServiceWorker as soon as the application is stable

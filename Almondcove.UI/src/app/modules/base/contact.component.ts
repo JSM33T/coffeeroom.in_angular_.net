@@ -6,6 +6,7 @@ import { HttpService } from '../../services/http.service';
 import { handleResponse } from '../../library/utility/response-handler';
 import { APIResponse } from '../../models/api-response.model';
 import { Observable } from 'rxjs';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-contact',
@@ -84,9 +85,15 @@ export class ContactComponent implements OnInit, OnDestroy {
     constructor(
         private loadingBar: LoadingBarService,
         private httpService: HttpService,
+        private titleService: Title, private metaService: Meta
     ) {}
 
     ngOnInit(): void {
+
+        this.titleService.setTitle('About');
+        this.metaService.updateTag({ name: 'description', content: 'About almondcove' });
+        this.metaService.updateTag({ name: 'keywords', content: 'my space, blogs, archives, jsm33t, almondcove' });
+
         this.loadingBarState = this.loadingBar.useRef();
 
         this.loadingBarState.start();

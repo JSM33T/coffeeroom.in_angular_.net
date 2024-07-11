@@ -18,10 +18,9 @@ namespace Almondcove.Validators
                 .MaximumLength(128).WithMessage("Email cannot exceed 128 characters");
 
             RuleFor(x => x.OTP)
-                .NotEmpty().WithMessage("OTP is required")
-                .InclusiveBetween(0000, 9999).WithMessage("OTP must be a 4-digit number");
-
-
+                 .NotEmpty().WithMessage("OTP is required")
+                 .Must(otp => otp != null && otp.Length == 4 && int.TryParse(otp.ToString(), out _))
+                 .WithMessage("OTP must be a 4-digit number");
         }
     }
 }

@@ -118,7 +118,7 @@ import Initswiper from '../../library/invokers/swiper';
                                             <img class="d-block d-dark-mode-none" src="https://around.createx.studio/assets/img/portfolio/brands/deloitte-dark.svg" width="95" alt="Deloitte" />
                                             <img class="d-none d-dark-mode-block" src="https://around.createx.studio/assets/img/portfolio/brands/deloitte-light.svg" width="95" alt="Deloitte" />
                                         </div>
-                                        <a class="btn btn-sm btn-outline-dark fs-sm rounded-pill" href="portfolio-single-v1.html">Read the full story</a>
+                                        <a class="btn btn-sm btn-outline-dark fs-sm rounded-pill">Read the full story</a>
                                     </div>
                                 </div>
                             </div>
