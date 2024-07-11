@@ -5,9 +5,9 @@ export default function setTheme() {
     if (themeStyleData != null && themeFontData != null) {
         console.log(themeFontData);
         const themeStyle = document.getElementById('customStyle') as HTMLDivElement;
-        const themeFont = document.getElementById('customFontFamily') as HTMLLinkElement;
+        //const themeFont = document.getElementById('customFontFamily') as HTMLLinkElement;
 
-        themeFont.href = themeFontData;
+        //themeFont.href = themeFontData;
 
         themeStyle.innerHTML = themeStyleData;
     }
