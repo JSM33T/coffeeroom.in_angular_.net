@@ -29,10 +29,6 @@ const routes: Routes = [
         component: ThemeComponent,
     },
     {
-        path: 'gallery',
-        loadChildren: () => import('./modules/gallery/gallery.module').then((m) => m.GalleryModule),
-    },
-    {
         path: 'blog',
         loadChildren: () => import('./modules/blog/blog.module').then((m) => m.BlogModule),
     },
