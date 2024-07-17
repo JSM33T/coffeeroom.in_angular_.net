@@ -2,6 +2,7 @@
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
 using Almondcove.Services;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -180,5 +181,27 @@ namespace Almondcove.Base.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
         #endregion
+
+
+        [HttpPost("google-login")]
+        public async Task<ActionResult> GoogleLogin([FromBody] GoogleLoginDto model)
+        {
+            var idtoken = model.IdToken;
+            var setting = new GoogleJsonWebSignature.ValidationSettings
+            {
+                Audience = new string[] { "881148390473-rodjtppcckgpft8guo2bkttnlcg5gmb2.apps.googleusercontent.com" }
+            };
+            var result = await GoogleJsonWebSignature.ValidateAsync(idtoken, setting);
+            if (result is null)
+            {
+                return BadRequest();
+            }
+            var token = result.Email;
+            return Ok(new { token = token });
+        }
+    }
+    public class GoogleLoginDto
+    {
+        public string IdToken { get; set; }
     }
 }
