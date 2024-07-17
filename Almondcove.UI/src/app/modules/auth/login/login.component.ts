@@ -5,8 +5,6 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { HttpService } from '../../../services/http.service';
 import { handleResponse } from '../../../library/utility/response-handler';
 import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
-import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -20,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
             <!-- Sign in form -->
             <div class="d-flex flex-column align-items-center w-lg-50 h-100 px-3 px-lg-5 pt-5">
                 <div class="w-100 mt-auto" style="max-width: 526px;">
-                    <h1>Sign in to Around</h1>
+                    <h1>Sign in to Almondcove</h1>
                     <p class="pb-3 mb-3 mb-lg-4">
                         Don't have an account yet?&nbsp;&nbsp;
                         <a routerLink="/auth/signup">SignUp here!</a>
@@ -79,7 +77,7 @@ import { HttpClient } from '@angular/common/http';
     `,
 })
 export class LoginComponent implements OnInit{
-    constructor(private loadingBar: LoadingBarService, private httpService: HttpService,private authService : SocialAuthService,private http : HttpClient) {}
+    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
     ngOnInit(): void {
         InitTogglePassword();
     }
@@ -87,9 +85,6 @@ export class LoginComponent implements OnInit{
     loadingBarState: any;
     isLoading = false;
 
-    user: any ;
-    loggedIn: boolean = false;
-    
     formData = {
         username: '',
         password: '',
@@ -112,21 +107,4 @@ export class LoginComponent implements OnInit{
             },
         });
     }
-
-    signInWithGoogle(): void {
-        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
-          this.user = user;
-          this.loggedIn = (user != null);
-          if (this.loggedIn) {
-            this.sendTokenToBackend(user.idToken);
-          }
-        });
-      }
-
-      sendTokenToBackend(token: string): void {
-        this.http.post('http://localhost:5176/api/auth/google-login', { token: token })
-          .subscribe(response => {
-            // Handle the response from the backend
-          });
-      }
 }
