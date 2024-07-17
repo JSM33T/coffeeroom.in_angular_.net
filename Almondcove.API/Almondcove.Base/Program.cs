@@ -74,9 +74,9 @@ builder.Services.AddAuthentication(options =>
 });
 #endregion
 
-builder.Services.AddDataProtection()
-    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keys"))
-    .SetApplicationName("AlmondcoveApp");
+//builder.Services.AddDataProtection()
+//    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keys"))
+//    .SetApplicationName("AlmondcoveApp");
 
 
 var rateLimitingOptions = new RateLimitingOptions();

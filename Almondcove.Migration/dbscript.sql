@@ -140,7 +140,7 @@ GO
 
 -- usp_SignUpUser 'jsm33t','Jasmeet' ,'','jskainthofficial@gmail.com','asfhdkfjhasdkjlfhldjk'
 
-ALTER   PROCEDURE [dbo].[usp_SignUpUser]
+CREATE OR ALTER   PROCEDURE [dbo].[usp_SignUpUser]
     @Username			NVARCHAR(64),
     @FirstName			NVARCHAR(64),
     @LastName			NVARCHAR(64) = NULL,
@@ -178,7 +178,7 @@ GO
 
 -- usp_GetUsers
 
-ALTER PROCEDURE [dbo].[usp_GetUserClaims]
+CREATE OR ALTER PROCEDURE [dbo].[usp_GetUserClaims]
     @Username NVARCHAR(64),
     @Password NVARCHAR(256), -- Assuming you hash the password before passing it to the SP
     @Result INT OUTPUT
