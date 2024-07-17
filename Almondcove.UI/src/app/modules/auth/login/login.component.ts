@@ -5,6 +5,8 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { HttpService } from '../../../services/http.service';
 import { handleResponse } from '../../../library/utility/response-handler';
 import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
+import { GoogleLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -23,6 +25,7 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
                         Don't have an account yet?&nbsp;&nbsp;
                         <a routerLink="/auth/signup">SignUp here!</a>
                     </p>
+                  
                     <form class="row g-4 needs-validation" (ngSubmit)="onSubmit()" #loginForm="ngForm">
                         <div class="pb-3 mb-3">
                             <div class="position-relative">
@@ -76,13 +79,17 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
     `,
 })
 export class LoginComponent implements OnInit{
-    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+    constructor(private loadingBar: LoadingBarService, private httpService: HttpService,private authService : SocialAuthService,private http : HttpClient) {}
     ngOnInit(): void {
         InitTogglePassword();
     }
 
     loadingBarState: any;
     isLoading = false;
+
+    user: any ;
+    loggedIn: boolean = false;
+    
     formData = {
         username: '',
         password: '',
@@ -94,6 +101,7 @@ export class LoginComponent implements OnInit{
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/login', this.formData);
         handleResponse(response$,true).subscribe({
             next: (response) => {
+                
                 this.isLoading = false;
                 if (response.status == 200) {
                     localStorage.setItem('token', response.data.token);
@@ -104,4 +112,21 @@ export class LoginComponent implements OnInit{
             },
         });
     }
+
+    signInWithGoogle(): void {
+        this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(user => {
+          this.user = user;
+          this.loggedIn = (user != null);
+          if (this.loggedIn) {
+            this.sendTokenToBackend(user.idToken);
+          }
+        });
+      }
+
+      sendTokenToBackend(token: string): void {
+        this.http.post('http://localhost:5176/api/auth/google-login', { token: token })
+          .subscribe(response => {
+            // Handle the response from the backend
+          });
+      }
 }
