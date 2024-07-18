@@ -4,7 +4,6 @@ import { initializeThemeSwitcher } from './library/invokers/theme-switcher';
 import { initializeNavbarToggle } from './library/invokers/navbar-toggle';
 import { initializeScrollToTop } from './library/invokers/back-to-top';
 import { initializeBindedContentToggle } from './library/invokers/content-toggle';
-import { ScrollService } from './services/scrollinit.service.spec';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import InitAnimateOnScroll from './library/invokers/animate-on-scroll';
