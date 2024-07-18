@@ -5,7 +5,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { HttpService } from '../../../services/http.service';
 import { handleResponse } from '../../../library/utility/response-handler';
 import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
-import { HideModal, ShowModal} from '../../../library/modals/bs-helper';
+import { HideModal, ShowModal } from '../../../library/modals/bs-helper';
 import acServerToast from '../../../library/modals/server-response-modal';
 
 @Component({
@@ -15,29 +15,27 @@ import acServerToast from '../../../library/modals/server-response-modal';
         <!-- Modal -->
         <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
             <div class="modal-dialog" role="document">
-            <form (ngSubmit)="onOtpSubmit()">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">OTP</h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <div class="position-relative">
-                            <div class="d-flex justify-content-between">
+                <form (ngSubmit)="onOtpSubmit()">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">OTP</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="position-relative">
+                                <div class="d-flex justify-content-between">
                                     <input id="otp1" name="otp1" [(ngModel)]="otpData.otp1" (keyup)="moveToNext($event, 'otp1', 'otp2')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp2" name="otp2" [(ngModel)]="otpData.otp2" (keyup)="moveToNext($event, 'otp2', 'otp3')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp3" name="otp3" [(ngModel)]="otpData.otp3" (keyup)="moveToNext($event, 'otp3', 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp4" name="otp4" [(ngModel)]="otpData.otp4" (keyup)="moveToNext($event, 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                 </div>
+                            </div>
                         </div>
-                       
+                        <div class="modal-footer flex-column flex-sm-row">
+                            <button type="button" class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary w-100 w-sm-auto ms-sm-3">Submit</button>
+                        </div>
                     </div>
-                    <div class="modal-footer flex-column flex-sm-row">
-                    <button type="button" class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary w-100 w-sm-auto ms-sm-3">Submit</button>
-                    </div>
-                </div>
                 </form>
             </div>
         </div>
@@ -143,13 +141,15 @@ import acServerToast from '../../../library/modals/server-response-modal';
     `,
 })
 export class SignupComponent implements OnInit {
-    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+    constructor(
+        private loadingBar: LoadingBarService,
+        private httpService: HttpService,
+    ) {}
     ngOnInit(): void {
         InitTogglePassword();
-setTimeout(() => {
-  ShowModal('otpModal');
-}, 3000);
-
+        setTimeout(() => {
+            ShowModal('otpModal');
+        }, 3000);
     }
 
     loadingBarState: any;
@@ -163,20 +163,19 @@ setTimeout(() => {
         passwordconfirm: '',
     };
     otpData = {
-      otp1: '',
-      otp2: '',
-      otp3: '',
-      otp4: ''
+        otp1: '',
+        otp2: '',
+        otp3: '',
+        otp4: '',
     };
 
     otpSubmitData = {
-      email:'',
-      otp:''
-    }
+        email: '',
+        otp: '',
+    };
 
     onSignupSubmit(): void {
         this.isLoading = true;
-
 
         console.log(this.formData);
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/signup', this.formData);
@@ -186,7 +185,7 @@ setTimeout(() => {
                 ShowModal('otpModal');
                 const otp1Element = document.getElementById('otp1') as HTMLInputElement;
                 if (otp1Element) {
-                  otp1Element.focus();
+                    otp1Element.focus();
                 }
             },
             error: () => {
@@ -202,12 +201,12 @@ setTimeout(() => {
         this.otpSubmitData.otp = `${this.otpData.otp1}${this.otpData.otp2}${this.otpData.otp3}${this.otpData.otp4}`;
 
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/verify', this.otpSubmitData);
-        
+
         handleResponse(response$, true).subscribe({
             next: (response) => {
                 this.isLoading = false;
                 if (response.status == 200) {
-                    HideModal('otpModal')
+                    HideModal('otpModal');
                 }
             },
             error: () => {
@@ -217,14 +216,14 @@ setTimeout(() => {
     }
 
     moveToNext(event: KeyboardEvent, currentInput: string, nextInput?: string) {
-      const input = event.target as HTMLInputElement;
-      if (input.value.length === 1 && nextInput) {
-        const nextElement = document.getElementById(nextInput) as HTMLInputElement;
-        if (nextElement) {
-          nextElement.focus();
+        const input = event.target as HTMLInputElement;
+        if (input.value.length === 1 && nextInput) {
+            const nextElement = document.getElementById(nextInput) as HTMLInputElement;
+            if (nextElement) {
+                nextElement.focus();
+            }
+        } else if (input.value.length === 1 && !nextInput) {
+            input.blur();
         }
-      } else if (input.value.length === 1 && !nextInput) {
-        input.blur();
-      }
     }
 }

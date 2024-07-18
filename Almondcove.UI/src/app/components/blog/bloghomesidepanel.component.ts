@@ -4,62 +4,62 @@ import { Component } from '@angular/core';
     selector: 'app-bloghomesidepanel',
     template: `
         <!-- Sidebar (offcanvas on sreens < 992px) -->
-      
-            <div class="offcanvas-lg offcanvas-end" id="sidebarBlog">
-                <div class="offcanvas-header">
-                    <h4 class="offcanvas-title">Sidebar</h4>
-                    <button class="btn-close ms-auto" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarBlog" aria-label="Close"></button>
+
+        <div class="offcanvas-lg offcanvas-end" id="sidebarBlog">
+            <div class="offcanvas-header">
+                <h4 class="offcanvas-title">Sidebar</h4>
+                <button class="btn-close ms-auto" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarBlog" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <!-- Search box -->
+                <div class="position-relative mb-4 mb-lg-5">
+                    <i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <input class="form-control ps-5" type="search" placeholder="Enter keyword" />
                 </div>
-                <div class="offcanvas-body">
-                    <!-- Search box -->
-                    <div class="position-relative mb-4 mb-lg-5">
-                        <i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                        <input class="form-control ps-5" type="search" placeholder="Enter keyword" />
-                    </div>
 
-                    <!-- Category links -->
-                    <h4 class="pt-1 pt-lg-0 mt-lg-n2">Categories:</h4>
-                    <ul class="nav flex-column mb-lg-5 mb-4">
-                        <li class="mb-2">
-                            <a class="nav-link d-flex p-0 active" href="#">
-                                All categories
-                                <span class="fs-sm text-body-secondary ms-2">(110)</span>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="nav-link d-flex p-0" href="#">
-                                Inspiration
-                                <span class="fs-sm text-body-secondary ms-2">(34)</span>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="nav-link d-flex p-0" href="#">
-                                Brand strategy
-                                <span class="fs-sm text-body-secondary ms-2">(8)</span>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="nav-link d-flex p-0" href="#">
-                                Advertisement
-                                <span class="fs-sm text-body-secondary ms-2">(45)</span>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="nav-link d-flex p-0" href="#">
-                                Ecommerce
-                                <span class="fs-sm text-body-secondary ms-2">(17)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="nav-link d-flex p-0" href="#">
-                                Travel &amp; Vacation
-                                <span class="fs-sm text-body-secondary ms-2">(6)</span>
-                            </a>
-                        </li>
-                    </ul>
+                <!-- Category links -->
+                <h4 class="pt-1 pt-lg-0 mt-lg-n2">Categories:</h4>
+                <ul class="nav flex-column mb-lg-5 mb-4">
+                    <li class="mb-2">
+                        <a class="nav-link d-flex p-0 active" href="#">
+                            All categories
+                            <span class="fs-sm text-body-secondary ms-2">(110)</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="nav-link d-flex p-0" href="#">
+                            Inspiration
+                            <span class="fs-sm text-body-secondary ms-2">(34)</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="nav-link d-flex p-0" href="#">
+                            Brand strategy
+                            <span class="fs-sm text-body-secondary ms-2">(8)</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="nav-link d-flex p-0" href="#">
+                            Advertisement
+                            <span class="fs-sm text-body-secondary ms-2">(45)</span>
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a class="nav-link d-flex p-0" href="#">
+                            Ecommerce
+                            <span class="fs-sm text-body-secondary ms-2">(17)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link d-flex p-0" href="#">
+                            Travel &amp; Vacation
+                            <span class="fs-sm text-body-secondary ms-2">(6)</span>
+                        </a>
+                    </li>
+                </ul>
 
-                    <!-- Featured posts widget -->
-                    <!-- <h4 class="pt-3 pt-lg-0 pb-1">Trending posts:</h4>
+                <!-- Featured posts widget -->
+                <!-- <h4 class="pt-3 pt-lg-0 pb-1">Trending posts:</h4>
                     <div class="mb-lg-5 mb-4">
                         <article class="position-relative d-flex align-items-center mb-4">
                             <img class="rounded" src="assets/img/blog/sidebar/01.jpg" width="92" alt="Post image" />
@@ -90,8 +90,8 @@ import { Component } from '@angular/core';
                         </article>
                     </div> -->
 
-                    <!-- Social buttons -->
-                    <!-- <h4 class="pt-3 pt-lg-0 pb-1">Join us:</h4>
+                <!-- Social buttons -->
+                <!-- <h4 class="pt-3 pt-lg-0 pb-1">Join us:</h4>
                     <div class="d-flex mt-n3 ms-n3 mb-lg-5 mb-4 pb-3 pb-lg-0">
                         <a class="btn btn-secondary btn-icon btn-sm btn-instagram rounded-circle mt-3 ms-3" href="#" aria-label="Instagram">
                             <i class="ai-instagram"></i>
@@ -114,9 +114,8 @@ import { Component } from '@angular/core';
                         </div>
                         <img class="rounded-5" src="assets/img/blog/sidebar/banner.jpg" alt="Banner" />
                     </div> -->
-                </div>
             </div>
-     
+        </div>
     `,
 })
 export class BloghomesidepanelComponent {}

@@ -125,7 +125,6 @@ namespace Almondcove.Base.Controllers.Dedicated
         #region LOGIN CONTROLLER
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
-
             int statCode = StatusCodes.Status400BadRequest;
             string message = "";
             List<string> errors = [];
@@ -157,9 +156,9 @@ namespace Almondcove.Base.Controllers.Dedicated
                        {
                             new Claim(ClaimTypes.Email, userClaims.Email),
                             new Claim(ClaimTypes.Role, userClaims.Role),
-                            //new Claim("UserName", userClaims.FirstName),
-                            //new Claim("FirstName", userClaims.FirstName),
-                            //new Claim("LastName", userClaims.LastName),
+                            new Claim("UserName", userClaims.FirstName),
+                            new Claim("FirstName", userClaims.FirstName),
+                            new Claim("LastName", userClaims.LastName),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
@@ -170,7 +169,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                         issuer: _config.CurrentValue.JwtSettings.ValidIssuer,
                         audience: _config.CurrentValue.JwtSettings.ValidAudience,
                         claims: claims,
-                        expires: DateTime.Now.AddMinutes(30),
+                        expires: DateTime.Now.AddDays(7),
                         signingCredentials: creds);
 
                     userClaims.Token = new JwtSecurityTokenHandler().WriteToken(token);

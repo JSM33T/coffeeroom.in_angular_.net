@@ -1,18 +1,22 @@
-export default function setTheme() {
-    const themeStyleData = localStorage.getItem('themeStyle');
-    const themeFontData = localStorage.getItem('themeFont');
+export default function setTheme(): void {
+    const themeData = localStorage.getItem('themeData');
 
-    if (themeStyleData != null && themeFontData != null) {
-        console.log(themeFontData);
-        const themeStyle = document.getElementById('customStyle') as HTMLDivElement;
-        //const themeFont = document.getElementById('customFontFamily') as HTMLLinkElement;
+    if (themeData != null) {
+        const theme = JSON.parse(themeData);
+        const themeStyleData = theme.string;
+        const themeFontData = theme.font;
 
-        //themeFont.href = themeFontData;
+        // Apply the style data
+        let themeStyle = document.getElementById('customStyle') as HTMLStyleElement;
+
+        if (!themeStyle) {
+            themeStyle = document.createElement('style');
+            themeStyle.id = 'customStyle';
+            document.head.appendChild(themeStyle);
+        }
 
         themeStyle.innerHTML = themeStyleData;
-    }
-    else
-    {
-        console.log(themeFontData);
+    } else {
+        console.log('No theme data found in local storage.');
     }
 }

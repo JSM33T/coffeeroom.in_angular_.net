@@ -17,4 +17,3 @@ export function handleResponse(observable: Observable<APIResponse<any>>, showToa
         }),
     );
 }
-

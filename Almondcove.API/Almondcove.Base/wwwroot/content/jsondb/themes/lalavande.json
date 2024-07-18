@@ -1,4 +1,12 @@
-{
-  "font": "https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap",
-  "string": ":root{--ar-primary:#926aa4;--ar-primary-rgb:146,106,164;--ar-root-font-size:1.05rem;--ar-border-radius:1rem;--ar-link-color:#926aa4;--ar-link-hover-color:#79518b;--ar-body-font-family:'Playwrite CU',cursive;}.btn-primary{--ar-btn-bg:#926aa4;--ar-btn-border-color:#926aa4;--ar-btn-hover-bg:#79518b;--ar-btn-hover-border-color:#79518b;--ar-btn-active-bg:#79518b;--ar-btn-active-border-color:#79518b;--ar-btn-disabled-bg:#926aa4;--ar-btn-disabled-border-color:#926aa4;}.btn-outline-primary{--ar-btn-color:#926aa4;--ar-btn-border-color:#926aa4;--ar-btn-hover-bg:#926aa4;--ar-btn-hover-border-color:#926aa4;--ar-btn-active-bg:#926aa4;--ar-btn-active-border-color:#926aa4;--ar-btn-disabled-color:#926aa4;--ar-btn-disabled-border-color:#926aa4;}.accordion-button:not(.collapsed)::after{--ar-accordion-btn-active-icon:url(\"data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='%23926aa4'%3e%3cpath%20d='M.5%206.3c.6-.6%201.6-.6%202.3%200l9.3%209.3%209.3-9.3c.6-.6%201.6-.6%202.3%200%20.6.6.6%201.6%200%202.3L13.3%2018.8c-.6.6-1.6.6-2.3%200L.8%208.5c-.9-.8-.9-1.6-.3-2.2z'/%3e%3c/svg%3e\");}"
-}
+[
+  {
+    "theme-id": 0,
+    "font": "",
+    "string": ""
+  },
+  {
+    "theme-id": 1,
+    "font": "https://fonts.googleapis.com/css2?family=Playwrite+CU:wght@100..400&display=swap",
+    "string": ":root{--ar-primary:#926aa4;--ar-primary-rgb:146,106,164;--ar-root-font-size:1.05rem;--ar-border-radius:1rem;--ar-link-color:#926aa4;--ar-link-hover-color:#79518b;--ar-body-font-family:'Playwrite CU',cursive;}.btn-primary{--ar-btn-bg:#926aa4;--ar-btn-border-color:#926aa4;--ar-btn-hover-bg:#79518b;--ar-btn-hover-border-color:#79518b;--ar-btn-active-bg:#79518b;--ar-btn-active-border-color:#79518b;--ar-btn-disabled-bg:#926aa4;--ar-btn-disabled-border-color:#926aa4;}.btn-outline-primary{--ar-btn-color:#926aa4;--ar-btn-border-color:#926aa4;--ar-btn-hover-bg:#926aa4;--ar-btn-hover-border-color:#926aa4;--ar-btn-active-bg:#926aa4;--ar-btn-active-border-color:#926aa4;--ar-btn-disabled-color:#926aa4;--ar-btn-disabled-border-color:#926aa4;}.accordion-button:not(.collapsed)::after{--ar-accordion-btn-active-icon:url(\"data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2024%2024'%20fill='%23926aa4'%3e%3cpath%20d='M.5%206.3c.6-.6%201.6-.6%202.3%200l9.3%209.3%209.3-9.3c.6-.6%201.6-.6%202.3%200%20.6.6.6%201.6%200%202.3L13.3%2018.8c-.6.6-1.6.6-2.3%200L.8%208.5c-.9-.8-.9-1.6-.3-2.2z'/%3e%3c/svg%3e\");}"
+  }
+]

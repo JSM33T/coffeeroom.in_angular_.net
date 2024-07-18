@@ -74,9 +74,14 @@ builder.Services.AddAuthentication(options =>
 });
 #endregion
 
-//builder.Services.AddDataProtection()
-//    .PersistKeysToFileSystem(new DirectoryInfo(@"C:\keys"))
-//    .SetApplicationName("AlmondcoveApp");
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.WebRootPath, "keys")))
+    .SetApplicationName("AlmondcoveApp");
 
 
 var rateLimitingOptions = new RateLimitingOptions();
@@ -115,7 +120,7 @@ builder.Services.AddRateLimiter(options =>
 
 #endregion
 
-builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+builder.Services.AddCors(o => o.AddPolicy("OpenPolicy", builder =>
 {
     builder.AllowAnyOrigin()
            .AllowAnyMethod()
@@ -124,8 +129,6 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 
 
 builder.Services.AddEndpointsApiExplorer();
-
-
 
 var app = builder.Build();
 
@@ -138,13 +141,15 @@ else
     
 }
 
-app.UseCors("MyPolicy");
+app.UseCors("OpenPolicy");
 app.UseHttpsRedirection();
 app.UseMiddleware<AcValidationMiddleware>();
 app.UseStaticFiles();
 app.UseRateLimiter();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

@@ -34,7 +34,7 @@ import initParallax from '../../library/invokers/parallax';
                 </div>
             </div>
         </section>
-      
+
         <!-- Services -->
         <section class="bg-secondary py-5">
             <div class="container py-3 py-sm-4 py-lg-5 my-md-2 my-lg-3 my-xl-4 my-xxl-5">

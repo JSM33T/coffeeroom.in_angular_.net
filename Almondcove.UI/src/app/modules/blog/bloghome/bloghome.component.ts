@@ -192,10 +192,9 @@ import InitSmoothScroll from '../../../library/invokers/smooth-scroll';
                         </div>
                     </div>
                 </div>
-<aside class="col-lg-3">
-<app-bloghomesidepanel></app-bloghomesidepanel>
-</aside>
-               
+                <aside class="col-lg-3">
+                    <app-bloghomesidepanel></app-bloghomesidepanel>
+                </aside>
             </div>
         </div>
 

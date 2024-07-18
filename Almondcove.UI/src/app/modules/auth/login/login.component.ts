@@ -23,7 +23,7 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
                         Don't have an account yet?&nbsp;&nbsp;
                         <a routerLink="/auth/signup">SignUp here!</a>
                     </p>
-                  
+
                     <form class="row g-4 needs-validation" (ngSubmit)="onSubmit()" #loginForm="ngForm">
                         <div class="pb-3 mb-3">
                             <div class="position-relative">
@@ -76,8 +76,11 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
         </div>
     `,
 })
-export class LoginComponent implements OnInit{
-    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+export class LoginComponent implements OnInit {
+    constructor(
+        private loadingBar: LoadingBarService,
+        private httpService: HttpService,
+    ) {}
     ngOnInit(): void {
         InitTogglePassword();
     }
@@ -94,9 +97,8 @@ export class LoginComponent implements OnInit{
         this.isLoading = true;
         console.log(this.formData);
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/login', this.formData);
-        handleResponse(response$,true).subscribe({
+        handleResponse(response$, true).subscribe({
             next: (response) => {
-                
                 this.isLoading = false;
                 if (response.status == 200) {
                     localStorage.setItem('token', response.data.token);

@@ -11,4 +11,3 @@ export function HideModal(id: string) {
     const myModal = new bootstrap.Modal(modalElement);
     myModal.hide();
 }
-

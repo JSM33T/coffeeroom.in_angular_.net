@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
                 <div class="row align-items-center py-2 py-sm-3">
                     <div class="col-md-4 order-md-2 mb-4 mb-md-0">
                         <div class="d-flex justify-content-center justify-content-md-end gap-3">
-                           
                             <div class="d-flex justify-content-center justify-content-md-start me-md-n2">
                                 <a *ngFor="let link of socialLinks" class="btn btn-icon btn-sm btn-secondary rounded-circle mx-2" [ngClass]="link.class" [href]="link.url" target="_blank" [attr.aria-label]="link.label">
                                     <i [ngClass]="link.icon"></i>

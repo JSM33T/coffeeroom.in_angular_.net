@@ -27,7 +27,7 @@ import { Component } from '@angular/core';
                     <h5 class="mb-0">Accessibility</h5>
                 </div>
                 <div class="mb-4">
-                <label class="d-flex w-100  text-mute fs-sm fw-medium pt-1 mb-2" for="border-width">coming soon: font size, font family</label>
+                    <label class="d-flex w-100  text-mute fs-sm fw-medium pt-1 mb-2" for="border-width">coming soon: font size, font family</label>
                 </div>
                 <div class="mt-4 d-flex align-items-center mt-n2 mb-3">
                     <i class="ai-maximize text-body-secondary fs-5 me-2"></i>

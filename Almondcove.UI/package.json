@@ -25,7 +25,6 @@
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-loading-bar/router": "^6.0.2",
-    "@popperjs/core": "^2.11.8",
     "aos": "^2.3.4",
     "parallax-js": "^3.1.0",
     "rxjs": "~7.8.0",

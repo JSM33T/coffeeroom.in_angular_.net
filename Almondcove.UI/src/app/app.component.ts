@@ -12,11 +12,12 @@ import initParallax from './library/invokers/parallax';
 import InitSmoothScroll from './library/invokers/smooth-scroll';
 import SetTheme from './library/invokers/settheme';
 import setTheme from './library/invokers/settheme';
+import { environment } from '../environments/environment';
 
 @Component({
     selector: 'app-root',
     template: `
-    <!-- <app-ambience></app-ambience> -->
+        <!-- <app-ambience></app-ambience> -->
         <main class="page-wrapper">
             <div class="page-loading active">
                 <div class="page-loading-inner">
@@ -43,7 +44,10 @@ import setTheme from './library/invokers/settheme';
     `,
 })
 export class AppComponent implements OnInit {
-    constructor(private router: Router, private renderer: Renderer2) {}
+    constructor(
+        private router: Router,
+        private renderer: Renderer2,
+    ) {}
 
     title = 'ALmondcove by Jass';
 
@@ -56,7 +60,7 @@ export class AppComponent implements OnInit {
     }
 
     shouldDisplayFooter(): boolean {
-        return !['/auth/login', '/auth/signup', '/auth','/theme'].includes(this.router.url);
+        return !['/auth/login', '/auth/signup', '/auth', '/theme'].includes(this.router.url);
     }
 
     removeActiveClass() {
@@ -69,7 +73,7 @@ export class AppComponent implements OnInit {
         setTheme();
         setTimeout(() => {
             this.removeActiveClass();
-        }, 2000);
+        }, environment.loaderWait);
 
         this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
             window.scrollTo({ top: 0 });
@@ -80,7 +84,6 @@ export class AppComponent implements OnInit {
         });
     }
 }
-
 
 function hideOffcanvas() {
     var offcanvasElement = document.getElementById('customizer');

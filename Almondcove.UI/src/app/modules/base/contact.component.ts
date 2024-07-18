@@ -85,11 +85,11 @@ export class ContactComponent implements OnInit, OnDestroy {
     constructor(
         private loadingBar: LoadingBarService,
         private httpService: HttpService,
-        private titleService: Title, private metaService: Meta
+        private titleService: Title,
+        private metaService: Meta,
     ) {}
 
     ngOnInit(): void {
-
         this.titleService.setTitle('About');
         this.metaService.updateTag({ name: 'description', content: 'About almondcove' });
         this.metaService.updateTag({ name: 'keywords', content: 'my space, blogs, archives, jsm33t, almondcove' });
@@ -107,7 +107,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     onSubmit(): void {
         this.isLoading = true;
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/messages/add', this.formData);
-        handleResponse(response$,true).subscribe({
+        handleResponse(response$, true).subscribe({
             next: () => {
                 this.isLoading = false;
             },

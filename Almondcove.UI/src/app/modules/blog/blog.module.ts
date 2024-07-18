@@ -5,19 +5,15 @@ import { BloghomeComponent } from './bloghome/bloghome.component';
 import { BlogviewerComponent } from './blogviewer/blogviewer.component';
 
 const routes = [
-  {
-      path: '',
-      component: BloghomeComponent,
-  },
-  { path: 'view', component: BlogviewerComponent },
+    {
+        path: '',
+        component: BloghomeComponent,
+    },
+    { path: 'view', component: BlogviewerComponent },
 ];
 
 @NgModule({
-  declarations: [
-    BlogviewerComponent
-  ],
-  imports: [
-    CommonModule,RouterModule.forChild(routes)
-  ]
+    declarations: [BlogviewerComponent],
+    imports: [CommonModule, RouterModule.forChild(routes)],
 })
-export class BlogModule { }
+export class BlogModule {}

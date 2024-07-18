@@ -69,9 +69,12 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
     `,
 })
 export class NavbarComponent implements AfterViewInit {
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2,
+    ) {}
     ngAfterViewInit(): void {
-            initializeThemeSwitcher();
+        initializeThemeSwitcher();
     }
 
     toggleNavbar() {
