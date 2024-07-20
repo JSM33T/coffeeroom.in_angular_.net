@@ -11,7 +11,7 @@ import InitSmoothScroll from '../../library/invokers/smooth-scroll';
             <nav aria-label="breadcrumb">
                 <ol class="pt-lg-3 pb-lg-4 pb-2 breadcrumb">
                     <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
-                    <li class="breadcrumb-item"><a routerLink="/blog">Blog</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/blogs">Blog</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Single post v.3</li>
                 </ol>
             </nav>

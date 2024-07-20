@@ -51,6 +51,7 @@ builder.Services.Configure<AlmondcoveConfig>(almondcoveConfigSection);
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 #region Auth
 builder.Services.AddAuthentication(options =>

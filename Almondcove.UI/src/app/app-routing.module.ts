@@ -24,8 +24,8 @@ const routes: Routes = [
         component: FaqComponent,
     },
     {
-        path: 'blog',
-        loadChildren: () => import('./modules/blog/blog.module').then((m) => m.BlogModule),
+        path: 'blogs',
+        loadChildren: () => import('./modules/blogs/blogs.module').then((m) => m.BlogModule),
     },
     {
         path: 'auth',

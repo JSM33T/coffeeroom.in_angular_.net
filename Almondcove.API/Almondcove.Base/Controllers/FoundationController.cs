@@ -1,13 +1,7 @@
 ﻿using Almondcove.Entities.Shared;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Almondcove.Base.Controllers
 {
