@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BloghomeComponent } from './bloghome/bloghome.component';
-import { BlogviewerComponent } from './blogviewer/blogviewer.component';
+import { BloghomeComponent } from './bloghome.component';
+import { BlogviewerComponent } from './blogviewer.component';
+import { BloghomesidepanelComponent } from '../../components/bloghomesidepanel.component';
 
 const routes = [
     {
@@ -13,7 +14,7 @@ const routes = [
 ];
 
 @NgModule({
-    declarations: [BlogviewerComponent],
+    declarations: [BloghomeComponent,BlogviewerComponent,BloghomesidepanelComponent],
     imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class BlogModule {}

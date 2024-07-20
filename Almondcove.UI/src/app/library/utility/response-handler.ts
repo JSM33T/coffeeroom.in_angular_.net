@@ -1,4 +1,4 @@
-import { APIResponse } from '../../models/api-response.model';
+import { APIResponse } from '../../core/interfaces/api-response.model';
 import acServerToast from '../../library/modals/server-response-modal';
 import { Observable, catchError, of, tap } from 'rxjs';
 

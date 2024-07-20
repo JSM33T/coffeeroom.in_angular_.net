@@ -1,44 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse } from '../../../models/api-response.model';
+import { APIResponse } from '../../../core/interfaces/api-response.model';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import { HttpService } from '../../../services/http.service';
+
 import { handleResponse } from '../../../library/utility/response-handler';
 import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
 import { HideModal, ShowModal } from '../../../library/modals/bs-helper';
 import acServerToast from '../../../library/modals/server-response-modal';
+import { HttpService } from '../../../core/services/http.service';
 
 @Component({
     selector: 'app-signup',
     template: `
-        <!-- Modal markup -->
-        <!-- Modal -->
-        <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" data-bs-backdrop="static" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form (ngSubmit)="onOtpSubmit()">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">OTP</h4>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="position-relative">
-                                <div class="d-flex justify-content-between">
-                                    <input id="otp1" name="otp1" [(ngModel)]="otpData.otp1" (keyup)="moveToNext($event, 'otp1', 'otp2')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
-                                    <input id="otp2" name="otp2" [(ngModel)]="otpData.otp2" (keyup)="moveToNext($event, 'otp2', 'otp3')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
-                                    <input id="otp3" name="otp3" [(ngModel)]="otpData.otp3" (keyup)="moveToNext($event, 'otp3', 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
-                                    <input id="otp4" name="otp4" [(ngModel)]="otpData.otp4" (keyup)="moveToNext($event, 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer flex-column flex-sm-row">
-                            <button type="button" class="btn btn-secondary w-100 w-sm-auto mb-3 mb-sm-0" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary w-100 w-sm-auto ms-sm-3">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+      
 
         <div class="d-lg-flex position-relative h-100">
             <!-- Home button -->
@@ -147,9 +121,6 @@ export class SignupComponent implements OnInit {
     ) {}
     ngOnInit(): void {
         InitTogglePassword();
-        setTimeout(() => {
-            ShowModal('otpModal');
-        }, 3000);
     }
 
     loadingBarState: any;
@@ -162,52 +133,20 @@ export class SignupComponent implements OnInit {
         password: '',
         passwordconfirm: '',
     };
-    otpData = {
-        otp1: '',
-        otp2: '',
-        otp3: '',
-        otp4: '',
-    };
 
-    otpSubmitData = {
+    pollData = {
         email: '',
-        otp: '',
+        password :''
     };
-
+   
     onSignupSubmit(): void {
         this.isLoading = true;
 
         console.log(this.formData);
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/signup', this.formData);
-        handleResponse(response$, false).subscribe({
-            next: (response) => {
-                this.isLoading = false;
-                ShowModal('otpModal');
-                const otp1Element = document.getElementById('otp1') as HTMLInputElement;
-                if (otp1Element) {
-                    otp1Element.focus();
-                }
-            },
-            error: () => {
-                this.isLoading = false;
-            },
-        });
-    }
-
-    onOtpSubmit(): void {
-        this.isLoading = true;
-
-        this.otpSubmitData.email = this.formData.email;
-        this.otpSubmitData.otp = `${this.otpData.otp1}${this.otpData.otp2}${this.otpData.otp3}${this.otpData.otp4}`;
-
-        const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/verify', this.otpSubmitData);
-
         handleResponse(response$, true).subscribe({
             next: (response) => {
                 this.isLoading = false;
-                if (response.status == 200) {
-                    HideModal('otpModal');
-                }
             },
             error: () => {
                 this.isLoading = false;
@@ -215,15 +154,9 @@ export class SignupComponent implements OnInit {
         });
     }
 
-    moveToNext(event: KeyboardEvent, currentInput: string, nextInput?: string) {
-        const input = event.target as HTMLInputElement;
-        if (input.value.length === 1 && nextInput) {
-            const nextElement = document.getElementById(nextInput) as HTMLInputElement;
-            if (nextElement) {
-                nextElement.focus();
-            }
-        } else if (input.value.length === 1 && !nextInput) {
-            input.blur();
-        }
+    pollVerification()
+    {
+        const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/signup', this.pollData);
     }
+
 }

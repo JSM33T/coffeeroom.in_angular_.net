@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { APIResponse } from '../../../models/api-response.model';
+import { APIResponse } from '../../../core/interfaces/api-response.model';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import { HttpService } from '../../../services/http.service';
+import { HttpService } from '../../../core/services/http.service';
 import { handleResponse } from '../../../library/utility/response-handler';
 import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
 

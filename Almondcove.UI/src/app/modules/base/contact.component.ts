@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 import InitSmoothScroll from '../../library/invokers/smooth-scroll';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http.service';
 import { handleResponse } from '../../library/utility/response-handler';
-import { APIResponse } from '../../models/api-response.model';
+import { APIResponse } from '../../core/interfaces/api-response.model';
 import { Observable } from 'rxjs';
 import { Meta, Title } from '@angular/platform-browser';
 

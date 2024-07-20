@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import Initswiper from '../../../library/invokers/swiper';
-import InitAnimateOnScroll from '../../../library/invokers/animate-on-scroll';
-import InitSmoothScroll from '../../../library/invokers/smooth-scroll';
+import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
+import InitSmoothScroll from '../../library/invokers/smooth-scroll';
 
 @Component({
     selector: 'app-blogviewer',

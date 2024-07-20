@@ -12,6 +12,7 @@ import InitSmoothScroll from './library/invokers/smooth-scroll';
 import SetTheme from './library/invokers/settheme';
 import setTheme from './library/invokers/settheme';
 import { environment } from '../environments/environment';
+import rotateText from './library/utility/well-hello';
 
 @Component({
     selector: 'app-root',
@@ -21,7 +22,7 @@ import { environment } from '../environments/environment';
             <div class="page-loading active">
                 <div class="page-loading-inner">
                     <div class="page-spinner"></div>
-                    <span>Loading...</span>
+                    <span id="rotateText">Loading...</span>
                 </div>
             </div>
             <ngx-loading-bar></ngx-loading-bar>
@@ -59,7 +60,7 @@ export class AppComponent implements OnInit {
     }
 
     shouldDisplayFooter(): boolean {
-        return !['/auth/login', '/auth/signup', '/auth', '/theme'].includes(this.router.url);
+        return !['/auth/login', '/auth/signup', '/auth'].includes(this.router.url);
     }
 
     removeActiveClass() {
@@ -68,6 +69,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
+        setInterval(rotateText, 100);
         initializeBindedContentToggle();
         setTheme();
         setTimeout(() => {

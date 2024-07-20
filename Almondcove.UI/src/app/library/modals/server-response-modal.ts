@@ -1,4 +1,4 @@
-import { APIResponse } from '../../models/api-response.model';
+import { APIResponse } from '../../core/interfaces/api-response.model';
 declare var bootstrap: any;
 
 export default function acServerToast(response: APIResponse<any>) {

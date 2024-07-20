@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from '../../interceptors/token.interceptor';
+import { TokenInterceptor } from '../../core/interceptors/token.interceptor';
 import { SignupComponent } from './signup/signup.component';
 
 const routes = [

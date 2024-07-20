@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
-import InitSmoothScroll from '../../library/invokers/smooth-scroll';
-import { APIResponse } from '../../models/api-response.model';
+import { APIResponse } from '../../core/interfaces/api-response.model';
 import { Observable } from 'rxjs';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../core/services/http.service';
 import { handleResponse } from '../../library/utility/response-handler';
 
 interface FAQItem {

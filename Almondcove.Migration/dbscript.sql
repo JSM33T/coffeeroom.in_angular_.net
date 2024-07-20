@@ -8,8 +8,10 @@ DROP TABLE IF EXISTS tblRoles
 DROP TABLE IF EXISTS tblAvatars
 DROP TABLE IF EXISTS tblBlogCategories
 DROP TABLE IF EXISTS tblBlogSeries
+DROP TABLE IF EXISTS tblBlogSeriesMap
 DROP TABLE IF EXISTS tblBlogPosts
 DROP TABLE IF EXISTS tblBlogAuthors
+
 
 --=====================================================================
 --schema
@@ -344,8 +346,21 @@ GO
 --=====================================================================
 -- Seed Data for tblBlogSeries
 --=====================================================================
-INSERT INTO [dbo].[tblBlogSeries] (Id, [Name], Slug, [Description], DateAdded)
-VALUES (0, 'Uncategorized', 'uncategorized', 'Default series', GETDATE());
+INSERT INTO dbo.tblBlogSeries (Id, [Name], Slug, [Description])
+VALUES (0, 'Uncategorized', 'uncategorized', 'Default Series');
+GO
+
+--=====================================================================
+--tblBlogSeries
+--=====================================================================
+CREATE TABLE [dbo].tblBlogSeriesMap (
+    Id				INT PRIMARY KEY,
+    SeriesId		INT,
+	BlogId		    INT,
+    DateAdded		DATETIME DEFAULT (GETDATE())
+
+	CONSTRAINT UQ_tblBlogSeries_Map UNIQUE (SeriesId,BLogId)
+);
 GO
 
 --=====================================================================
@@ -357,9 +372,9 @@ CREATE TABLE [dbo].tblBlogPosts (
 	Slug			NVARCHAR(128),
     [Description]   NVARCHAR(128),
 	Tags			NVARCHAR(128),
-	Content			NVARCHAR(MAX),
+	ContentMD		NVARCHAR(MAX),
+    ContentHTML		NVARCHAR(MAX),
 
-	BlogSeriesId	INT NOT NULL DEFAULT(0),
 	BlogCategory	INT NOT NULL DEFAULT(0),
 
 	IsActive		BIT NOT NULL DEFAULT(0),

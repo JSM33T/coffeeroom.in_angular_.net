@@ -17,16 +17,13 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { LogoComponent } from './shared/assets/logo';
 import { FormsModule } from '@angular/forms';
 import { ContactComponent } from './modules/base/contact.component';
-import { BloghomeComponent } from './modules/blog/bloghome/bloghome.component';
-import { BloghomesidepanelComponent } from './components/blog/bloghomesidepanel.component';
-import { TokenInterceptor } from './interceptors/token.interceptor';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { FaqComponent } from './modules/base/faq.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { EmailCTA } from './components/emailcta.component';
 import { AmbienceComponent } from './shared/ambience/ambience.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, BloghomeComponent, BloghomesidepanelComponent, EmailCTA, AmbienceComponent],
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, AmbienceComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
