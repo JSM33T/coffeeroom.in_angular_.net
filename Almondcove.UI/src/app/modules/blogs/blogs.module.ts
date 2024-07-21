@@ -4,17 +4,18 @@ import { RouterModule } from '@angular/router';
 import { BloghomeComponent } from './bloghome.component';
 import { BlogviewerComponent } from './blogviewer.component';
 import { BloghomesidepanelComponent } from '../../components/bloghomesidepanel.component';
+import { BlogContainerDirective } from '../../core/directives/blog-container-directive.directive';
 
 const routes = [
     {
         path: '',
         component: BloghomeComponent,
     },
-    { path: 'view', component: BlogviewerComponent },
+    { path: 'view/:slug', component: BlogviewerComponent },
 ];
 
 @NgModule({
-    declarations: [BloghomeComponent,BlogviewerComponent,BloghomesidepanelComponent],
+    declarations: [BloghomeComponent,BlogviewerComponent,BloghomesidepanelComponent,BlogContainerDirective],
     imports: [CommonModule, RouterModule.forChild(routes)],
 })
 export class BlogModule {}

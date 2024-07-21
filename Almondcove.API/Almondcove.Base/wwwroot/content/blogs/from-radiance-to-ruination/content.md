@@ -55,9 +55,6 @@ The initial symptoms were subtle: fatigue, aches and anemia. However, as the rad
 </small>
 
 
-
-
-
 &ensp;&ensp;&ensp;&ensp;In the face of insurmountable health challenges, the Radium Girls embarked on legal battles against the companies responsible for their plight. Their perseverance led to landmark cases that not only sought justice for the affected workers but also reshaped the landscape of workers' rights. The courtroom dramas became a turning point, prompting the establishment of improved safety standards and regulations, setting a precedent for future labor laws.
 
 

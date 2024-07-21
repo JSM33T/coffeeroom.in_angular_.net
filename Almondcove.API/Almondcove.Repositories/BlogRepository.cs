@@ -21,12 +21,12 @@ namespace Almondcove.Repositories
             _conStr = _config.CurrentValue.ConnectionString;
         }
 
-        public async Task<(int,List<BlogsGet>)> GetLatestBlogs(int n)
+        public async Task<List<BlogsGet>> GetLatestBlogs(int n)
         {
             List<BlogsGet> blogs = [];
             List<BlogAuthor> authors = [];
 
-            const string query = "SELECT TOP 5 * FROM tblBlogPosts";
+            const string query = "SELECT TOP 10 * FROM tblBlogPosts";
 
             using var connection = new SqlConnection(_conStr);
             blogs = (await connection.QueryAsync<BlogsGet>(query)).ToList();
@@ -36,7 +36,7 @@ namespace Almondcove.Repositories
                 blog.Authors =await GetBlogAuthors(blog.Id);
             }
 
-            return (1,blogs);
+            return blogs;
         }
 
         public async Task<List<BlogAuthor>> GetBlogAuthors(int id)
@@ -53,6 +53,23 @@ namespace Almondcove.Repositories
             return authors;
         }
 
+        public async Task<BlogDetailsGet> GetBlogDetailsBySlug(string slug)
+        {
+            const string query = @"
+                                SELECT b.Id, b.Title, b.Description, b.ContentMD, b.DateAdded
+                                FROM tblBlogPosts b
+                                WHERE b.Slug = @Slug";
+
+            using var connection = new SqlConnection(_conStr);
+            var blog = await connection.QuerySingleOrDefaultAsync<BlogDetailsGet>(query, new { Slug = slug });
+
+            if (blog != null)
+            {
+                blog.Authors = await GetBlogAuthors(blog.Id);
+            }
+
+            return blog;
+        }
 
     }
 }

@@ -31,15 +31,15 @@ import { environment } from '../../../environments/environment';
                     <!-- Post -->
                     <div *ngFor="let blog of blogs">
                         <article class="row g-0 border-0 mb-4">
-                            <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" routerLink="/blogs/view"
-                            [style.backgroundImage]="'url(' + cover +'/content/blogs/2023/' + blog.slug + '/cover.webp)'" style="min-height: 14rem" aria-label="Post image"></a>
+                            <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" [routerLink]="'/blogs/view/' + blog.slug"
+                            [style.backgroundImage]="'url(' + cover +'/content/blogs/' + blog.slug + '/cover.webp)'" style="min-height: 14rem" aria-label="Post image"></a>
                             <div class="col-sm-7">
                                 <div class="pt-4 pb-sm-4 ps-sm-4 pe-lg-4">
                                     <h3>
                                         <!-- <a [routerLink]="'blog/2024?id=' + blog.id">{{ blog.title }}</a> -->
                                         <a routerLink='/blogs/view'>{{ blog.title }}</a>
                                     </h3>
-                                    <p class="d-sm-none d-md-block">{{ blog.excerpt }}</p>
+                                    <p class="d-sm-none d-md-block">{{ blog.description }}</p>
                                     <div class="d-flex flex-wrap align-items-center mt-n2">
                                         <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
                                             {{ blog.shares }}

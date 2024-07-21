@@ -1,6 +1,7 @@
 ﻿using Almondcove.Entities.Dedicated;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
+using Markdig;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -25,20 +26,38 @@ namespace Almondcove.Base.Controllers.Dedicated
             string message = string.Empty;
             int statusCode = StatusCodes.Status400BadRequest;
             List<string> errors = [];
-            int i = 0;
-
 
             List<BlogAuthor> authors = [];
             List<BlogsGet> topBlogs = [];
 
             return await ExecuteActionAsync(async () =>
             {
-               var (i,blogs) = await _blogRepo.GetLatestBlogs(2);
+                topBlogs = await _blogRepo.GetLatestBlogs(2);
                 statusCode = StatusCodes.Status200OK;
                 message = "Blogs retrieved";
 
-                return (statusCode, blogs, message, errors);
+                return (statusCode, topBlogs, message, errors);
             }, MethodBase.GetCurrentMethod().Name);
         }
+
+        [HttpGet("blog-details/{Slug}")]
+        public async Task<IActionResult> GetBlogDetails(string Slug)
+        {
+            string message = string.Empty;
+            int statusCode = StatusCodes.Status400BadRequest;
+            BlogDetailsGet blogDetails = null;
+            List<string> errors = [];
+
+            return await ExecuteActionAsync(async () =>
+            {
+                blogDetails = await _blogRepo.GetBlogDetailsBySlug(Slug);
+                blogDetails.ContentMD = blogDetails.ContentMD;
+                blogDetails.ContentMD = Markdown.ToHtml(blogDetails.ContentMD);
+                statusCode = StatusCodes.Status200OK;
+                message = "Blogs retrieved";
+                return (statusCode, blogDetails, message, errors);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+    
     }
 }
