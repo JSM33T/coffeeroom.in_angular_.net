@@ -32,6 +32,10 @@ const routes: Routes = [
         loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
     },
     {
+        path: 'apps',
+        loadChildren: () => import('./modules/apps/apps.module').then((m) => m.AppsModule),
+    },
+    {
         path: 'theme',
         loadChildren: () => import('./modules/theme/theme.module').then((m) => m.ThemeModule),
     },

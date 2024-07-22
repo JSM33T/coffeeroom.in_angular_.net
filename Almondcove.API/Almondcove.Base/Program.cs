@@ -80,6 +80,9 @@ builder.Services.AddResponseCompression(options =>
     options.EnableForHttps = true;
 });
 
+
+builder.Services.AddHttpClient();
+
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.WebRootPath, "keys")))
     .SetApplicationName("AlmondcoveApp");

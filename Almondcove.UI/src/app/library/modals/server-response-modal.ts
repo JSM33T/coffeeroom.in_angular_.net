@@ -30,7 +30,7 @@ export default function acServerToast(response: APIResponse<any>) {
     // Create the error list HTML
     let errorListHtml = '';
     if (response.errors && response.errors.length > 0) {
-        errorListHtml = '<code class="text-danger">';
+        errorListHtml = '<code class="text-primary">';
         response.errors.forEach((error) => {
             errorListHtml += `<li>${error}</li>`;
         });
@@ -49,7 +49,7 @@ export default function acServerToast(response: APIResponse<any>) {
         </div>
         <div class="modal-body">
           <p>${response.message}</p>
-          ${errorListHtml}
+          <span>${errorListHtml}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>

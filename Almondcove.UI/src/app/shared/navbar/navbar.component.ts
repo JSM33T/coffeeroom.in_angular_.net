@@ -51,7 +51,7 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
                             <a class="nav-link" routerLink="/about" data-bs-toggle="collapse" (click)="toggleNavbar()">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/contact" data-bs-toggle="collapse" (click)="toggleNavbar()">Contact</a>
+                            <a class="nav-link" routerLink="/apps" data-bs-toggle="collapse" (click)="toggleNavbar()">Apps</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" routerLink="/blogs" data-bs-toggle="collapse" (click)="toggleNavbar()">Blog(ID)</a>

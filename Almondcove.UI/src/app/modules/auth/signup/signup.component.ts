@@ -179,7 +179,8 @@ export class SignupComponent implements OnInit {
 
         console.log(this.formData);
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/signup', this.formData);
-        handleResponse(response$, false).subscribe({
+
+        handleResponse(response$, true).subscribe({
             next: (response) => {
                 this.isLoading = false;
                 if(response.status == 200)
@@ -193,7 +194,7 @@ export class SignupComponent implements OnInit {
                 }
                 else
                 {
-                    acServerToast(response);
+                //    acServerToast(response);
                 }
              
             },
@@ -211,10 +212,10 @@ export class SignupComponent implements OnInit {
 
         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/verify', this.otpSubmitData);
 
-        handleResponse(response$, true).subscribe({
+        handleResponse(response$, false).subscribe({
             next: (response) => {
                 this.isLoading = false;
-                if (response.status == 200) {
+                if (response.data.status == 200) {
                     HideModal('otpModal');
                 }
             },
