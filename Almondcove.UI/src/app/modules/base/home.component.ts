@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import Initswiper from '../../library/invokers/swiper';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import initParallax from '../../library/invokers/parallax';
+// import {initParallax, destroyParallax } from '../../library/invokers/parallax';
 
 @Component({
     selector: 'app-home',
@@ -11,7 +10,7 @@ import initParallax from '../../library/invokers/parallax';
             <div class="container d-flex justify-content-center pb-sm-3 py-md-4 py-xl-5">
                 <div class="row align-items-center pt-4 mt-4 mt-xxl-0">
                     <div class="col-lg-6 mb-4 mb-lg-0 mb-sm-2 pb-3 pb-lg-0">
-                        <app-component-logo></app-component-logo>
+                        <app-logo></app-logo>
                     </div>
                     <div class="col-lg-6 pb-5 mb-5 text-center text-lg-start">
                         <h1 class="display-2" data-aos="flip-up" data-aos-duration="200">
@@ -56,7 +55,7 @@ import initParallax from '../../library/invokers/parallax';
         </section>
     `,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit ,OnDestroy{
     loadingBarState: any;
     accordionItems = [
         {
@@ -74,11 +73,14 @@ export class HomeComponent implements OnInit {
     ];
 
     constructor(private loadingBar: LoadingBarService) {}
+    ngOnDestroy(): void {
+        //destroyParallax()
+    }
     ngOnInit(): void {
         this.loadingBarState = this.loadingBar.useRef();
         this.loadingBarState.start();
-        initParallax();
-        Initswiper();
+       // initParallax();
         this.loadingBarState.complete();
     }
+    
 }

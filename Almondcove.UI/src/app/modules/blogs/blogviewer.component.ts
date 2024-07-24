@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
-import InitSmoothScroll from '../../library/invokers/smooth-scroll';
 import { HttpService } from '../../core/services/http.service';
 import { Observable } from 'rxjs';
 import { handleResponse } from '../../library/utility/response-handler';
@@ -70,10 +68,7 @@ import { deinitializeLightGallery, initializeLightGallery } from '../../library/
                         <div data-aos="fade-in" data-aos-duration="500" *ngIf="!isLoading; else contentPlaceholder" [innerHTML]="blogContent"></div>
                         <ng-template #contentPlaceholder>
                             <div class="card " aria-hidden="true">
-                                <div class="position-relative placeholder-wave">
-                                    <div class="card-img-top placeholder ratio ratio-16x9"></div>
-                                    <i class="ai-image position-absolute top-50 start-50 translate-middle fs-1 opacity-50"></i>
-                                </div>
+                               
                                 <div class="card-body">
                                     <h5 class="card-title placeholder-glow">
                                         <span class="placeholder col-6"></span>
@@ -144,12 +139,10 @@ export class BlogviewerComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(private httpService: HttpService, private route: ActivatedRoute) {}
     ngOnDestroy(): void {
-        // deinitializeLightGallery();
+        deinitializeLightGallery();
     }
 
     ngOnInit(): void {
-        InitAnimateOnScroll();
-        InitSmoothScroll();
         this.route.paramMap.subscribe((params) => {
             const slug = params.get('slug');
             if (slug) {
@@ -159,23 +152,28 @@ export class BlogviewerComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit(): void {
-        setTimeout(() => {
-            // lightgalleryToImage();
-            // initializeLightGallery();
-            console.log('dpef');
-        }, 100);
+       setTimeout(() => {
+       
+       }, 200);
+       
     }
 
     loadBlog(slug: string) {
         const response$: Observable<APIResponse<any>> = this.httpService.get(`api/blogs/blog-details/${slug}`);
         handleResponse(response$, false).subscribe({
             next: (response) => {
+               
                 this.isLoading = false;
                 if (response.status == 200) {
                     console.log(response.data);
                     this.blogTitle = response.data.title;
                     this.blogContent = response.data.contentMD;
                     this.authors = response.data.authors;
+                    setTimeout(() => {
+                        lightgalleryToImage();
+                        initializeLightGallery();
+                    }, 1000);
+                 
                 }
             },
             error: () => {

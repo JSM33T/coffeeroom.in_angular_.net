@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BloghomeComponent } from './bloghome.component';
+import { BloghomeComponent } from './home/bloghome.component';
 import { BlogviewerComponent } from './blogviewer.component';
 import { BloghomesidepanelComponent } from '../../components/bloghomesidepanel.component';
 import { BlogContainerDirective } from '../../core/directives/blog-container-directive.directive';

@@ -14,16 +14,17 @@ import { SidepanelComponent } from './shared/sidepanel/sidepanel.component';
 import { AboutComponent } from './modules/base/about.component';
 import { HomeComponent } from './modules/base/home.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { LogoComponent } from './shared/assets/logo';
+import { LogoComponent } from './shared/assets/logo.component';
 import { FormsModule } from '@angular/forms';
 import { ContactComponent } from './modules/base/contact.component';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { FaqComponent } from './modules/base/faq.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AmbienceComponent } from './shared/ambience/ambience.component';
+import { TestComponent } from './modules/test/test/test.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, AmbienceComponent],
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, AmbienceComponent, TestComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

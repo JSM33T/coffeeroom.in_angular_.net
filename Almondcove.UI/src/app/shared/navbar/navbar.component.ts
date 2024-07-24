@@ -36,6 +36,27 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
                         <i class="ai-moon fs-lg"></i>
                     </label>
                 </div>
+                <!-- User signed in state. Account dropdown on screens > 576px -->
+                <div class="dropdown nav d-none d-sm-block order-lg-3">
+                    <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="border rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFCzxivJXCZk0Kk8HsHujTO3Olx0ngytPrWw&s" width="48" alt="Isabella Bocouse" />
+                        <div class="ps-2">
+                            <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                            <div class="fs-sm dropdown-toggle">User</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end my-1">
+                        <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
+                        <a class="dropdown-item" routerLink="auth/login" (click)="toggleNavbar()">
+                            <i class="ai-user-check fs-lg opacity-70 me-2"></i>
+                            Login / Signup
+                        </a>
+                        <a class="dropdown-item" routerLink="theme" (click)="toggleNavbar()">
+                            <i class="ai-paint-roll fs-lg opacity-70 me-2"></i>
+                            Theme
+                        </a>
+                    </div>
+                </div>
 
                 <button class="navbar-toggler ms-sm-3" id="navToggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
                     <span id="navTogglerSpan" class="navbar-toggler-icon"></span>
@@ -48,19 +69,35 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
                             <a class="nav-link" routerLink="/" data-bs-toggle="collapse" (click)="toggleNavbar()">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/about" data-bs-toggle="collapse" (click)="toggleNavbar()">About</a>
+                            <a class="nav-link" routerLink="/blogs" data-bs-toggle="collapse" (click)="toggleNavbar()">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" routerLink="/apps" data-bs-toggle="collapse" (click)="toggleNavbar()">Apps</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/blogs" data-bs-toggle="collapse" (click)="toggleNavbar()">Blog(ID)</a>
+                            <a class="nav-link" routerLink="/about" data-bs-toggle="collapse" (click)="toggleNavbar()">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" routerLink="/" data-bs-toggle="collapse" (click)="toggleNavbar()">Studio(ID)</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/auth/login" data-bs-toggle="collapse" (click)="toggleNavbar()">Login</a>
+                        <!-- User signed in state. Account dropdown on screens > 576px -->
+                        <li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
+                            <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img class="border rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFCzxivJXCZk0Kk8HsHujTO3Olx0ngytPrWw&s" width="48" alt="Isabella Bocouse" />
+                                <div class="ps-2">
+                                    <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                                    <div class="fs-sm dropdown-toggle">Guest</div>
+                                </div>
+                            </a>
+                            <div class="dropdown-menu">
+                                <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
+                                <a class="dropdown-item" routerLink="/auth/login" (click)="toggleNavbar()">
+                                    <i class="ai-user-check fs-lg opacity-70 me-2"></i>
+                                    Login/Signup
+                                </a>
+                                <a class="dropdown-item" routerLink="/theme" (click)="toggleNavbar()">
+                                    <i class="ai-paint-roll fs-lg opacity-70 me-2"></i>
+                                    Theme
+                                </a>
+                                
+                            </div>
                         </li>
                     </ul>
                 </nav>
@@ -69,10 +106,7 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
     `,
 })
 export class NavbarComponent implements AfterViewInit {
-    constructor(
-        private el: ElementRef,
-        private renderer: Renderer2,
-    ) {}
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
     ngAfterViewInit(): void {
         initializeThemeSwitcher();
     }

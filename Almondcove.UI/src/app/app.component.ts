@@ -1,13 +1,9 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
-import { initializeNavbarSticky } from './library/invokers/sticky-navbar';
-import { initializeThemeSwitcher } from './library/invokers/theme-switcher';
-import { initializeNavbarToggle } from './library/invokers/navbar-toggle';
 import { initializeScrollToTop } from './library/invokers/back-to-top';
 import { initializeBindedContentToggle } from './library/invokers/content-toggle';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import InitAnimateOnScroll from './library/invokers/animate-on-scroll';
-import initParallax from './library/invokers/parallax';
 import InitSmoothScroll from './library/invokers/smooth-scroll';
 import SetTheme from './library/invokers/settheme';
 import setTheme from './library/invokers/settheme';
@@ -70,7 +66,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         setInterval(rotateText, 100);
-        initializeBindedContentToggle();
+        // initializeBindedContentToggle();
         setTheme();
         setTimeout(() => {
             this.removeActiveClass();
