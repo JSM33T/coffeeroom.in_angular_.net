@@ -11,5 +11,6 @@ namespace Almondcove.Services
     public interface IUserService
     {
         public Task SetUserClaims(HttpContext httpContext, UserClaims userClaims);
+        
     }
 }

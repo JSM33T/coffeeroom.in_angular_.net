@@ -40,6 +40,24 @@ namespace Almondcove.Repositories
 
             return (result, userClaims);
         }
+        public async Task<UserClaims> GetUserClaims(string Email)
+        {
+            const string storedProcedure = "dbo.usp_GetUserClaimsByEmail";
+
+            using var connection = new SqlConnection(_conStr);
+            var parameters = new DynamicParameters();
+            parameters.Add("Email", Email, DbType.String);
+            parameters.Add("Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            var userClaims = await connection.QueryFirstOrDefaultAsync<UserClaims>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+
+            var result = parameters.Get<int>("Result");
+
+            return userClaims;
+        }
 
         public async Task<int> SignUpUser(User user)
         {
@@ -81,5 +99,35 @@ namespace Almondcove.Repositories
             return parameters.Get<int>("Result");
         }
 
+        public async Task<UserClaims> GetUserByEmailAndOtp(UserRecoveryRequest recoveryRequest)
+        {
+
+            const string storedProcedure = "dbo.usp_GetUserClaimsByEmailAndOtp";
+
+            using var connection = new SqlConnection(_conStr);
+            var parameters = new DynamicParameters();
+            parameters.Add("Email", recoveryRequest.Email, DbType.String);
+            parameters.Add("OTP", recoveryRequest.OTP, DbType.String);
+            parameters.Add("Result", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+            var userClaims = await connection.QueryFirstOrDefaultAsync<UserClaims>(
+                storedProcedure,
+                parameters,
+                commandType: CommandType.StoredProcedure);
+
+            var result = parameters.Get<int>("Result");
+
+            return userClaims;
+
+        }
+        public async Task<bool> AddRecoveryEntry(string email, int otp, DateTime otpExpiration)
+        {
+            using (var connection = new SqlConnection(_conStr))
+            {
+                var query = "UPDATE tblUsers SET OTP = @OTP, OTPTime = @DateNow WHERE Email = @Email";
+                var result = await connection.ExecuteAsync(query, new { Email = email, OTP = otp, DateNow = otpExpiration });
+                return result > 0;
+            }
+        }
     }
 }
