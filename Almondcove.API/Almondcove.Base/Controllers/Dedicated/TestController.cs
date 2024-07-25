@@ -1,4 +1,6 @@
 ﻿using Almondcove.Entities.Shared;
+using Almondcove.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -9,8 +11,10 @@ namespace Almondcove.Base.Controllers.Dedicated
     [ApiController]
     public class TestController : FoundationController
     {
-        public TestController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor) : base(config, logger, httpContextAccessor)
+        private IMailingService _mail;
+        public TestController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor,IMailingService mailingService) : base(config, logger, httpContextAccessor)
         {
+            _mail = mailingService;
         }
 
         [HttpGet("a")]
@@ -31,5 +35,44 @@ namespace Almondcove.Base.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
         #endregion
+
+        [Authorize]
+        [HttpGet("mail")]
+        public async Task<IActionResult> SendWelcomeEmail()
+        {
+            return await ExecuteActionAsync(async () =>
+            {
+                string message = string.Empty;
+                int statusCode = StatusCodes.Status400BadRequest;
+                List<string> errors = [];
+
+                if (string.IsNullOrEmpty("jskainthofficial@gmail.com"))
+                {
+                    errors.Add("Email address is required.");
+                    return (statusCode, (object)null, message, errors);
+                }
+
+                try
+                {
+                    await _mail.SendEmailAsync(
+                        "jskainthofficial@gmail.com",
+                        "Welcome to Our Service",
+                        "<h1>Welcome!</h1><p>We're glad to have you on board.</p>",
+                        isHtml: true);
+
+                    statusCode = StatusCodes.Status200OK;
+                    message = "Welcome email sent successfully.";
+                }
+                catch (Exception ex)
+                {
+                    statusCode = StatusCodes.Status500InternalServerError;
+                    message = "Failed to send welcome email.";
+                    errors.Add(ex.Message);
+                    _logger.LogError(ex, "Error sending welcome email to {Email}", "jskainthofficial@gmail.com");
+                }
+
+                return (statusCode, (object)null, message, errors);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
     }
 }

@@ -26,10 +26,14 @@ import acToast from '../../../library/modals/notification-modal';
                         <div class="modal-body">
                             <div class="position-relative">
                                 <div class="d-flex justify-content-between">
-                                    <input id="otp1" name="otp1" [(ngModel)]="otpData.otp1" (keyup)="moveToNext($event, 'otp1', 'otp2')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
+                                    <!-- <input id="otp1" name="otp1" [(ngModel)]="otpData.otp1" (keyup)="moveToNext($event, 'otp1', 'otp2')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp2" name="otp2" [(ngModel)]="otpData.otp2" (keyup)="moveToNext($event, 'otp2', 'otp3')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp3" name="otp3" [(ngModel)]="otpData.otp3" (keyup)="moveToNext($event, 'otp3', 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
-                                    <input id="otp4" name="otp4" [(ngModel)]="otpData.otp4" (keyup)="moveToNext($event, 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
+                                    <input id="otp4" name="otp4" [(ngModel)]="otpData.otp4" (keyup)="moveToNext($event, 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required /> -->
+                                    <input id="otp1" type="text" maxlength="1" [(ngModel)]="otpData.otp1" (keydown)="onOtpInput($event, 'otp1', 'otp2')" class="form-control form-control-lg text-center mx-4 px-2" />
+                                    <input id="otp2" type="text" maxlength="1" [(ngModel)]="otpData.otp2" (keydown)="onOtpInput($event, 'otp2', 'otp3', 'otp1')" class="form-control form-control-lg text-center mx-4 px-2"/>
+                                    <input id="otp3" type="text" maxlength="1" [(ngModel)]="otpData.otp3" (keydown)="onOtpInput($event, 'otp3', 'otp4', 'otp2')" class="form-control form-control-lg text-center mx-4 px-2"/>
+                                    <input id="otp4" type="text" maxlength="1" [(ngModel)]="otpData.otp4" (keydown)="onOtpInput($event, 'otp4', 'otp4', 'otp3')" class="form-control form-control-lg text-center mx-4 px-2"/>
                                 </div>
                             </div>
                         </div>
@@ -142,14 +146,106 @@ import acToast from '../../../library/modals/notification-modal';
         </div>
     `,
 })
+// export class SignupComponent implements OnInit {
+//     constructor(
+//         private loadingBar: LoadingBarService,
+//         private httpService: HttpService,
+//     ) {}
+//     ngOnInit(): void {
+//         InitTogglePassword();
+
+//     }
+
+//     loadingBarState: any;
+//     isLoading = false;
+//     formData = {
+//         username: '',
+//         firstname: '',
+//         lastname: '',
+//         email: '',
+//         password: '',
+//         passwordconfirm: '',
+//     };
+//     otpData = {
+//         otp1: '',
+//         otp2: '',
+//         otp3: '',
+//         otp4: '',
+//     };
+
+//     otpSubmitData = {
+//         email: '',
+//         otp: '',
+//     };
+
+//     onSignupSubmit(): void {
+//         this.isLoading = true;
+
+//         console.log(this.formData);
+//         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/signup', this.formData);
+
+//         handleResponse(response$, true).subscribe({
+//             next: (response) => {
+//                 this.isLoading = false;
+//                 if(response.status == 200)
+//                 {
+
+//                     ShowModal('otpModal');
+//                     const otp1Element = document.getElementById('otp1') as HTMLInputElement;
+//                     if (otp1Element) {
+//                         otp1Element.focus();
+//                     }
+//                 }
+//                 else
+//                 {
+//                 //    acServerToast(response);
+//                 }
+
+//             },
+//             error: () => {
+//                 this.isLoading = false;
+//             },
+//         });
+//     }
+
+//     onOtpSubmit(): void {
+//         this.isLoading = true;
+
+//         this.otpSubmitData.email = this.formData.email;
+//         this.otpSubmitData.otp = `${this.otpData.otp1}${this.otpData.otp2}${this.otpData.otp3}${this.otpData.otp4}`;
+
+//         const response$: Observable<APIResponse<any>> = this.httpService.post('api/auth/verify', this.otpSubmitData);
+
+//         handleResponse(response$, false).subscribe({
+//             next: (response) => {
+//                 this.isLoading = false;
+//                 if (response.data.status == 200) {
+//                     HideModal('otpModal');
+//                 }
+//             },
+//             error: () => {
+//                 this.isLoading = false;
+//             },
+//         });
+//     }
+
+//     moveToNext(event: KeyboardEvent, currentInput: string, nextInput?: string) {
+//         const input = event.target as HTMLInputElement;
+//         if (input.value.length === 1 && nextInput) {
+//             const nextElement = document.getElementById(nextInput) as HTMLInputElement;
+//             if (nextElement) {
+//                 nextElement.focus();
+//             }
+//         } else if (input.value.length === 1 && !nextInput) {
+//             input.blur();
+//         }
+//     }
+// }
 export class SignupComponent implements OnInit {
-    constructor(
-        private loadingBar: LoadingBarService,
-        private httpService: HttpService,
-    ) {}
+    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+
     ngOnInit(): void {
         InitTogglePassword();
-       
     }
 
     loadingBarState: any;
@@ -183,20 +279,15 @@ export class SignupComponent implements OnInit {
         handleResponse(response$, true).subscribe({
             next: (response) => {
                 this.isLoading = false;
-                if(response.status == 200)
-                {
-                    
+                if (response.status == 200) {
                     ShowModal('otpModal');
                     const otp1Element = document.getElementById('otp1') as HTMLInputElement;
                     if (otp1Element) {
                         otp1Element.focus();
                     }
+                } else {
+                    // acServerToast(response);
                 }
-                else
-                {
-                //    acServerToast(response);
-                }
-             
             },
             error: () => {
                 this.isLoading = false;
@@ -225,15 +316,56 @@ export class SignupComponent implements OnInit {
         });
     }
 
-    moveToNext(event: KeyboardEvent, currentInput: string, nextInput?: string) {
+    onOtpInput(event: KeyboardEvent, currentInput: string, nextInput?: string, prevInput?: string) {
         const input = event.target as HTMLInputElement;
-        if (input.value.length === 1 && nextInput) {
+
+        // Handle numeric input
+        if (event.key >= '0' && event.key <= '9') {
+            input.value = event.key;
+            this.otpData[currentInput as keyof typeof this.otpData] = event.key;
+
+            if (nextInput) {
+                const nextElement = document.getElementById(nextInput) as HTMLInputElement;
+                if (nextElement) {
+                    nextElement.focus();
+                }
+            } else {
+                input.blur(); // Remove focus if it's the last input
+            }
+            event.preventDefault(); // Prevent default to avoid double input
+        }
+        // Handle backspace
+        else if (event.key === 'Backspace') {
+            if (input.value) {
+                input.value = '';
+                this.otpData[currentInput as keyof typeof this.otpData] = '';
+            } else if (prevInput) {
+                const prevElement = document.getElementById(prevInput) as HTMLInputElement;
+                if (prevElement) {
+                    prevElement.focus();
+                    prevElement.value = '';
+                    this.otpData[prevInput as keyof typeof this.otpData] = '';
+                }
+            }
+        }
+        // Handle left arrow key
+        else if (event.key === 'ArrowLeft' && prevInput) {
+            const prevElement = document.getElementById(prevInput) as HTMLInputElement;
+            if (prevElement) {
+                prevElement.focus();
+            }
+        }
+        // Handle right arrow key
+        else if (event.key === 'ArrowRight' && nextInput) {
             const nextElement = document.getElementById(nextInput) as HTMLInputElement;
             if (nextElement) {
                 nextElement.focus();
             }
-        } else if (input.value.length === 1 && !nextInput) {
-            input.blur();
+        }
+
+        // Prevent default behavior for non-numeric keys (except backspace and arrow keys)
+        if (!(event.key >= '0' && event.key <= '9') && event.key !== 'Backspace' && event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') {
+            event.preventDefault();
         }
     }
 }
