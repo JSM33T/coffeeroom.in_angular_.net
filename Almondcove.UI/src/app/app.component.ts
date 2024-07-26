@@ -13,7 +13,7 @@ import rotateText from './library/utility/well-hello';
 @Component({
     selector: 'app-root', 
     template: `
-        <!-- <app-ambience></app-ambience> -->
+       
         <main class="page-wrapper">
             <div class="page-loading active">
                 <div class="page-loading-inner">

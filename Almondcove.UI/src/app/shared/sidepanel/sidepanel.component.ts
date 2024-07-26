@@ -39,6 +39,7 @@ import { Component } from '@angular/core';
                     <div><a href="https://laymaann.in" target="_blank">laymaann.in</a></div>
                     <div><a routerLink="/theme">theme</a></div>
                 </div>
+                <app-ambience></app-ambience>
             </div>
         </div>
 

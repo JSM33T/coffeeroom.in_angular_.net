@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 // import {initParallax, destroyParallax } from '../../library/invokers/parallax';
 
@@ -72,11 +73,14 @@ export class HomeComponent implements OnInit ,OnDestroy{
         },
     ];
 
-    constructor(private loadingBar: LoadingBarService) {}
+    constructor(private loadingBar: LoadingBarService,private titleService: Title,private metaService: Meta) {}
     ngOnDestroy(): void {
         //destroyParallax()
     }
     ngOnInit(): void {
+        this.titleService.setTitle('Almondcove');
+        this.metaService.updateTag({ name: 'description', content: 'A digital web space with blogs , gallery , apps and much more' });
+        this.metaService.updateTag({ name: 'keywords', content: 'my space, blogs, archives, jsm33t, almondcove' });
         this.loadingBarState = this.loadingBar.useRef();
         this.loadingBarState.start();
        // initParallax();

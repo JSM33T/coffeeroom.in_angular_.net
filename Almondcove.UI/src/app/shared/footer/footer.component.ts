@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
         <!-- Footer -->
         <footer class="footer">
             <hr />
-            <div class="container py-4" data-aos="fade-zoom-in" data-aos-delay="300" data-aos-offset="0">
+            <div class="container py-4">
                 <div class="row align-items-center py-2 py-sm-3">
                     <div class="col-md-4 order-md-2 mb-4 mb-md-0">
                         <div class="d-flex justify-content-center justify-content-md-end gap-3">

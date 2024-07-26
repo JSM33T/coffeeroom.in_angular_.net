@@ -6,6 +6,7 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public string ContentMD { get; set; }
+        public string Tags { get; set; }
         public List<BlogAuthor> Authors{ get; set; }
         public DateTime DateAdded { get; set; }
     }

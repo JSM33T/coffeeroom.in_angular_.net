@@ -3,7 +3,7 @@
     {
       "files": "*.html",
       "options": {
-        "printWidth": 512,
+        "printWidth": 1024,
         "tabWidth": 4,
         "useTabs": false,
         "htmlWhitespaceSensitivity": "ignore"

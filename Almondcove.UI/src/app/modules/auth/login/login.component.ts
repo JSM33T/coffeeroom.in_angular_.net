@@ -44,23 +44,14 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
                             </div>
                         </div>
                         <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign in</button>
+                        <div id="g_id_onload" data-client_id="" data-context="signin" data-ux_mode="popup" data-auto_select="true" data-itp_support="true"></div>
 
-                        <!-- Sign in with social account -->
-                        <!-- <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
-                        <div class="row row-cols-1 row-cols-sm-2 gy-3">
-                            <div class="col">
-                                <a class="btn btn-icon btn-outline-secondary btn-google btn-lg w-100" href="#">
-                                    <i class="ai-google fs-xl me-2"></i>
-                                    Google
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a class="btn btn-icon btn-outline-secondary btn-facebook btn-lg w-100" href="#">
-                                    <i class="ai-facebook fs-xl me-2"></i>
-                                    Facebook
-                                </a>
-                            </div>
-                        </div> -->
+                        <div class="g_id_signin" data-type="icon" data-shape="circle" data-theme="filled_blue" data-text="signin_with" data-size="large"></div>
+
+                        <div id="g_id_onload" data-client_id="881148390473-rodjtppcckgpft8guo2bkttnlcg5gmb2.apps.googleusercontent.com" data-context="signin" data-ux_mode="popup" data-itp_support="true" data-callback="handleOauthResponse"></div>
+
+                        <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+
                     </form>
                 </div>
 
@@ -77,10 +68,7 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
     `,
 })
 export class LoginComponent implements OnInit {
-    constructor(
-        private loadingBar: LoadingBarService,
-        private httpService: HttpService,
-    ) {}
+    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
     ngOnInit(): void {
         InitTogglePassword();
     }

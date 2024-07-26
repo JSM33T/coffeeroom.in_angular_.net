@@ -1,4 +1,3 @@
-// ambience.component.ts
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
@@ -8,10 +7,29 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class AmbienceComponent implements AfterViewInit {
     @ViewChild('backgroundAudio') backgroundAudio!: ElementRef<HTMLAudioElement>;
+    isPlaying: boolean = false;
 
     ngAfterViewInit() {
-        setTimeout(() => {
-            this.backgroundAudio.nativeElement.play();
-        }, 10000);
+        // setTimeout(() => {
+        //     this.play();
+        // }, 10000);
+    }
+
+    play() {
+        this.backgroundAudio.nativeElement.play();
+        this.isPlaying = true;
+    }
+
+    pause() {
+        this.backgroundAudio.nativeElement.pause();
+        this.isPlaying = false;
+    }
+
+    togglePlayPause() {
+        if (this.isPlaying) {
+            this.pause();
+        } else {
+            this.play();
+        }
     }
 }

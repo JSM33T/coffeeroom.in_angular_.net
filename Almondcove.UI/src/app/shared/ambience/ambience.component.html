@@ -1,5 +1,12 @@
 <!-- ambience.component.html -->
+
 <audio #backgroundAudio loop>
-    <source src="https://freepd.com/music/Bonfire.mp3" type="audio/mpeg" />
+    <source src="../../../assets/audio/floatinggarden.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
 </audio>
+
+<button class="btn btn-primary btn-sm" (click)="togglePlayPause()">
+    {{ isPlaying ? 'Pause' : 'Play' }}
+</button>
+<!-- Music by https://www.bensound.com/free-music-for-videos
+License code: I6YUJCYLSCQLLGTL -->

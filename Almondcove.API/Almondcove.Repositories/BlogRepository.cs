@@ -56,7 +56,7 @@ namespace Almondcove.Repositories
         public async Task<BlogDetailsGet> GetBlogDetailsBySlug(string slug)
         {
             const string query = @"
-                                SELECT b.Id, b.Title, b.Description, b.ContentMD, b.DateAdded
+                                SELECT b.Id, b.Title, b.Description,b.Tags, b.ContentMD, b.DateAdded
                                 FROM tblBlogPosts b
                                 WHERE b.Slug = @Slug";
 
