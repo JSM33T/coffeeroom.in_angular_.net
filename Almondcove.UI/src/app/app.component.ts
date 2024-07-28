@@ -2,18 +2,20 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { initializeScrollToTop } from './library/invokers/back-to-top';
 import { initializeBindedContentToggle } from './library/invokers/content-toggle';
 import { NavigationStart, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { filter, Observable } from 'rxjs';
 import InitAnimateOnScroll from './library/invokers/animate-on-scroll';
 import InitSmoothScroll from './library/invokers/smooth-scroll';
 import SetTheme from './library/invokers/settheme';
 import setTheme from './library/invokers/settheme';
 import { environment } from '../environments/environment';
 import rotateText from './library/utility/well-hello';
+import { handleResponse } from './library/utility/response-handler';
+import { HttpService } from './core/services/http.service';
+import { APIResponse } from './core/interfaces/api-response.model';
 
 @Component({
-    selector: 'app-root', 
+    selector: 'app-root',
     template: `
-       
         <main class="page-wrapper">
             <div class="page-loading active">
                 <div class="page-loading-inner">
@@ -40,10 +42,7 @@ import rotateText from './library/utility/well-hello';
     `,
 })
 export class AppComponent implements OnInit {
-    constructor(
-        private router: Router,
-        private renderer: Renderer2,
-    ) {}
+    constructor(private router: Router, private renderer: Renderer2,private httpService: HttpService) {}
 
     title = 'ALmondcove by Jass';
 
@@ -66,28 +65,30 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         setInterval(rotateText, 100);
-        // initializeBindedContentToggle();
         setTheme();
         setTimeout(() => {
-            this.removeActiveClass();
+           this.removeActiveClass();
         }, environment.loaderWait);
-
+        //this.checkApiHealth();
         this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
             window.scrollTo({ top: 0 });
             InitSmoothScroll();
             InitAnimateOnScroll();
             initializeScrollToTop();
-            hideOffcanvas();
+            this.hideOffcanvas();
         });
     }
+
+    hideOffcanvas() {
+        var offcanvasElement = document.getElementById('customizer');
+        //@ts-ignore
+        var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+        //@ts-ignore
+        if (offcanvasElement?.classList.contains('show')) {
+            offcanvasInstance.hide();
+        }
+    }
+
 }
 
-function hideOffcanvas() {
-    var offcanvasElement = document.getElementById('customizer');
-    //@ts-ignore
-    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
-    //@ts-ignore
-    if (offcanvasElement?.classList.contains('show')) {
-        offcanvasInstance.hide();
-    }
-}
+

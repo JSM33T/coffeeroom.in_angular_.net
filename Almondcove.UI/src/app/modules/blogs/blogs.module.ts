@@ -11,7 +11,7 @@ const routes = [
         path: '',
         component: BloghomeComponent,
     },
-    { path: 'view/:slug', component: BlogviewerComponent },
+    { path: 'view/:slug', component: BlogviewerComponent }    
 ];
 
 @NgModule({

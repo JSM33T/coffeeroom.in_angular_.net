@@ -22,7 +22,8 @@ namespace Almondcove.Base.Controllers
         [HttpGet]
         public IActionResult WarmUp()
         {
-            var userAgent = Request.Headers["User-Agent"].ToString();
+            //var userAgent = Request.Headers["User-Agent"].ToString();
+            var userAgent = Request.Headers.UserAgent.ToString();
             var requestTime = DateTime.UtcNow;
 
             var metadata = MetadataHelper.GetMetadata(_actionDescriptorCollectionProvider, _configuration, _environment, userAgent, requestTime);

@@ -19,7 +19,7 @@ export default function acToast(title: string, message: string) {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body text-primary">
             ${message}
           </div>
           <div class="modal-footer">

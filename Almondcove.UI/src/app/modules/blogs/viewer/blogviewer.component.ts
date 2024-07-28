@@ -43,7 +43,6 @@ export class BlogviewerComponent implements OnInit, AfterViewInit, OnDestroy {
             next: (response) => {
                 this.isLoading = false;
                 if (response.status == 200) {
-                    console.log(response.data);
                     this.blogTitle = response.data.title;
                     this.blogContent = response.data.contentMD;
                     this.authors = response.data.authors;

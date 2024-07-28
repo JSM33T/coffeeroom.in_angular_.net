@@ -16,18 +16,14 @@
             <h1 class="pb-3 pb-lg-4" data-aos="fade-in" data-aos-duration="900">Blogs (ID)</h1>
 
             <!-- Post -->
-            <div *ngFor="let blog of blogs;let i = index">
-                <article class="row g-0 border-0 mb-4"data-aos="fade-in"
-                data-aos-easing="ease-in-out"
-                [attr.data-aos-delay]="(200 + i*100)"
-                data-aos-offset="0" >
-                    <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" [routerLink]="'/blogs/view/' + blog.slug"
-                    [style.backgroundImage]="'url(' + cover +'/content/blogs/' + blog.slug + '/cover.webp)'" style="min-height: 14rem" aria-label="Post image"></a>
+            <div *ngFor="let blog of blogs; let i = index">
+                <article class="row g-0 border-0 mb-4">
+                    <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" [routerLink]="'/blogs/view/' + blog.slug" [style.backgroundImage]="'url(' + cover + '/content/blogs/' + blog.slug + '/cover.webp)'" style="min-height: 14rem" aria-label="Post image"></a>
                     <div class="col-sm-7">
                         <div class="pt-4 pb-sm-4 ps-sm-4 pe-lg-4">
                             <h3>
                                 <!-- <a [routerLink]="'blog/2024?id=' + blog.id">{{ blog.title }}</a> -->
-                                <a routerLink='/blogs/view'>{{ blog.title }}</a>
+                                <a [routerLink]="'/blogs/view/' + blog.slug">{{ blog.title }}</a>
                             </h3>
                             <p class="d-sm-none d-md-block">{{ blog.description }}</p>
                             <div class="d-flex flex-wrap align-items-center mt-n2">
@@ -48,7 +44,6 @@
                     </div>
                 </article>
             </div>
-          
         </div>
         <aside class="col-lg-3">
             <app-bloghomesidepanel></app-bloghomesidepanel>

@@ -24,8 +24,8 @@ namespace Almondcove.Base.Controllers.Dedicated
             _cache = cache;
         }
 
-        [HttpGet("top-5-blogs")]
-        public async Task<IActionResult> GetTop5Blogs()
+        [HttpGet]
+        public async Task<IActionResult> GetTop5Blogs([FromQuery] string category, [FromQuery] string tag, [FromQuery] int? year, [FromQuery] string search)
         {
             string message = string.Empty;
             int statusCode = StatusCodes.Status400BadRequest;
@@ -36,13 +36,11 @@ namespace Almondcove.Base.Controllers.Dedicated
 
             return await ExecuteActionAsync(async () =>
             {
-                
-                string cacheKey = "top_5_blogs";
+                string cacheKey = $"bloghome_{category}_{tag}_{year}_{search}";
 
                 if (!_cache.TryGetValue(cacheKey, out topBlogs))
                 {
-                   
-                    topBlogs = await _blogRepo.GetLatestBlogs(5);
+                    topBlogs = await _blogRepo.GetLatestBlogs(category,tag,year,search);
 
                     var cacheEntryOptions = new MemoryCacheEntryOptions()
                         .SetSlidingExpiration(TimeSpan.FromMinutes(5))
@@ -59,6 +57,44 @@ namespace Almondcove.Base.Controllers.Dedicated
 
                 statusCode = StatusCodes.Status200OK;
                 return (statusCode, topBlogs, message, errors);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+
+        [HttpGet("blogcategories")]
+        public async Task<IActionResult> GetBlogCategories()
+        {
+            string message = string.Empty;
+            int statusCode = StatusCodes.Status400BadRequest;
+            List<string> errors = [];
+
+            List<BlogCategory> categories = [];
+          
+
+            return await ExecuteActionAsync(async () =>
+            {
+
+                string cacheKey = "blog-categories";
+
+                if (!_cache.TryGetValue(cacheKey, out categories))
+                {
+
+                    categories = await _blogRepo.GetBlogCategories();
+
+                    var cacheEntryOptions = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                        .SetAbsoluteExpiration(TimeSpan.FromMinutes(30));
+
+                    _cache.Set(cacheKey, categories, cacheEntryOptions);
+
+                    message = "Blogs retrieved from database and cached";
+                }
+                else
+                {
+                    message = "Blogs retrieved from cache";
+                }
+
+                statusCode = StatusCodes.Status200OK;
+                return (statusCode, categories, message, errors);
             }, MethodBase.GetCurrentMethod().Name);
         }
 

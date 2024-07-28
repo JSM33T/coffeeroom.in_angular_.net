@@ -24,14 +24,4 @@ export class HttpService {
     post<T>(endpoint: string, data: any, options?: { headers?: HttpHeaders }): Observable<T> {
         return this.http.post<T>(`${this.apiUrl}/${endpoint}`, data, options);
     }
-
-    // Function to put data to the API
-    put<T>(endpoint: string, data: any, options?: { headers?: HttpHeaders }): Observable<T> {
-        return this.http.put<T>(`${this.apiUrl}/${endpoint}`, data, options);
-    }
-
-    // Function to delete data from the API
-    delete<T>(endpoint: string, options?: { headers?: HttpHeaders }): Observable<T> {
-        return this.http.delete<T>(`${this.apiUrl}/${endpoint}`, options);
-    }
 }

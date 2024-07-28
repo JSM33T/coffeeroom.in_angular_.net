@@ -21,5 +21,7 @@ namespace Almondcove.Services
             var principal = new ClaimsPrincipal(identity);
             await httpContext.SignInAsync(principal);
         }
+
+     
     }
 }
