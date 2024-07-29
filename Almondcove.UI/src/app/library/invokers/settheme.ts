@@ -6,7 +6,6 @@ export default function setTheme(): void {
         const themeStyleData = theme.string;
         const themeFontData = theme.font;
 
-        // Apply the style data
         let themeStyle = document.getElementById('customStyle') as HTMLStyleElement;
 
         if (!themeStyle) {

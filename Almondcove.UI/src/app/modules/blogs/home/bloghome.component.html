@@ -14,7 +14,9 @@
         <!-- Blog posts -->
         <div class="col-lg-9 pe-lg-4 pe-xl-5">
             <h1 class="pb-3 pb-lg-4" data-aos="fade-in" data-aos-duration="900">Blogs (ID)</h1>
-
+            <div *ngIf="blogs.length === 0" class="alert alert-info" role="alert">
+                No blogs with the given criteria available!!
+            </div>
             <!-- Post -->
             <div *ngFor="let blog of blogs; let i = index">
                 <article class="row g-0 border-0 mb-4">

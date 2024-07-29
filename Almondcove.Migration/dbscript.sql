@@ -396,3 +396,84 @@ CREATE TABLE [dbo].tblBlogAuthors (
 	CONSTRAINT UQ_tblBlogAuthors_Authors UNIQUE (BlogId,UserId)
 );
 GO
+
+
+USE [almondcove_db]
+GO
+/****** Object:  StoredProcedure [dbo].[usp_GetUserClaimsByEmail]    Script Date: 29-07-2024 11.14.13 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- usp_GetUsers
+
+ALTER     PROCEDURE [dbo].[usp_GetUserClaimsByEmail]
+    @Email NVARCHAR(64),
+    @Result INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @UserId INT;
+    DECLARE @IsActive BIT;
+    DECLARE @IsVerified BIT;
+
+    -- Check if user exists and retrieve status flags
+    SELECT 
+        @UserId = Id,
+        @IsActive = IsActive,
+        @IsVerified = IsVerified
+    FROM 
+        dbo.tblUsers
+    WHERE 
+        Email = @Email
+
+    IF @UserId IS NULL
+    BEGIN
+        -- No user found
+        SET @Result = -1; -- User does not exist
+        RETURN;
+    END
+
+    IF @IsVerified = 0
+    BEGIN
+        -- User is not verified
+        SET @Result = -2; -- User not verified
+        RETURN;
+    END
+
+    IF @IsActive = 0
+    BEGIN
+        -- User is inactive
+        SET @Result = -3; -- User inactive
+        RETURN;
+    END
+
+    SET @Result = 1; -- User exists, verified, and active
+
+    -- Return user claims
+    SELECT 
+        u.Id,
+        u.Username,
+        u.Email,
+        u.FirstName,
+        u.LastName,
+        u.IsActive,
+        u.IsVerified,
+        u.AvatarId,
+        u.RoleId,
+        u.DateAdded,
+        u.DateEdited,
+		av.Slug as Avatar,
+        r.Slug AS Role
+    FROM 
+        dbo.tblUsers u
+    INNER JOIN 
+        dbo.tblRoles r ON u.RoleId = r.Id
+	INNER JOIN 
+        dbo.tblAvatars av ON u.AvatarId = av.Id
+    WHERE 
+        u.Id = @UserId;
+END
+

@@ -1,17 +1,14 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { initializeScrollToTop } from './library/invokers/back-to-top';
-import { initializeBindedContentToggle } from './library/invokers/content-toggle';
 import { NavigationStart, Router } from '@angular/router';
-import { filter, Observable } from 'rxjs';
+import { filter } from 'rxjs';
 import InitAnimateOnScroll from './library/invokers/animate-on-scroll';
 import InitSmoothScroll from './library/invokers/smooth-scroll';
-import SetTheme from './library/invokers/settheme';
 import setTheme from './library/invokers/settheme';
 import { environment } from '../environments/environment';
 import rotateText from './library/utility/well-hello';
-import { handleResponse } from './library/utility/response-handler';
 import { HttpService } from './core/services/http.service';
-import { APIResponse } from './core/interfaces/api-response.model';
+import { UserService } from './core/services/user.service';
 
 @Component({
     selector: 'app-root',
@@ -42,7 +39,7 @@ import { APIResponse } from './core/interfaces/api-response.model';
     `,
 })
 export class AppComponent implements OnInit {
-    constructor(private router: Router, private renderer: Renderer2,private httpService: HttpService) {}
+    constructor(private router: Router, private renderer: Renderer2,private httpService: HttpService,private userService : UserService) {}
 
     title = 'ALmondcove by Jass';
 
@@ -77,6 +74,7 @@ export class AppComponent implements OnInit {
             initializeScrollToTop();
             this.hideOffcanvas();
         });
+        this.userService.loadUserDataFromToken();
     }
 
     hideOffcanvas() {

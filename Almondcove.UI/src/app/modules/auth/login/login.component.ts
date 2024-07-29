@@ -5,6 +5,8 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 import { HttpService } from '../../../core/services/http.service';
 import { handleResponse } from '../../../library/utility/response-handler';
 import InitTogglePassword from '../../../library/invokers/password-visibility-toggle';
+import { Router } from '@angular/router';
+import { UserService } from '../../../core/services/user.service';
 
 @Component({
     selector: 'app-login',
@@ -35,7 +37,7 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
                             <div class="position-relative">
                                 <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                                 <div class="password-toggle">
-                                    <input type="password" id="password" name="password" [(ngModel)]="formData.password" class="form-control form-control-lg ps-5" type="password" placeholder="Password" required />
+                                    <input type="password" id="password" name="password" [(ngModel)]="formData.password" class="form-control form-control-lg ps-5" type="password" placeholder="Password" required autocomplete="true"/>
                                     <label class="password-toggle-btn" aria-label="Show/hide password">
                                         <input class="password-toggle-check" type="checkbox" />
                                         <span class="password-toggle-indicator"></span>
@@ -68,7 +70,7 @@ import InitTogglePassword from '../../../library/invokers/password-visibility-to
     `,
 })
 export class LoginComponent implements OnInit {
-    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+    constructor(private router: Router,private loadingBar: LoadingBarService, private httpService: HttpService,private userService : UserService ) {}
     ngOnInit(): void {
         InitTogglePassword();
     }
@@ -90,6 +92,9 @@ export class LoginComponent implements OnInit {
                 this.isLoading = false;
                 if (response.status == 200) {
                     localStorage.setItem('token', response.data.token);
+                    debugger;
+                    this.userService.loadUserDataFromToken();
+                    this.router.navigate(['/']);
                 }
             },
             error: () => {

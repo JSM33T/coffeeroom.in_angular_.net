@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angula
 import { initializeNavbarSticky } from '../../library/invokers/sticky-navbar';
 import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
     selector: 'app-navbar',
@@ -38,13 +39,22 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
                 </div>
                 <!-- User signed in state. Account dropdown on screens > 576px -->
                 <div class="dropdown nav d-none d-sm-block order-lg-3">
-                    <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <!-- <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="border rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFCzxivJXCZk0Kk8HsHujTO3Olx0ngytPrWw&s" width="48" alt="Isabella Bocouse" />
                         <div class="ps-2">
                             <div class="fs-xs lh-1 opacity-60">Hello,</div>
                             <div class="fs-sm dropdown-toggle">User</div>
                         </div>
+                    </a> -->
+                    <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img *ngIf="userData?.avatar" class="border rounded-circle" [src]='"../assets/images/avatars/" + userData.avatar + ".png"' width="48" alt="{{ userData.firstName }}" />
+                        <img *ngIf="!userData?.avatar" class="border rounded-circle" src="../assets/images/avatars/default.png" width="48" alt="Default Image" />
+                        <div class="ps-2">
+                            <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                            <div class="fs-sm dropdown-toggle">{{ userData?.firstName || 'User' }}</div>
+                        </div>
                     </a>
+
                     <div class="dropdown-menu dropdown-menu-end my-1">
                         <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
                         <a class="dropdown-item" routerLink="auth/login" (click)="toggleNavbar()">
@@ -79,13 +89,22 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
                         </li>
                         <!-- User signed in state. Account dropdown on screens > 576px -->
                         <li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
-                            <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <!-- <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img class="border rounded-circle" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFCzxivJXCZk0Kk8HsHujTO3Olx0ngytPrWw&s" width="48" alt="Isabella Bocouse" />
                                 <div class="ps-2">
                                     <div class="fs-xs lh-1 opacity-60">Hello,</div>
                                     <div class="fs-sm dropdown-toggle">Guest</div>
                                 </div>
+                            </a> -->
+                            <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img *ngIf="userData?.avatar" class="border rounded-circle" [src]='"../assets/images/avatars/" + userData.avatar + ".png"' width="48" alt="{{ userData.firstName }}" />
+                                <img *ngIf="!userData?.avatar" class="border rounded-circle" src="../assets/images/avatars/default.png" width="48" alt="Default Image" />
+                                <div class="ps-2">
+                                    <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                                    <div class="fs-sm dropdown-toggle">{{ userData?.firstName || 'User' }}</div>
+                                </div>
                             </a>
+
                             <div class="dropdown-menu">
                                 <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
                                 <a class="dropdown-item" routerLink="/auth/login" (click)="toggleNavbar()">
@@ -96,7 +115,6 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
                                     <i class="ai-paint-roll fs-lg opacity-70 me-2"></i>
                                     Theme
                                 </a>
-                                
                             </div>
                         </li>
                     </ul>
@@ -105,8 +123,17 @@ import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
         </header>
     `,
 })
-export class NavbarComponent implements AfterViewInit {
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+export class NavbarComponent implements AfterViewInit, OnInit {
+    userData: any;
+
+    constructor(private el: ElementRef, private renderer: Renderer2,private userService : UserService) {}
+    ngOnInit(): void {
+        this.userService.userData$.subscribe(data => {
+            this.userData = data;
+            console.log('from navbar comp');
+            console.log(this.userData);
+          });
+    }
     ngAfterViewInit(): void {
         initializeThemeSwitcher();
     }

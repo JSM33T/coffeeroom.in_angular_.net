@@ -175,6 +175,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                         new Claim("UserName", userClaims.FirstName),
                         new Claim("FirstName", userClaims.FirstName),
                         new Claim("LastName", userClaims.LastName),
+                        new Claim("Avatar", userClaims.Avatar),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
 
@@ -239,6 +240,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                             new Claim("UserName", userClaims.FirstName),
                             new Claim("FirstName", userClaims.FirstName),
                             new Claim("LastName", userClaims.LastName),
+                            new Claim("Avatar", userClaims.Avatar),
                             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                         };
 
@@ -339,6 +341,7 @@ namespace Almondcove.Base.Controllers.Dedicated
                         new Claim("UserName", userClaims.FirstName),
                         new Claim("FirstName", userClaims.FirstName),
                         new Claim("LastName", userClaims.LastName),
+                        new Claim("Avatar", userClaims.Avatar),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                     };
 
@@ -382,6 +385,26 @@ namespace Almondcove.Base.Controllers.Dedicated
             var token = result.Email;
             return Ok(new { token = token });
         }
+
+        [HttpGet("userdetails")]
+        [AllowAnonymous]
+        #region ADD RECOVERY ENTRY CONTROLLER
+        public async Task<IActionResult> GetUserDetails()
+        {
+            int statCode = StatusCodes.Status400BadRequest;
+            string message = "Error";
+            List<string> errors = [];
+
+            return await ExecuteActionAsync<object>(async () =>
+            {
+                var user = await _userRepo.GetUserClaims("jskainthofficial@gmail.com");
+
+                
+
+                return (statCode, user, message, errors);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+        #endregion
     }
     public class GoogleLoginDto
     {

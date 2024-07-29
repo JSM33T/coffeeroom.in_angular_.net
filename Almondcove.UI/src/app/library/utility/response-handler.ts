@@ -11,16 +11,15 @@ export function handleResponse(observable: Observable<APIResponse<any>>, showToa
             }
         }),
         catchError((error) => {
-           // debugger;
-            // if (showToast) {
-            //     acServerToast(error.error);
-            // }
-            // else
-            // {
-                   
-            // }
-            acToast("Error","API not reachable : some parts of the app will not work as expected");
+            if (error.error == undefined) {
+                acToast('Error', 'API not reachable : some parts of the app will not work as expected');
+            } else {
+                if (showToast) {
+                    acServerToast(error.error);
+                }
+            }
+
             return of(error);
-        }),
+        })
     );
 }

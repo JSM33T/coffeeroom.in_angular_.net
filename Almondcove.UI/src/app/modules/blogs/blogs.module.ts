@@ -5,6 +5,7 @@ import { BloghomeComponent } from './home/bloghome.component';
 import { BlogviewerComponent } from './viewer/blogviewer.component';
 import { BloghomesidepanelComponent } from '../../components/bloghomesidepanel.component';
 import { BlogContainerDirective } from '../../core/directives/blog-container-directive.directive';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes = [
     {
@@ -16,6 +17,6 @@ const routes = [
 
 @NgModule({
     declarations: [BloghomeComponent, BlogviewerComponent, BloghomesidepanelComponent, BlogContainerDirective],
-    imports: [CommonModule, RouterModule.forChild(routes)],
+    imports: [CommonModule,ReactiveFormsModule, RouterModule.forChild(routes)],
 })
 export class BlogModule {}
