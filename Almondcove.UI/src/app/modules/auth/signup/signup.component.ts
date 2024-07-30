@@ -9,6 +9,7 @@ import { HideModal, ShowModal } from '../../../library/modals/bs-helper';
 import acServerToast from '../../../library/modals/server-response-modal';
 import { HttpService } from '../../../core/services/http.service';
 import acToast from '../../../library/modals/notification-modal';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-signup',
@@ -242,7 +243,7 @@ import acToast from '../../../library/modals/notification-modal';
 //     }
 // }
 export class SignupComponent implements OnInit {
-    constructor(private loadingBar: LoadingBarService, private httpService: HttpService) {}
+    constructor(private loadingBar: LoadingBarService, private httpService: HttpService,private router: Router) {}
 
     ngOnInit(): void {
         InitTogglePassword();
@@ -308,6 +309,7 @@ export class SignupComponent implements OnInit {
                 this.isLoading = false;
                 if (response.data.status == 200) {
                     HideModal('otpModal');
+                    this.router.navigate(['/']);
                 }
             },
             error: () => {

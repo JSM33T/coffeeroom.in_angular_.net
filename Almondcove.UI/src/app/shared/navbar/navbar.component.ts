@@ -1,6 +1,4 @@
 import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { initializeNavbarSticky } from '../../library/invokers/sticky-navbar';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 import { initializeThemeSwitcher } from '../../library/invokers/theme-switcher';
 import { UserService } from '../../core/services/user.service';
 
@@ -47,7 +45,7 @@ import { UserService } from '../../core/services/user.service';
                         </div>
                     </a> -->
                     <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img *ngIf="userData?.avatar" class="border rounded-circle" [src]='"../assets/images/avatars/" + userData.avatar + ".png"' width="48" alt="{{ userData.firstName }}" />
+                        <img *ngIf="userData?.avatar" class="border rounded-circle" [src]="'../assets/images/avatars/' + userData.avatar + '.png'" width="48" alt="{{ userData.firstName }}" />
                         <img *ngIf="!userData?.avatar" class="border rounded-circle" src="../assets/images/avatars/default.png" width="48" alt="Default Image" />
                         <div class="ps-2">
                             <div class="fs-xs lh-1 opacity-60">Hello,</div>
@@ -97,7 +95,7 @@ import { UserService } from '../../core/services/user.service';
                                 </div>
                             </a> -->
                             <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img *ngIf="userData?.avatar" class="border rounded-circle" [src]='"../assets/images/avatars/" + userData.avatar + ".png"' width="48" alt="{{ userData.firstName }}" />
+                                <img *ngIf="userData?.avatar" class="border rounded-circle" [src]="'../assets/images/avatars/' + userData.avatar + '.png'" width="48" alt="{{ userData.firstName }}" />
                                 <img *ngIf="!userData?.avatar" class="border rounded-circle" src="../assets/images/avatars/default.png" width="48" alt="Default Image" />
                                 <div class="ps-2">
                                     <div class="fs-xs lh-1 opacity-60">Hello,</div>
@@ -126,13 +124,13 @@ import { UserService } from '../../core/services/user.service';
 export class NavbarComponent implements AfterViewInit, OnInit {
     userData: any;
 
-    constructor(private el: ElementRef, private renderer: Renderer2,private userService : UserService) {}
+    constructor(private el: ElementRef, private renderer: Renderer2, private userService: UserService) {}
     ngOnInit(): void {
-        this.userService.userData$.subscribe(data => {
+        this.userService.userData$.subscribe((data) => {
             this.userData = data;
             console.log('from navbar comp');
             console.log(this.userData);
-          });
+        });
     }
     ngAfterViewInit(): void {
         initializeThemeSwitcher();
