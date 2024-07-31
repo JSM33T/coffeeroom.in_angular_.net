@@ -79,7 +79,7 @@ namespace Almondcove.Repositories
          
             if (conditions.Count > 0)
             {
-                queryBuilder.Append(" WHERE ");
+                queryBuilder.Append(" WHERE A.IsActive = 1 AND ");
                 queryBuilder.Append(string.Join(" AND ", conditions));
             }
 

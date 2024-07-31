@@ -370,9 +370,9 @@ namespace Almondcove.Base.Controllers.Dedicated
 
 
         [HttpPost("google-login")]
-        public async Task<ActionResult> GoogleLogin([FromBody] GoogleLoginDto model)
+        public async Task<ActionResult> GoogleLogin([FromBody] string credential)
         {
-            var idtoken = model.IdToken;
+            var idtoken ="";
             var setting = new GoogleJsonWebSignature.ValidationSettings
             {
                 Audience = new string[] { "881148390473-rodjtppcckgpft8guo2bkttnlcg5gmb2.apps.googleusercontent.com" }
@@ -406,8 +406,10 @@ namespace Almondcove.Base.Controllers.Dedicated
         }
         #endregion
     }
-    public class GoogleLoginDto
+    public class GoogleLoginPayload
     {
-        public string IdToken { get; set; }
+        public string Email { get; set; }
+        public string EmailVerified { get; set; }
     }
+
 }

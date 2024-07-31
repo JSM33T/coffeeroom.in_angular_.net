@@ -36,7 +36,7 @@ namespace Almondcove.Base.Controllers.Dedicated
 
             return await ExecuteActionAsync(async () =>
             {
-                string cacheKey = $"bloghome_{category}_{tag}_{year}_{search}";
+                string cacheKey = $"bloghometemp_{category}_{tag}_{year}_{search}";
 
                 if (!_cache.TryGetValue(cacheKey, out topBlogs))
                 {

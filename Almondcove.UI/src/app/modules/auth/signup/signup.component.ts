@@ -31,10 +31,10 @@ import { Router } from '@angular/router';
                                     <input id="otp2" name="otp2" [(ngModel)]="otpData.otp2" (keyup)="moveToNext($event, 'otp2', 'otp3')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp3" name="otp3" [(ngModel)]="otpData.otp3" (keyup)="moveToNext($event, 'otp3', 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required />
                                     <input id="otp4" name="otp4" [(ngModel)]="otpData.otp4" (keyup)="moveToNext($event, 'otp4')" maxlength="1" class="form-control form-control-lg text-center mx-4 px-2" type="text" required /> -->
-                                    <input id="otp1" type="text" maxlength="1" [(ngModel)]="otpData.otp1" (keydown)="onOtpInput($event, 'otp1', 'otp2')" class="form-control form-control-lg text-center mx-4 px-2" />
-                                    <input id="otp2" type="text" maxlength="1" [(ngModel)]="otpData.otp2" (keydown)="onOtpInput($event, 'otp2', 'otp3', 'otp1')" class="form-control form-control-lg text-center mx-4 px-2"/>
-                                    <input id="otp3" type="text" maxlength="1" [(ngModel)]="otpData.otp3" (keydown)="onOtpInput($event, 'otp3', 'otp4', 'otp2')" class="form-control form-control-lg text-center mx-4 px-2"/>
-                                    <input id="otp4" type="text" maxlength="1" [(ngModel)]="otpData.otp4" (keydown)="onOtpInput($event, 'otp4', 'otp4', 'otp3')" class="form-control form-control-lg text-center mx-4 px-2"/>
+                                    <input id="otp1" type="text" maxlength="1" name="otp1" [(ngModel)]="otpData.otp1" (keydown)="onOtpInput($event, 'otp1', 'otp2')" class="form-control form-control-lg text-center mx-4 px-2" />
+                                    <input id="otp2" type="text" maxlength="1" name="otp2" [(ngModel)]="otpData.otp2" (keydown)="onOtpInput($event, 'otp2', 'otp3', 'otp1')" class="form-control form-control-lg text-center mx-4 px-2"/>
+                                    <input id="otp3" type="text" maxlength="1" name="otp3" [(ngModel)]="otpData.otp3" (keydown)="onOtpInput($event, 'otp3', 'otp4', 'otp2')" class="form-control form-control-lg text-center mx-4 px-2"/>
+                                    <input id="otp4" type="text" maxlength="1" name="otp4" [(ngModel)]="otpData.otp4" (keydown)="onOtpInput($event, 'otp4', 'otp4', 'otp3')" class="form-control form-control-lg text-center mx-4 px-2"/>
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@ import { Router } from '@angular/router';
                         Already have an account?&nbsp;&nbsp;
                         <a routerLink="/auth/login">Login here!</a>
                     </p>
-                    <form class="row g-4 needs-validation" (ngSubmit)="onSignupSubmit()" #SignupForm="ngForm">
+                    <form class="row g-4 needs-validation" (ngSubmit)="onSignupSubmit()" #SignupForm="ngForm" >
                         <div class="">
                             <div class="position-relative">
                                 <i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
@@ -106,7 +106,7 @@ import { Router } from '@angular/router';
                             <div class="position-relative">
                                 <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
                                 <div class="password-toggle">
-                                    <input type="password" id="passwordconfirm" name="password" [(ngModel)]="formData.passwordconfirm" class="form-control form-control-lg ps-5" type="password" placeholder="passwordconfirm" required />
+                                    <input type="password" id="passwordconfirm" name="passwordconfirm" [(ngModel)]="formData.passwordconfirm" class="form-control form-control-lg ps-5" type="password" placeholder="passwordconfirm" required />
                                     <label class="password-toggle-btn" aria-label="Show/hide password">
                                         <input class="password-toggle-check" type="checkbox" />
                                         <span class="password-toggle-indicator"></span>
@@ -117,7 +117,7 @@ import { Router } from '@angular/router';
                         <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign in</button>
 
                         <!-- Sign in with social account -->
-                        <!-- <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
+                        <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
                         <div class="row row-cols-1 row-cols-sm-2 gy-3">
                             <div class="col">
                                 <a class="btn btn-icon btn-outline-secondary btn-google btn-lg w-100" href="#">
@@ -131,7 +131,7 @@ import { Router } from '@angular/router';
                                     Facebook
                                 </a>
                             </div>
-                        </div> -->
+                        </div>
                     </form>
                 </div>
 
@@ -309,7 +309,7 @@ export class SignupComponent implements OnInit {
                 this.isLoading = false;
                 if (response.data.status == 200) {
                     HideModal('otpModal');
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/auth/login']);
                 }
             },
             error: () => {

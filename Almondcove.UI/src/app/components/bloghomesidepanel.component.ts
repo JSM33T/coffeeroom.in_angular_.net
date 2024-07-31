@@ -82,7 +82,7 @@ export class BloghomesidepanelComponent implements OnInit {
         });
     }
     setupSearchListener() {
-        debugger;
+        
         this.searchControl.valueChanges.pipe(
             debounceTime(300),
             distinctUntilChanged()

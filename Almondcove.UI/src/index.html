@@ -129,6 +129,22 @@ _____  |  |   _____   ____   ____    __| _/____  _______  __ ____      |__| ____
     <body>
         <app-root></app-root>
         <noscript>A community web space with blogs artcles, apps, gallery , music production and much more. ENABLE JS TO MAKE THE APP WORK</noscript>
+
+        <script>
+            function decodeJWTToken(token) {
+                return JSON.parse(atob(token.split(".")[1]));
+            }
+            function handleOauthResponse(response) {
+                const responsePayload = decodeJWTToken(response.credential);
+                console.log(responsePayload);
+                localStorage.setItem("loggedinUser", JSON.stringify(responsePayload));
+            }
+            function setLoginState() {
+                debugger;
+               
+            }
+        </script>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         <script src="https://around.createx.studio/assets/vendor/lightgallery/lightgallery.min.js"></script>
         <script src="https://around.createx.studio/assets/vendor/lightgallery/plugins/video/lg-video.min.js"></script>

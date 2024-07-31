@@ -239,11 +239,14 @@ BEGIN
         u.RoleId,
         u.DateAdded,
         u.DateEdited,
-        r.Slug AS Role
+        r.Slug AS Role,
+		av.Slug as Avatar
     FROM 
         dbo.tblUsers u
     INNER JOIN 
         dbo.tblRoles r ON u.RoleId = r.Id
+	INNER JOIN 
+        dbo.tblAvatars av ON u.AvatarId = av.Id
     WHERE 
         u.Id = @UserId;
 END
@@ -407,8 +410,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 -- usp_GetUsers
-
-ALTER     PROCEDURE [dbo].[usp_GetUserClaimsByEmail]
+CREATE OR ALTER PROCEDURE [dbo].[usp_GetUserClaimsByEmail]
     @Email NVARCHAR(64),
     @Result INT OUTPUT
 AS
@@ -476,4 +478,6 @@ BEGIN
     WHERE 
         u.Id = @UserId;
 END
+
+GO
 

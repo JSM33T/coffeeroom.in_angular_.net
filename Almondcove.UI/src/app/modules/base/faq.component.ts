@@ -16,7 +16,7 @@ interface FAQItem {
     selector: 'app-faq',
     template: `
         <!-- FAQ (Accordion) -->
-        <section class="bg-secondary py-5">
+        <section class="bg-secondary py-5 mt-5">
             <div class="container py-md-2 py-lg-3 py-xl-5 my-2 my-sm-3 my-md-4 my-xxl-5">
                 <div class="row">
                     <div class="col-md-4 text-center text-md-start" data-aos="fade-in" data-aos-duration="700" data-aos-delay="200" data-aos-offset="0">
