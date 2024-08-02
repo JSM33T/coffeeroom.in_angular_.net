@@ -37,7 +37,11 @@ const routes: Routes = [
     },
     {
         path: 'theme',
-        loadChildren: () => import('./modules/theme/theme.module').then((m) => m.ThemeModule),
+        loadChildren: () => import('./modules/theme/home/theme.module').then((m) => m.ThemeModule),
+    },
+    {
+        path: 'studio',
+        loadChildren: () => import('./modules/studio/studio.module').then((m) => m.StudioModule),
     },
 ];
 

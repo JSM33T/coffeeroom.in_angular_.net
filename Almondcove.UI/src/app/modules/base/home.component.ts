@@ -7,8 +7,8 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
     selector: 'app-home',
     template: `
         <!-- hero -->
-        <section class="bg-faded-primary d-flex min-vh-100 overflow-hidden py-2 bt-rad-1">
-            <div class="container d-flex justify-content-center pb-sm-3 py-md-4 py-xl-5">
+        <section class="bg-faded-primary d-flex min-vh-100 overflow-hidden pt-2 bt-rad-1">
+            <div class="container d-flex justify-content-center pt-md-4 pt-xl-5">
                 <div class="row align-items-center pt-4 mt-4 mt-xxl-0">
                     <div class="col-lg-6 mb-4 mb-lg-0 mb-sm-2 pb-3 pb-lg-0">
                         <app-logo></app-logo>
@@ -34,15 +34,59 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
                 </div>
             </div>
         </section>
+        <section class="position-relative  mb-xl-3 mb-xxl-5">
+            <div class="container  pb-lg-4 pb-xl-5 ">
+                <div class="row">
+                    <!-- Sticky image -->
+                    <div class="col-md-5 col-lg-6 offset-xxl-1 order-md-2 position-relative mb-3 mb-md-0" style="margin-top: -115px;">
+                        <div class="d-none d-md-block position-absolute bottom-0 end-0 text-uppercase fw-bold lh-1 pb-5 mb-4 pe-3" style="color: var(--ar-gray-100); font-size: 180px; transform: translate3d(0,0,0);">
+                            <div class="d-flex mb-lg-3" style="padding-left: 160px;">
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="400" data-aos-delay="150">A</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="400" data-aos-delay="200">l</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="400" data-aos-delay="250">m</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="400" data-aos-delay="300">o</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="400" data-aos-delay="350">n</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="400" data-aos-delay="400">d</div>
+                            </div>
+                            <div class="d-flex">
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="300" data-aos-delay="150">C</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="300" data-aos-delay="200">o</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="300" data-aos-delay="250">v</div>
+                                <div data-aos="flip-right" data-aos-duration="700" data-aos-offset="300" data-aos-delay="300">e</div>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text -->
+                    <div class="col-md-7 col-lg-6 col-xxl-5 order-md-1 position-relative z-3 text-center text-md-start pb-sm-3 pb-md-5 pt-2 mb-md-5">
+                        <div class="mx-auto mx-md-0" style="max-width: 400px;">
+                            <div class="d-none d-xxl-block" style="height: 100px;"></div>
+                            <div class="d-none d-md-block d-xxl-none" style="height: 900px;"></div>
+                            <div class="d-md-none" style="height: 50px;"></div>
+                            <div data-aos="fade-up" data-aos-duration="800" data-aos-offset="250" data-disable-parallax-down="md">
+                                <h2 class="h1 pb-sm-2 pb-md-3">All about almondcove studio</h2>
+                                <p>Original mixes, bootlegs and much more</p>
+                                <a class="btn btn-link text-dark px-0" href="#">
+                                    Read more
+                                    <i class="ai-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- subscribe to mailing list CTA -->
         <section class="bg-primary py-5" data-bs-theme="dark">
             <div class="container pt-lg-2 pt-xl-4 pt-xxl-5 pb-1 pb-sm-3">
                 <div class="row pt-sm-3 pt-md-4">
                     <div class="col-md-6 col-xl-5 offset-xl-1">
-                        <h2 class="display-3">Ready to take your business to the next level?</h2>
+                        <h2 class="display-3">Got an idea?</h2>
                     </div>
                     <div class="col-md-6 col-lg-5 col-xl-4 offset-lg-1">
-                        <p class="text-body fs-xl pb-4 mb-2 mb-lg-3">Massa velitienes semper faucibus tristique id nibh elementum, id eu aliquamd diam mi tempus at laciniarty scelerisques augue at morbi. Arcu sit orcirs, risus mattissit laoreet.</p>
+                        <p class="text-body fs-xl pb-4 mb-2 mb-lg-3">Got an idea? Found a glitch? <a class="text-white" routerLink="/contact">do report us</a></p>
                     </div>
                 </div>
                 <div class="d-none d-md-block text-center mt-n5">
@@ -56,7 +100,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
         </section>
     `,
 })
-export class HomeComponent implements OnInit ,OnDestroy{
+export class HomeComponent implements OnInit, OnDestroy {
     loadingBarState: any;
     accordionItems = [
         {
@@ -73,7 +117,7 @@ export class HomeComponent implements OnInit ,OnDestroy{
         },
     ];
 
-    constructor(private loadingBar: LoadingBarService,private titleService: Title,private metaService: Meta) {}
+    constructor(private loadingBar: LoadingBarService, private titleService: Title, private metaService: Meta) {}
     ngOnDestroy(): void {
         //destroyParallax()
     }
@@ -83,8 +127,7 @@ export class HomeComponent implements OnInit ,OnDestroy{
         this.metaService.updateTag({ name: 'keywords', content: 'my space, blogs, archives, jsm33t, almondcove' });
         this.loadingBarState = this.loadingBar.useRef();
         this.loadingBarState.start();
-       // initParallax();
+        // initParallax();
         this.loadingBarState.complete();
     }
-    
 }

@@ -21,10 +21,9 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { FaqComponent } from './modules/base/faq.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AmbienceComponent } from './shared/ambience/ambience.component';
-import { TestComponent } from './modules/test/test/test.component';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, AmbienceComponent, TestComponent],
+    declarations: [AppComponent, NavbarComponent, ContactComponent, AboutComponent, HomeComponent, SidepanelComponent, FaqComponent, FooterComponent, LogoComponent, AmbienceComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

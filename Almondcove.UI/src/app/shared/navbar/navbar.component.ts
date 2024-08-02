@@ -85,6 +85,9 @@ import { UserService } from '../../core/services/user.service';
                         <li class="nav-item">
                             <a class="nav-link" routerLink="/about" data-bs-toggle="collapse" (click)="toggleNavbar()">About</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/studio" data-bs-toggle="collapse" (click)="toggleNavbar()">Studio</a>
+                        </li>
                         <!-- User signed in state. Account dropdown on screens > 576px -->
                         <li class="nav-item dropdown d-sm-none border-top mt-2 pt-2">
                             <!-- <a class="nav-link" href="#" data-bs-toggle="dropdown" aria-expanded="false">

@@ -39,7 +39,7 @@ import { UserService } from './core/services/user.service';
     `,
 })
 export class AppComponent implements OnInit {
-    constructor(private router: Router, private renderer: Renderer2,private httpService: HttpService,private userService : UserService) {}
+    constructor(private router: Router, private renderer: Renderer2, private httpService: HttpService, private userService: UserService) {}
 
     title = 'ALmondcove by Jass';
 
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
         setInterval(rotateText, 100);
         setTheme();
         setTimeout(() => {
-           this.removeActiveClass();
+            this.removeActiveClass();
         }, environment.loaderWait);
         //this.checkApiHealth();
         this.router.events.pipe(filter((event) => event instanceof NavigationStart)).subscribe((event) => {
@@ -86,7 +86,4 @@ export class AppComponent implements OnInit {
             offcanvasInstance.hide();
         }
     }
-
 }
-
-

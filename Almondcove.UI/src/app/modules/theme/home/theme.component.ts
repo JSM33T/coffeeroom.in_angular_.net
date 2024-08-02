@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import Initswiper from '../../library/invokers/swiper';
-import setTheme from '../../library/invokers/settheme';
+import Initswiper from '../../../library/invokers/swiper';
+import setTheme from '../../../library/invokers/settheme';
 
 interface Slide {
     imageUrl: string;
